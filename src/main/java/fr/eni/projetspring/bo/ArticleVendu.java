@@ -2,6 +2,7 @@ package fr.eni.projetspring.bo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class ArticleVendu implements Serializable {
@@ -17,13 +18,29 @@ public class ArticleVendu implements Serializable {
     private int prixVente;
     private Utilisateur utilisateur;
     private Categorie categorie;
-    private Retrait retrait;
+    private Retrait lieuRetrait;
+    private List<Enchere> enchereList;
 
-
+    /**
+     * Constructeur vide
+     */
     public ArticleVendu() {
     }
 
-    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, Retrait retrait) {
+    /**
+     * Constructeur sans "id"
+     * @param nomArticle
+     * @param description
+     * @param dateDebutEncheres
+     * @param dateFinEncheres
+     * @param prixInitial
+     * @param prixVente
+     * @param utilisateur
+     * @param categorie
+     * @param lieuRetrait
+     * @param enchereList
+     */
+    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, Retrait lieuRetrait, List<Enchere> enchereList) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
@@ -32,10 +49,25 @@ public class ArticleVendu implements Serializable {
         this.prixVente = prixVente;
         this.utilisateur = utilisateur;
         this.categorie = categorie;
-        this.retrait = retrait;
+        this.lieuRetrait = lieuRetrait;
+        this.enchereList = enchereList;
     }
 
-    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, Retrait retrait) {
+    /**
+     * Constructeur complet
+     * @param noArticle
+     * @param nomArticle
+     * @param description
+     * @param dateDebutEncheres
+     * @param dateFinEncheres
+     * @param prixInitial
+     * @param prixVente
+     * @param utilisateur
+     * @param categorie
+     * @param lieuRetrait
+     * @param enchereList
+     */
+    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, Retrait lieuRetrait, List<Enchere> enchereList) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -45,7 +77,58 @@ public class ArticleVendu implements Serializable {
         this.prixVente = prixVente;
         this.utilisateur = utilisateur;
         this.categorie = categorie;
-        this.retrait = retrait;
+        this.lieuRetrait = lieuRetrait;
+        this.enchereList = enchereList;
+    }
+
+    /**
+     * Constructeur sans "id" et sans "lieuRetrait"
+     * @param nomArticle
+     * @param description
+     * @param dateDebutEncheres
+     * @param dateFinEncheres
+     * @param prixInitial
+     * @param prixVente
+     * @param utilisateur
+     * @param categorie
+     * @param enchereList
+     */
+    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, List<Enchere> enchereList) {
+        this.nomArticle = nomArticle;
+        this.description = description;
+        this.dateDebutEncheres = dateDebutEncheres;
+        this.dateFinEncheres = dateFinEncheres;
+        this.prixInitial = prixInitial;
+        this.prixVente = prixVente;
+        this.utilisateur = utilisateur;
+        this.categorie = categorie;
+        this.enchereList = enchereList;
+    }
+
+    /**
+     * Constructeur sans "lieuRetrait"
+     * @param noArticle
+     * @param nomArticle
+     * @param description
+     * @param dateDebutEncheres
+     * @param dateFinEncheres
+     * @param prixInitial
+     * @param prixVente
+     * @param utilisateur
+     * @param categorie
+     * @param enchereList
+     */
+    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, List<Enchere> enchereList) {
+        this.noArticle = noArticle;
+        this.nomArticle = nomArticle;
+        this.description = description;
+        this.dateDebutEncheres = dateDebutEncheres;
+        this.dateFinEncheres = dateFinEncheres;
+        this.prixInitial = prixInitial;
+        this.prixVente = prixVente;
+        this.utilisateur = utilisateur;
+        this.categorie = categorie;
+        this.enchereList = enchereList;
     }
 
     public int getNoArticle() {
@@ -120,12 +203,20 @@ public class ArticleVendu implements Serializable {
         this.categorie = categorie;
     }
 
-    public Retrait getRetrait() {
-        return retrait;
+    public Retrait getLieuRetrait() {
+        return lieuRetrait;
     }
 
-    public void setRetrait(Retrait retrait) {
-        this.retrait = retrait;
+    public void setLieuRetrait(Retrait lieuRetrait) {
+        this.lieuRetrait = lieuRetrait;
+    }
+
+    public List<Enchere> getEnchereList() {
+        return enchereList;
+    }
+
+    public void setEnchereList(List<Enchere> enchereList) {
+        this.enchereList = enchereList;
     }
 
     @Override
@@ -139,7 +230,8 @@ public class ArticleVendu implements Serializable {
                 ", prixVente=" + prixVente +
                 ", utilisateur=" + utilisateur +
                 ", categorie=" + categorie +
-                ", retrait=" + retrait +
+                ", lieuRetrait=" + lieuRetrait +
+                ", enchereList=" + enchereList +
                 '}';
     }
 
