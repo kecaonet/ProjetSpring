@@ -5,11 +5,16 @@ import fr.eni.projetspring.bo.Utilisateur;
 import java.util.List;
 
 public interface UtilisateurDAO {
-    Utilisateur read(long id);
+
+    void create(Utilisateur utilisateur);
+
+    Utilisateur readById(int id);
 
     List<Utilisateur> readAll();
 
+    void update(int id);
 
+    void delete(int id);
 
 }
 
