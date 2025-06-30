@@ -1,9 +1,11 @@
 package fr.eni.projetspring.dal;
 
 import fr.eni.projetspring.bo.Retrait;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class RetraitDAOImpl implements RetraitDAO{
     @Override
     public void createRetrait(Retrait retrait) {

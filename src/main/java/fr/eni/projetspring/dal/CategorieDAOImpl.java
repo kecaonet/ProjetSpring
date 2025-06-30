@@ -1,9 +1,11 @@
 package fr.eni.projetspring.dal;
 
 import fr.eni.projetspring.bo.Categorie;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class CategorieDAOImpl implements CategorieDAO{
     @Override
     public void createCategorie(Categorie categorie) {

@@ -1,9 +1,11 @@
 package fr.eni.projetspring.dal;
 
 import fr.eni.projetspring.bo.ArticleVendu;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     @Override
     public void createArticleVendu(ArticleVendu articleVendu) {
