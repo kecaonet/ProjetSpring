@@ -3,7 +3,6 @@ package fr.eni.projetspring.bo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 public class Utilisateur implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -17,14 +16,44 @@ public class Utilisateur implements Serializable {
     private String codePostal;
     private String ville;
     private int credit;
-    private int administrateur;
+    private boolean administrateur;
 
     private List<Enchere> enchereList = new ArrayList<>();
+    private List<ArticleVendu> articleVenduList = new ArrayList<>();
 
     public Utilisateur() {
     }
 
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, int credit, boolean administrateur, List<Enchere> enchereList, List<ArticleVendu> articleVenduList) {
+        this.pseudo = pseudo;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.telephone = telephone;
+        this.rue = rue;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.credit = credit;
+        this.administrateur = administrateur;
+        this.enchereList = enchereList;
+        this.articleVenduList = articleVenduList;
+    }
 
+    public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, int credit, boolean administrateur, List<Enchere> enchereList, List<ArticleVendu> articleVenduList) {
+        this.noUtilisateur = noUtilisateur;
+        this.pseudo = pseudo;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.telephone = telephone;
+        this.rue = rue;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.credit = credit;
+        this.administrateur = administrateur;
+        this.enchereList = enchereList;
+        this.articleVenduList = articleVenduList;
+    }
 
     public int getNoUtilisateur() {
         return noUtilisateur;
@@ -106,31 +135,46 @@ public class Utilisateur implements Serializable {
         this.credit = credit;
     }
 
-    public int getAdministrateur() {
+    public boolean isAdministrateur() {
         return administrateur;
     }
 
-    public void setAdministrateur(int administrateur) {
+    public void setAdministrateur(boolean administrateur) {
         this.administrateur = administrateur;
     }
 
+    public List<Enchere> getEnchereList() {
+        return enchereList;
+    }
+
+    public void setEnchereList(List<Enchere> enchereList) {
+        this.enchereList = enchereList;
+    }
+
+    public List<ArticleVendu> getArticleVenduList() {
+        return articleVenduList;
+    }
+
+    public void setArticleVenduList(List<ArticleVendu> articleVenduList) {
+        this.articleVenduList = articleVenduList;
+    }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Utilisateur.class.getSimpleName() + "[", "]")
-                .add("pseudo='" + pseudo + "'")
-                .add("nom='" + nom + "'")
-                .add("prenom='" + prenom + "'")
-                .add("email='" + email + "'")
-                .add("telephone='" + telephone + "'")
-                .add("rue='" + rue + "'")
-                .add("codePostal='" + codePostal + "'")
-                .add("ville='" + ville + "'")
-                .add("credit=" + credit)
-                .add("administrateur=" + administrateur)
-                .toString();
+        final StringBuilder sb = new StringBuilder("Utilisateur{");
+        sb.append("pseudo='").append(pseudo).append('\'');
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", prenom='").append(prenom).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", telephone='").append(telephone).append('\'');
+        sb.append(", rue='").append(rue).append('\'');
+        sb.append(", codePostal='").append(codePostal).append('\'');
+        sb.append(", ville='").append(ville).append('\'');
+        sb.append(", credit=").append(credit);
+        sb.append(", administrateur=").append(administrateur);
+        sb.append(", enchereList=").append(enchereList);
+        sb.append(", articleVenduList=").append(articleVenduList);
+        sb.append('}');
+        return sb.toString();
     }
-
-
-
 }
