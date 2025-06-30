@@ -2,7 +2,6 @@ package fr.eni.projetspring.bo;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.Objects;
 
 public class ArticleVendu implements Serializable {
@@ -16,20 +15,27 @@ public class ArticleVendu implements Serializable {
     private Date dateFinEncheres;
     private int prixInitial;
     private int prixVente;
+    private Utilisateur utilisateur;
+    private Categorie categorie;
+    private Retrait retrait;
+
 
     public ArticleVendu() {
     }
 
-    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente) {
+    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, Retrait retrait) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
         this.dateFinEncheres = dateFinEncheres;
         this.prixInitial = prixInitial;
         this.prixVente = prixVente;
+        this.utilisateur = utilisateur;
+        this.categorie = categorie;
+        this.retrait = retrait;
     }
 
-    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente) {
+    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, Retrait retrait) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -37,6 +43,9 @@ public class ArticleVendu implements Serializable {
         this.dateFinEncheres = dateFinEncheres;
         this.prixInitial = prixInitial;
         this.prixVente = prixVente;
+        this.utilisateur = utilisateur;
+        this.categorie = categorie;
+        this.retrait = retrait;
     }
 
     public int getNoArticle() {
@@ -95,6 +104,30 @@ public class ArticleVendu implements Serializable {
         this.prixVente = prixVente;
     }
 
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public Categorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
+    public Retrait getRetrait() {
+        return retrait;
+    }
+
+    public void setRetrait(Retrait retrait) {
+        this.retrait = retrait;
+    }
+
     @Override
     public String toString() {
         return "ArticleVendu{" +
@@ -104,6 +137,9 @@ public class ArticleVendu implements Serializable {
                 ", dateFinEncheres=" + dateFinEncheres +
                 ", prixInitial=" + prixInitial +
                 ", prixVente=" + prixVente +
+                ", utilisateur=" + utilisateur +
+                ", categorie=" + categorie +
+                ", retrait=" + retrait +
                 '}';
     }
 
