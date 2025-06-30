@@ -15,6 +15,7 @@ public class Utilisateur implements Serializable {
     private String rue;
     private String codePostal;
     private String ville;
+    private String motDePasse;
     private int credit;
     private boolean administrateur;
 
@@ -39,7 +40,7 @@ public class Utilisateur implements Serializable {
         this.articleVenduList = articleVenduList;
     }
 
-    public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, int credit, boolean administrateur, List<Enchere> enchereList, List<ArticleVendu> articleVenduList) {
+    public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur, List<Enchere> enchereList, List<ArticleVendu> articleVenduList) {
         this.noUtilisateur = noUtilisateur;
         this.pseudo = pseudo;
         this.nom = nom;
@@ -49,10 +50,19 @@ public class Utilisateur implements Serializable {
         this.rue = rue;
         this.codePostal = codePostal;
         this.ville = ville;
+        this.motDePasse = motDePasse;
         this.credit = credit;
         this.administrateur = administrateur;
         this.enchereList = enchereList;
         this.articleVenduList = articleVenduList;
+    }
+
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
     }
 
     public int getNoUtilisateur() {
