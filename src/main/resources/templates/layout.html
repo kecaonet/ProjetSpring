@@ -1,0 +1,19 @@
+<html lang="fr" data-th-fragment="frag_layout(title, content)">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="${title}"></title>
+    <link rel="stylesheet" href="/css/general.css">
+</head>
+<body>
+<header>
+    <a href="/index">Accueil</a>
+    <a href="/login">Login</a>
+    <a href="/profil">Profil</a>
+</header>
+<h2 data-th-text="${title}"></h2>
+<main data-th-replace="${content}"></main>
+<footer>
+    <p>&copy; ENI Corporation</p>
+</footer>
+</body>
+</html>
