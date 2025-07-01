@@ -20,7 +20,7 @@ public class ArticleVendu implements Serializable {
     private int prixInitial;
     private int prixVente;
     private int utilisateur;
-    private Categorie categorie;
+    private int categorie;
     private Retrait lieuRetrait;
     private List<Enchere> enchereList;
 
@@ -43,7 +43,7 @@ public class ArticleVendu implements Serializable {
      * @param lieuRetrait
      * @param enchereList
      */
-    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, int utilisateur, Categorie categorie, Retrait lieuRetrait, List<Enchere> enchereList) {
+    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, int utilisateur, int categorie, Retrait lieuRetrait, List<Enchere> enchereList) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
@@ -70,7 +70,7 @@ public class ArticleVendu implements Serializable {
      * @param lieuRetrait
      * @param enchereList
      */
-    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, int utilisateur, Categorie categorie, Retrait lieuRetrait, List<Enchere> enchereList) {
+    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, int utilisateur, int categorie, Retrait lieuRetrait, List<Enchere> enchereList) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -96,7 +96,7 @@ public class ArticleVendu implements Serializable {
      * @param categorie
      * @param enchereList
      */
-    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, int utilisateur, Categorie categorie, List<Enchere> enchereList) {
+    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, int utilisateur, int categorie, List<Enchere> enchereList) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
@@ -121,7 +121,7 @@ public class ArticleVendu implements Serializable {
      * @param categorie
      * @param enchereList
      */
-    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, int utilisateur, Categorie categorie, List<Enchere> enchereList) {
+    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, int utilisateur, int categorie, List<Enchere> enchereList) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -135,7 +135,6 @@ public class ArticleVendu implements Serializable {
     }
     /**
      * Constructeur sans "lieuRetrait"
-     * @param noArticle
      * @param nomArticle
      * @param description
      * @param dateDebutEncheres
@@ -145,7 +144,7 @@ public class ArticleVendu implements Serializable {
      * @param categorie
      * @param enchereList
      */
-    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int utilisateur, Categorie categorie, List<Enchere> enchereList) {
+    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int utilisateur, int categorie, List<Enchere> enchereList) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
@@ -218,11 +217,11 @@ public class ArticleVendu implements Serializable {
         this.utilisateur = id;
     }
 
-    public Categorie getCategorie() {
+    public int getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(Categorie categorie) {
+    public void setCategorie(int categorie) {
         this.categorie = categorie;
     }
 
