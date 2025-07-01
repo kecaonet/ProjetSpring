@@ -130,6 +130,29 @@ public class ArticleVendu implements Serializable {
         this.categorie = categorie;
         this.enchereList = enchereList;
     }
+    /**
+     * Constructeur sans "lieuRetrait"
+     * @param noArticle
+     * @param nomArticle
+     * @param description
+     * @param dateDebutEncheres
+     * @param dateFinEncheres
+     * @param prixInitial
+     * @param utilisateur
+     * @param categorie
+     * @param enchereList
+     */
+    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, Utilisateur utilisateur, Categorie categorie, List<Enchere> enchereList) {
+        this.noArticle = noArticle;
+        this.nomArticle = nomArticle;
+        this.description = description;
+        this.dateDebutEncheres = dateDebutEncheres;
+        this.dateFinEncheres = dateFinEncheres;
+        this.prixInitial = prixInitial;
+        this.utilisateur = utilisateur;
+        this.categorie = categorie;
+        this.enchereList = enchereList;
+    }
 
     public int getNoArticle() {
         return noArticle;
