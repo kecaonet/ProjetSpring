@@ -2,6 +2,7 @@ package fr.eni.projetspring.dal;
 
 import fr.eni.projetspring.bo.ArticleVendu;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -65,7 +66,9 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
 
     @Override
     public List<ArticleVendu> readAllArticleVendu() {
-        return List.of();
+        List<ArticleVendu> list = jdbcTemplate.query(READ_ALL, new BeanPropertyRowMapper<>(ArticleVendu.class));
+
+        return list;
     }
 
     @Override

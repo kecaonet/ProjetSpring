@@ -11,6 +11,7 @@
     <input type="text">
     <label>Catégorie :</label>
         <select>
+            <option>Choisir une option</option>
             <option>Informatique</option>
             <option>Ameublement</option>
             <option>Vêtement</option>
@@ -20,11 +21,9 @@
     </div>
     <div data-th-each="enchere : ${Encheres}">
         <div>
-            <img data-th-attr="src=${enchere.image}">
-            <h4 data-th-text="${enchere.titre}"></h4>
-            <h4 data-th-text="${enchere.Prix}"></h4>
-            <h4 data-th-text="${enchere.dateFin}"></h4>
-            <h4 data-th-text="${enchere.noUtilisateur}"></h4>
+            <h4 data-th-text="${enchere.getNomArticle()}"></h4>
+            <h4 data-th-text="${enchere.description}"></h4>
+            <h4 data-th-text="${enchere.dateFinEncheres}"></h4>
         </div>
     </div>
 </main>
