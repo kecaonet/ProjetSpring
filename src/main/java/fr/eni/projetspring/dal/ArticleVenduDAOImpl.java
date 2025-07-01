@@ -14,18 +14,18 @@ import java.util.List;
 @Repository
 public class ArticleVenduDAOImpl implements ArticleVenduDAO{
 
-    private final String INSERT = "INSERT INTO ARTICLEVENDU(NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
+    private final String INSERT = "INSERT INTO ARTICLES_VENDUS(NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
             "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE) " +
             "VALUES (:nomArticle, :description, :dateDebutEncheres, :dateFinEncheres, :prixInitial, " +
             ":prixVente, :utilisateur.getNoUtilisateur(), :categorie.getNoCategorie())";
 
     private final String READ_BY_ID = "SELECT NO_ARTICLE, NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
             "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE "
-            + "FROM ARTICLEVENDU WHERE no_article = :noArticle";
+            + "FROM ARTICLES_VENDUS WHERE no_article = :noArticle";
 
     private final String READ_ALL = "SELECT NO_ARTICLE, NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
             "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE "
-            + "FROM ARTICLEVENDU";
+            + "FROM ARTICLES_VENDUS";
 
     //à compléter
     private final String UPDATE = "";

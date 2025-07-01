@@ -6,7 +6,6 @@
         <h1 data-th-text="#{index.h1}"></h1>
     </section>
     <div>
-
     <label>Filtres :</label>
     <input type="text">
     <label>Catégorie :</label>
@@ -19,9 +18,9 @@
         </select>
         <input type="button" value="Rechercher">
     </div>
-    <div data-th-each="enchere : ${Encheres}">
-        <div>
-            <h4 data-th-text="${enchere.getNomArticle()}"></h4>
+    <div th:each="enchere : ${Encheres}">
+        <div th:text="${enchere.nomArticle}">
+            <h4 data-th-text="${enchere.nomArticle}"></h4>
             <h4 data-th-text="${enchere.description}"></h4>
             <h4 data-th-text="${enchere.dateFinEncheres}"></h4>
         </div>
