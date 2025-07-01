@@ -14,13 +14,13 @@ import java.util.List;
 @Repository
 public class CategorieDAOImpl implements CategorieDAO{
 
-    private final String INSERT = "INSERT INTO CATEGORIE(LIBELLE) " +
+    private final String INSERT = "INSERT INTO CATEGORIES(LIBELLE) " +
             "VALUES (:libelle)";
 
     private final String READ_BY_ID = "SELECT NO_CATEGORIE, LIBELLE " +
-            "FROM CATEGORIE WHERE NO_CATEGORIE = :noCategorie";
+            "FROM CATEGORIES WHERE NO_CATEGORIE = :noCategorie";
 
-    private final String READ_ALL = "SELECT NO_CATEGORIE, LIBELLE FROM CATEGORIE";
+    private final String READ_ALL = "SELECT NO_CATEGORIE, LIBELLE FROM CATEGORIES";
 
     private final String UPDATE = "";
 

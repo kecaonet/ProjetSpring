@@ -1,13 +1,11 @@
 package fr.eni.projetspring.bo;
 
-import java.util.Objects;
-
 public class Retrait {
 
     private String rue;
     private String codePostal;
     private String ville;
-    private ArticleVendu articleVendu;
+    private int noArticle;
 
     public Retrait() {
     }
@@ -18,11 +16,11 @@ public class Retrait {
         this.ville = ville;
     }
 
-    public Retrait(String rue, String codePostal, String ville, ArticleVendu articleVendu) {
+    public Retrait(String rue, String codePostal, String ville, int noArticle) {
         this.rue = rue;
         this.codePostal = codePostal;
         this.ville = ville;
-        this.articleVendu = articleVendu;
+        this.noArticle = noArticle;
     }
 
     public String getRue() {
@@ -49,12 +47,12 @@ public class Retrait {
         this.ville = ville;
     }
 
-    public ArticleVendu getArticleVendu() {
-        return articleVendu;
+    public int getNoArticle() {
+        return noArticle;
     }
 
-    public void setArticleVendu(ArticleVendu articleVendu) {
-        this.articleVendu = articleVendu;
+    public void setArticleVendu(int noArticle) {
+        this.noArticle = noArticle;
     }
 
     @Override
@@ -63,18 +61,7 @@ public class Retrait {
                 "rue='" + rue + '\'' +
                 ", codePostal='" + codePostal + '\'' +
                 ", ville='" + ville + '\'' +
+                ", noArticle=" + noArticle +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Retrait retrait = (Retrait) o;
-        return Objects.equals(getArticleVendu(), retrait.getArticleVendu());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getArticleVendu());
     }
 }

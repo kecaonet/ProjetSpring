@@ -6,20 +6,17 @@ import java.util.Objects;
 public class Categorie {
     private int noCategorie;
     private String libelle;
-    private List<ArticleVendu> categorieArticle;
 
     public Categorie() {
     }
 
     public Categorie(String libelle, List<ArticleVendu> categorieArticle) {
         this.libelle = libelle;
-        this.categorieArticle = categorieArticle;
     }
 
     public Categorie(int noCategorie, String libelle, List<ArticleVendu> categorieArticle) {
         this.noCategorie = noCategorie;
         this.libelle = libelle;
-        this.categorieArticle = categorieArticle;
     }
 
     public int getNoCategorie() {
@@ -38,19 +35,11 @@ public class Categorie {
         this.libelle = libelle;
     }
 
-    public List<ArticleVendu> getCategorieArticle() {
-        return categorieArticle;
-    }
-
-    public void setCategorieArticle(List<ArticleVendu> categorieArticle) {
-        this.categorieArticle = categorieArticle;
-    }
-
     @Override
     public String toString() {
         return "Categorie{" +
-                "libelle='" + libelle + '\'' +
-                ", categorieArticle=" + categorieArticle +
+                "noCategorie=" + noCategorie +
+                ", libelle='" + libelle + '\'' +
                 '}';
     }
 
