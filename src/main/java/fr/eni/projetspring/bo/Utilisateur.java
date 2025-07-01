@@ -172,7 +172,8 @@ public class Utilisateur implements Serializable {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Utilisateur{");
-        sb.append("pseudo='").append(pseudo).append('\'');
+        sb.append("noUtilisateur=").append(noUtilisateur);
+        sb.append(", pseudo='").append(pseudo).append('\'');
         sb.append(", nom='").append(nom).append('\'');
         sb.append(", prenom='").append(prenom).append('\'');
         sb.append(", email='").append(email).append('\'');

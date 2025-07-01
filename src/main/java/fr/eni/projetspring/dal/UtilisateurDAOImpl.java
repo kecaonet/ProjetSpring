@@ -20,7 +20,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
     private final String INSERT = "INSERT INTO UTILISATEURS(PSEUDO, NOM, PRENOM, EMAIL, TELEPHONE, RUE, CODE_POSTAL, VILLE, MOT_DE_PASSE, CREDIT, ADMINISTRATEUR) "
             + " VALUES (:pseudo, :nom, :prenom, :email, :telephone, :rue, : codePostal, :ville, : motDePasse, : credit, :administrateur)";
     private final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
-    private final String FIND_BY_ID = "SELECT * FROM UTILISATEURS WHERE ID = :id";
+    private final String FIND_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = :id";
     private final String DELETE_BY_ID = "DELETE FROM UTILISATEURS WHERE ID = :id";
 
     @Autowired
@@ -93,15 +93,16 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         @Override
         public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
             Utilisateur u = new Utilisateur();
-            u.setNoUtilisateur(rs.getInt("noUtilisateur"));
+            u.setNoUtilisateur(rs.getInt("no_Utilisateur"));
+            u.setPseudo(rs.getString("pseudo"));
             u.setNom(rs.getString("nom"));
             u.setPrenom(rs.getString("prenom"));
             u.setEmail(rs.getString("email"));
             u.setTelephone(rs.getString("telephone"));
             u.setRue(rs.getString("rue"));
-            u.setCodePostal(rs.getString("codePostal"));
+            u.setCodePostal(rs.getString("code_Postal"));
             u.setVille(rs.getString("ville"));
-            u.setMotDePasse(rs.getString("motDePasse"));
+            u.setMotDePasse(rs.getString("mot_De_Passe"));
             u.setCredit(rs.getInt("credit"));
             u.setAdministrateur(rs.getBoolean("administrateur"));
             return u;

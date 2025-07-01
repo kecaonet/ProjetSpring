@@ -5,6 +5,7 @@ import fr.eni.projetspring.bo.Enchere;
 import fr.eni.projetspring.dal.ArticleVenduDAO;
 import fr.eni.projetspring.dal.ArticleVenduDAOImpl;
 import fr.eni.projetspring.dal.EnchereDAO;
+import org.springframework.boot.web.servlet.WebListenerRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,17 +15,20 @@ import java.util.List;
 @Controller
 public class WebController {
 
+    private final WebListenerRegistry webListenerRegistry;
     ArticleVenduDAO articleVenduDAO;
 
-    public WebController(ArticleVenduDAO articleVenduDAO, ArticleVenduDAOImpl articleVenduDAOImpl) {this.articleVenduDAO = articleVenduDAO;
+    public WebController(ArticleVenduDAO articleVenduDAO, ArticleVenduDAOImpl articleVenduDAOImpl, WebListenerRegistry webListenerRegistry) {this.articleVenduDAO = articleVenduDAO;
         this.articleVenduDAO = articleVenduDAO;
+        this.webListenerRegistry = webListenerRegistry;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/liste")
     public String index(Model model){
     List<ArticleVendu> listeArticles = articleVenduDAO.readAllArticleVendu();
     model.addAttribute("Encheres",listeArticles);
-        return "index";
+        System.out.println(listeArticles.toString());
+        return "liste";
     }
 
     @GetMapping("/profil")

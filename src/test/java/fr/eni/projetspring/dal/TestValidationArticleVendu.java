@@ -9,11 +9,13 @@ public class TestValidationArticleVendu {
 
     @Autowired
     ArticleVenduDAO articleVenduDAO;
-
+    @Autowired
+    UtilisateurDAO utilisateurDAO;
 
     @Test
     public void TestReadAll() {
-        System.out.println(articleVenduDAO.readAllArticleVendu());
+        System.out.println((articleVenduDAO.readAllArticleVendu()));
+        System.out.println(utilisateurDAO.readAll());
     }
 
 }

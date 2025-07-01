@@ -1,5 +1,8 @@
 package fr.eni.projetspring.bo;
 
+import fr.eni.projetspring.dal.UtilisateurDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
@@ -16,7 +19,7 @@ public class ArticleVendu implements Serializable {
     private Date dateFinEncheres;
     private int prixInitial;
     private int prixVente;
-    private Utilisateur utilisateur;
+    private int utilisateur;
     private Categorie categorie;
     private Retrait lieuRetrait;
     private List<Enchere> enchereList;
@@ -40,7 +43,7 @@ public class ArticleVendu implements Serializable {
      * @param lieuRetrait
      * @param enchereList
      */
-    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, Retrait lieuRetrait, List<Enchere> enchereList) {
+    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, int utilisateur, Categorie categorie, Retrait lieuRetrait, List<Enchere> enchereList) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
@@ -67,7 +70,7 @@ public class ArticleVendu implements Serializable {
      * @param lieuRetrait
      * @param enchereList
      */
-    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, Retrait lieuRetrait, List<Enchere> enchereList) {
+    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, int utilisateur, Categorie categorie, Retrait lieuRetrait, List<Enchere> enchereList) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -93,7 +96,7 @@ public class ArticleVendu implements Serializable {
      * @param categorie
      * @param enchereList
      */
-    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, List<Enchere> enchereList) {
+    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, int utilisateur, Categorie categorie, List<Enchere> enchereList) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
@@ -118,7 +121,7 @@ public class ArticleVendu implements Serializable {
      * @param categorie
      * @param enchereList
      */
-    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, List<Enchere> enchereList) {
+    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int prixVente, int utilisateur, Categorie categorie, List<Enchere> enchereList) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -142,8 +145,7 @@ public class ArticleVendu implements Serializable {
      * @param categorie
      * @param enchereList
      */
-    public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, Utilisateur utilisateur, Categorie categorie, List<Enchere> enchereList) {
-        this.noArticle = noArticle;
+    public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, int prixInitial, int utilisateur, Categorie categorie, List<Enchere> enchereList) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
@@ -210,12 +212,10 @@ public class ArticleVendu implements Serializable {
         this.prixVente = prixVente;
     }
 
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
-    }
+    public int getUtilisateurid() { return utilisateur; }
 
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
+    public void setUtilisateur(int id) {
+        this.utilisateur = id;
     }
 
     public Categorie getCategorie() {

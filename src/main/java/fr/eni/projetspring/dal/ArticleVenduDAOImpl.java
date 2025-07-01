@@ -48,7 +48,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
         parameterSource.addValue("prixInitial", articleVendu.getPrixInitial());
         parameterSource.addValue("prixVente", articleVendu.getPrixVente());
         parameterSource.addValue("prixVente", articleVendu.getPrixVente());
-        parameterSource.addValue("utilisateur", articleVendu.getUtilisateur().getNoUtilisateur());
+        parameterSource.addValue("utilisateur", articleVendu.getUtilisateurid());
         parameterSource.addValue("categorie", articleVendu.getCategorie().getNoCategorie());
 
         jdbcTemplate.update(INSERT, parameterSource,  keyHolder);
