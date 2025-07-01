@@ -14,8 +14,8 @@ import java.util.List;
 @Repository
 public class CategorieDAOImpl implements CategorieDAO{
 
-    private final String INSERT = "INSERT INTO CATEGORIE(NO_CATEGORIE, LIBELLE) " +
-            "VALUES (:noCategorie, :libelle)";
+    private final String INSERT = "INSERT INTO CATEGORIE(LIBELLE) " +
+            "VALUES (:libelle)";
 
     private final String READ_BY_ID = "SELECT NO_CATEGORIE, LIBELLE " +
             "FROM CATEGORIE WHERE NO_CATEGORIE = :noCategorie";
