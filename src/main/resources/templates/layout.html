@@ -6,9 +6,15 @@
 </head>
 <body>
 <header>
-    <a href="/index">Accueil</a>
-    <a href="/login">Login</a>
+    <div>
+        <a href="/?language=fr"><img alt="Français"
+                                     src="/images/French.webp"></a> <a href="/?language=en"><img
+            alt="English" src="/images/English.webp"></a>
+    </div>
+    <nav>
+    <a href="/login">S'inscrire - Se connecter</a>
     <a href="/profil">Profil</a>
+    </nav>
 </header>
 <h2 data-th-text="${title}"></h2>
 <main data-th-replace="${content}"></main>

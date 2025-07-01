@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Accueil</title>
-</head>
-<body>
+<html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.accueil},
+                                                content= ~{::main})} ">
+<main>
+    <section>
+        <h1 data-th-text="#{index.h1}"></h1>
+    </section>
+    <div>
 
-</body>
+    <label>Filtres :</label>
+    <input type="text">
+    <label>Catégorie :</label>
+        <select>
+            <option>Informatique</option>
+            <option>Ameublement</option>
+            <option>Vêtement</option>
+            <option>Sport&Loisirs</option>
+        </select>
+        <input type="button" value="Rechercher">
+    </div>
+    <div data-th-each="enchere : ${Encheres}">
+        <div>
+            <img data-th-attr="src=${enchere.image}">
+            <h4 data-th-text="${enchere.titre}"></h4>
+            <h4 data-th-text="${enchere.Prix}"></h4>
+            <h4 data-th-text="${enchere.dateFin}"></h4>
+            <h4 data-th-text="${enchere.noUtilisateur}"></h4>
+        </div>
+    </div>
+</main>
 </html>
