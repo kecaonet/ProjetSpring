@@ -22,7 +22,21 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
     private final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
     private final String FIND_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = :id";
     private final String DELETE_BY_ID = "DELETE FROM UTILISATEURS WHERE ID = :id";
+    private final String FIND_BY_EMAIL = "SELECT count(email) FROM UTILISATEURS WHERE EMAIL = :email";
 
+    @Override
+    public boolean findEmail(String email) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("email", email);
+
+        int count = jdbcTemplate.queryForObject(FIND_BY_EMAIL, namedParameters, Integer.class);
+        return count>=1;
+    }
+
+    @Override
+    public boolean findPseudo(String password) {
+        return false;
+    }
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 

@@ -16,5 +16,9 @@ public interface UtilisateurDAO {
 
     void deleteById(int id);
 
+    public boolean findEmail(String email);
+
+    public boolean findPseudo(String password);
+
 }
 

@@ -3,12 +3,15 @@ package fr.eni.projetspring.dal;
 import fr.eni.projetspring.bo.ArticleVendu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -47,9 +50,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
         parameterSource.addValue("dateFinEncheres", articleVendu.getDateFinEncheres());
         parameterSource.addValue("prixInitial", articleVendu.getPrixInitial());
         parameterSource.addValue("prixVente", articleVendu.getPrixVente());
-        parameterSource.addValue("prixVente", articleVendu.getPrixVente());
         parameterSource.addValue("utilisateur", articleVendu.getUtilisateurid());
-        parameterSource.addValue("categorie", articleVendu.getCategorie().getNoCategorie());
+        parameterSource.addValue("categorie", articleVendu.getCategorie());
 
         jdbcTemplate.update(INSERT, parameterSource,  keyHolder);
 
@@ -79,5 +81,27 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     @Override
     public void deleteArticleVendu(int noArticle) {
 
+    }
+
+    class ArticleVenduRowMapper implements RowMapper<ArticleVendu> {
+        @Override
+        public ArticleVendu mapRow(ResultSet rs, int rowNum) throws SQLException {
+            ArticleVendu a = new ArticleVendu();
+            a.setNoArticle(rs.getInt("no_article"));
+            a.setNomArticle(rs.getString("nom_article"));
+            a.setDescription(rs.getString("description"));
+            a.setDateDebutEncheres(rs.getDate("date_debut_encheres"));
+            a.setDateFinEncheres(rs.getDate("date_fin_encheres"));
+            a.setPrixInitial(rs.getInt("prix_initial"));
+            a.setPrixVente(rs.getInt("prix_vente"));
+            a.setUtilisateur(rs.getInt("utilisateur"));
+            a.setCategorie(rs.getInt("categorie"));
+
+
+
+
+
+            return a;
+        }
     }
 }
