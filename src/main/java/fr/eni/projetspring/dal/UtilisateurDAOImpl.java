@@ -2,12 +2,15 @@ package fr.eni.projetspring.dal;
 
 import fr.eni.projetspring.bo.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -16,6 +19,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
     private final String INSERT = "INSERT INTO UTILISATEURS(PSEUDO, NOM, PRENOM, EMAIL, TELEPHONE, RUE, CODE_POSTAL, VILLE, MOT_DE_PASSE, CREDIT, ADMINISTRATEUR) "
             + " VALUES (:pseudo, :nom, :prenom, :email, :telephone, :rue, : codePostal, :ville, : motDePasse, : credit, :administrateur)";
+    private final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
+    private final String FIND_BY_ID = "SELECT * FROM UTILISATEURS WHERE ID = :id";
+    private final String DELETE_BY_ID = "DELETE FROM UTILISATEURS WHERE ID = :id";
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -48,26 +54,59 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
     }
 
     @Override
-    public Utilisateur readById(int id) {
-        return null;
+    public void deleteById(int id) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("id", id);
+        jdbcTemplate.queryForObject(DELETE_BY_ID, namedParameters, new UtilisateurRowMapper());
     }
 
     @Override
     public List<Utilisateur> readAll() {
-        return List.of();
+        return jdbcTemplate.query(SELECT_ALL, new UtilisateurRowMapper());
     }
 
     @Override
-    public void update(int id) {
-
+    public void update(Utilisateur utilisateur) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("pseudo", utilisateur.getPseudo());
+        namedParameters.addValue("nom", utilisateur.getNom());
+        namedParameters.addValue("prenom", utilisateur.getPrenom());
+        namedParameters.addValue("email", utilisateur.getEmail());
+        namedParameters.addValue("telephone", utilisateur.getTelephone());
+        namedParameters.addValue("rue", utilisateur.getRue());
+        namedParameters.addValue("codePostal", utilisateur.getCodePostal());
+        namedParameters.addValue("ville", utilisateur.getVille());
+        //namedParameters.addValue("motDePasse", utilisateur.getMotDePasse());
+        //namedParameters.addValue("credit", utilisateur.getCredit());
+        //namedParameters.addValue("administrateur", utilisateur.isAdministrateur());
     }
 
     @Override
-    public void delete(int id) {
+    public Utilisateur readById(int id) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("id", id);
+        return jdbcTemplate.queryForObject(FIND_BY_ID, namedParameters, new UtilisateurRowMapper());
 
     }
 
-
+    class UtilisateurRowMapper implements RowMapper<Utilisateur> {
+        @Override
+        public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Utilisateur u = new Utilisateur();
+            u.setNoUtilisateur(rs.getInt("noUtilisateur"));
+            u.setNom(rs.getString("nom"));
+            u.setPrenom(rs.getString("prenom"));
+            u.setEmail(rs.getString("email"));
+            u.setTelephone(rs.getString("telephone"));
+            u.setRue(rs.getString("rue"));
+            u.setCodePostal(rs.getString("codePostal"));
+            u.setVille(rs.getString("ville"));
+            u.setMotDePasse(rs.getString("motDePasse"));
+            u.setCredit(rs.getInt("credit"));
+            u.setAdministrateur(rs.getBoolean("administrateur"));
+            return u;
+        }
+    }
 
 
 }
