@@ -1,6 +1,11 @@
 package fr.eni.projetspring.dal;
 
 import fr.eni.projetspring.bo.ArticleVendu;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -8,15 +13,18 @@ import java.util.List;
 @Repository
 public class ArticleVenduDAOImpl implements ArticleVenduDAO{
 
-    //Pas fini
-    private final String INSERT = "INSERT INTO ARTICLEVENDU(NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE) " +
-            "VALUES (:nomArticle, :description, :dateDebutEncheres, :dateFinEncheres, :prixInitial, :prixVente, :)";
+    private final String INSERT = "INSERT INTO ARTICLEVENDU(NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
+            "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE) " +
+            "VALUES (:nomArticle, :description, :dateDebutEncheres, :dateFinEncheres, :prixInitial, " +
+            ":prixVente, :utilisateur.getNoUtilisateur(), :categorie.getNoCategorie())";
 
-    //à compléter
-    private final String READ_BY_ID = "";
+    private final String READ_BY_ID = "SELECT NO_ARTICLE, NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
+            "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE "
+            + "FROM ARTICLEVENDU WHERE no_article = :noArticle";
 
-    //à compléter
-    private final String READ_ALL = "";
+    private final String READ_ALL = "SELECT NO_ARTICLE, NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
+            "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE "
+            + "FROM ARTICLEVENDU";
 
     //à compléter
     private final String UPDATE = "";
@@ -24,15 +32,34 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     //à compléter
     private final String DELETE = "";
 
-
+    @Autowired
+    private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
     public void createArticleVendu(ArticleVendu articleVendu) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("nomArticle", articleVendu.getNomArticle());
+        parameterSource.addValue("description", articleVendu.getDescription());
+        parameterSource.addValue("dateDebutEncheres", articleVendu.getDateDebutEncheres());
+        parameterSource.addValue("dateFinEncheres", articleVendu.getDateFinEncheres());
+        parameterSource.addValue("prixInitial", articleVendu.getPrixInitial());
+        parameterSource.addValue("prixVente", articleVendu.getPrixVente());
+        parameterSource.addValue("prixVente", articleVendu.getPrixVente());
+        parameterSource.addValue("utilisateur", articleVendu.getUtilisateur().getNoUtilisateur());
+        parameterSource.addValue("categorie", articleVendu.getCategorie().getNoCategorie());
+
+        jdbcTemplate.update(INSERT, parameterSource,  keyHolder);
+
+        if(keyHolder != null && keyHolder.getKey() != null) {
+            articleVendu.setNoArticle(keyHolder.getKey().intValue());
+        }
     }
 
     @Override
     public ArticleVendu read(int noArticle) {
+
         return null;
     }
 
