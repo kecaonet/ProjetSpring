@@ -12,10 +12,20 @@
             alt="English" src="/images/English.webp"></a>
     </div>
     <nav>
-        <a href="/liste">Liste</a>
-    <a href="/login">S'inscrire - Se connecter</a>
-    <a href="/profil">Profil</a>
-
+        <ul>
+            <li>
+                <a href="/liste">Liste</a>
+            </li>
+            <li data-th-if="${!#authorization.expression('isAuthenticated')}">
+                <a href="/login">S'inscrire - Se connecter</a>
+            </li>
+            <li data-th-if="${#authorization.expression('isAuthenticated')}">
+                <a href="/logout">Log out</a>
+            </li>
+            <li>
+                <a href="/profil">Profil</a>
+            </li>
+        </ul>
     </nav>
 </header>
 <h2 data-th-text="${title}"></h2>
