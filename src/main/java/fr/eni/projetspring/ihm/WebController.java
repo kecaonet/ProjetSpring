@@ -33,7 +33,6 @@ public class WebController {
         this.articleVenduDAO = articleVenduDAO;
         this.webListenerRegistry = webListenerRegistry;
     }
-
     @GetMapping("/liste")
     public String index(Model model){
 
