@@ -33,9 +33,35 @@ public class WebController {
         this.articleVenduDAO = articleVenduDAO;
         this.webListenerRegistry = webListenerRegistry;
     }
+    @GetMapping("/")
+    public String index(Model model) {
 
+        List<ArticleVendu> listeArticles = articleVenduDAO.readAllArticleVendu();
+        model.addAttribute("Encheres",listeArticles);
+        System.out.println(listeArticles.toString());
+
+        List<Utilisateur> utilisateurs = utilisateurDAO.readAll();
+
+        Map<Integer, Utilisateur> utilisateursMap = new HashMap<>();
+        for (Utilisateur u : utilisateurs) {
+            utilisateursMap.put(u.getNoUtilisateur(), u);
+        }
+
+        model.addAttribute("Utilisateurs", utilisateursMap);
+
+        List<Categorie> categories = categorieDAO.readAllCategorie();
+
+        Map<Integer, Categorie> categoriesMap = new HashMap<>();
+        for (Categorie c : categories) {
+            categoriesMap.put(c.getNoCategorie(), c);
+        }
+        model.addAttribute("Categories", categoriesMap);
+
+
+        return "/index";
+    }
     @GetMapping("/liste")
-    public String index(Model model){
+    public String liste(Model model){
 
     List<ArticleVendu> listeArticles = articleVenduDAO.readAllArticleVendu();
     model.addAttribute("Encheres",listeArticles);
