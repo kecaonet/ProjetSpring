@@ -23,9 +23,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
     private final String FIND_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = :id";
     private final String DELETE_BY_ID = "DELETE FROM UTILISATEURS WHERE ID = :id";
     private final String FIND_BY_EMAIL = "SELECT count(email) FROM UTILISATEURS WHERE EMAIL = :email";
+    private final String FIND_BY_PSEUDO = "SELECT count(pseudo) FROM UTILISATEURS WHERE PSEUDO = :pseudo";
 
     @Override
-    public boolean findEmail(String email) {
+    public boolean findByEmail(String email) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("email", email);
 
@@ -33,10 +34,17 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         return count>=1;
     }
 
+    /**
+     * @param pseudo le pseudo
+     * @return l'utilisateur en fonction de son pseudo
+     */
     @Override
-    public boolean findPseudo(String password) {
-        return false;
+    public Utilisateur findByPseudo(String pseudo) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("pseudo", pseudo);
+        return jdbcTemplate.queryForObject(FIND_BY_PSEUDO, namedParameters, new UtilisateurRowMapper());
     }
+
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
