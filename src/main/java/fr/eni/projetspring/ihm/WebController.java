@@ -2,7 +2,6 @@ package fr.eni.projetspring.ihm;
 
 import fr.eni.projetspring.bo.ArticleVendu;
 import fr.eni.projetspring.bo.Categorie;
-import fr.eni.projetspring.bo.Enchere;
 import fr.eni.projetspring.bo.Utilisateur;
 import fr.eni.projetspring.dal.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 public class WebController {
