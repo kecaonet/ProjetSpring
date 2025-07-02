@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.login},
+                                                content= ~{::main})} ">
+<main>
+  <form data-th-action="@{/nouvelle-vente}" method="post">
+    <h1>Nouvelle Vente</h1>
+  </form>
+</main>
+</html>
