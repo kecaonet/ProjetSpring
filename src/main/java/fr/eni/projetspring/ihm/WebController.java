@@ -1,6 +1,7 @@
 package fr.eni.projetspring.ihm;
 
 import fr.eni.projetspring.bo.ArticleVendu;
+import fr.eni.projetspring.bo.Categorie;
 import fr.eni.projetspring.bo.Enchere;
 import fr.eni.projetspring.bo.Utilisateur;
 import fr.eni.projetspring.dal.*;
@@ -25,6 +26,9 @@ public class WebController {
     @Autowired
     ArticleVenduDAO articleVenduDAO;
 
+    @Autowired
+    CategorieDAO categorieDAO;
+
     public WebController(ArticleVenduDAO articleVenduDAO, ArticleVenduDAOImpl articleVenduDAOImpl, WebListenerRegistry webListenerRegistry, UtilisateurDAOImpl utilisateurDAOImpl) {this.articleVenduDAO = articleVenduDAO;
         this.articleVenduDAO = articleVenduDAO;
         this.webListenerRegistry = webListenerRegistry;
@@ -43,7 +47,16 @@ public class WebController {
         for (Utilisateur u : utilisateurs) {
             utilisateursMap.put(u.getNoUtilisateur(), u);
         }
+
     model.addAttribute("Utilisateurs", utilisateursMap);
+
+        List<Categorie> categories = categorieDAO.readAllCategorie();
+
+        Map<Integer, Categorie> categoriesMap = new HashMap<>();
+        for (Categorie c : categories) {
+            categoriesMap.put(c.getNoCategorie(), c);
+        }
+        model.addAttribute("Categories", categoriesMap);
 
 
         return "liste";
