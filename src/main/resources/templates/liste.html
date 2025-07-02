@@ -2,6 +2,7 @@
 <html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.accueil},
                                                 content= ~{::main})} ">
 <main>
+<link rel="stylesheet" href="/css/liste.css">
   <section>
     <h1 data-th-text="#{index.h1}"></h1>
   </section>
@@ -9,22 +10,23 @@
     <label>Filtres :</label>
     <input type="text">
     <label>Catégorie :</label>
-    <select>
-      <option>Choisir une option</option>
-      <option>Informatique</option>
-      <option>Ameublement</option>
-      <option>Vêtement</option>
-      <option>Sport&Loisirs</option>
+    <select id="idSelectCategorie">
+      <option value="Defaut">Choisir une option</option>
+      <option value="Informatique">Informatique</option>
+      <option value="Ameublement">Ameublement</option>
+      <option value="Vêtement">Vêtement</option>
+      <option value="Sport&Loisirs">Sport&Loisirs</option>
     </select>
-    <input type="button" value="Rechercher">
+    <input id="idBtnCategorie" type="button" value="Rechercher">
   </div>
-  <div th:each="enchere : ${Encheres}" >
-    <div th:text="${enchere.nomArticle}"></div>
-      <div th:text="${enchere.description}"></div>
-    <div th:text="${enchere.dateFinEncheres}"></div>
-    <div th:text="${enchere.prixInitial}"></div>
-    <div th:text="${enchere.utilisateurid}"></div>
-    <div th:text="${Utilisateurs.get(enchere.utilisateurid).pseudo}"></div>
+  <div class="Enchere" th:each="enchere : ${Encheres}" >
+    <div th:text="'Article : ' + ${enchere.nomArticle}"></div>
+    <div th:text="'Description : ' + ${enchere.description}"></div>
+    <div th:text="'Fin de lenchère : ' + ${enchere.dateFinEncheres}"></div>
+    <div th:text="'Prix initial : '+${enchere.prixInitial}"></div>
+    <div class="Categorie" th:text="'Catégorie : ' + ${Categories.get(enchere.getCategorie()).libelle  }"></div>
+    <div th:text="'Pseudo :  '+ ${Utilisateurs.get(enchere.utilisateurid).pseudo}"></div>
   </div>
+<script type="text/javascript" src="/js/liste.js"></script>
 </main>
 </html>

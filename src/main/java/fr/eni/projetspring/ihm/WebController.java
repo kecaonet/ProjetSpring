@@ -2,6 +2,7 @@ package fr.eni.projetspring.ihm;
 
 import fr.eni.projetspring.bo.ArticleVendu;
 import fr.eni.projetspring.bo.Categorie;
+import fr.eni.projetspring.bo.Enchere;
 import fr.eni.projetspring.bo.Utilisateur;
 import fr.eni.projetspring.dal.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class WebController {
@@ -31,11 +33,11 @@ public class WebController {
         this.articleVenduDAO = articleVenduDAO;
         this.webListenerRegistry = webListenerRegistry;
     }
-    @GetMapping("/liste")
-    public String index(Model model){
+    @GetMapping("/")
+    public String index(Model model) {
 
-    List<ArticleVendu> listeArticles = articleVenduDAO.readAllArticleVendu();
-    model.addAttribute("Encheres",listeArticles);
+        List<ArticleVendu> listeArticles = articleVenduDAO.readAllArticleVendu();
+        model.addAttribute("Encheres",listeArticles);
         System.out.println(listeArticles.toString());
 
         List<Utilisateur> utilisateurs = utilisateurDAO.readAll();
@@ -45,7 +47,7 @@ public class WebController {
             utilisateursMap.put(u.getNoUtilisateur(), u);
         }
 
-    model.addAttribute("Utilisateurs", utilisateursMap);
+        model.addAttribute("Utilisateurs", utilisateursMap);
 
         List<Categorie> categories = categorieDAO.readAllCategorie();
 
@@ -56,7 +58,7 @@ public class WebController {
         model.addAttribute("Categories", categoriesMap);
 
 
-        return "liste";
+        return "/index";
     }
 
     @GetMapping("/profil")
