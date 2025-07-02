@@ -69,7 +69,7 @@ public class ProjetSpringSecurityConfig {
                     // permettre aux membres et admin d'accéder à la page detailVentes (membres désactivés ne peuvent pas enchérir)
                     .requestMatchers(HttpMethod.GET, "/liste/detailVentes").hasAnyRole("ADMIN", "MEMBRE")
                     //permettre aux membres et admin d'accéder à la page nouvelleVente (membres désactivés ne peuvent pas enchérir
-                    .requestMatchers(HttpMethod.GET, "/liste/nouvelleVente").hasAnyRole("ADMIN", "MEMBRE")
+                    .requestMatchers(HttpMethod.GET, "/nouvelleVente").hasAnyRole("ADMIN", "MEMBRE")
                     //permettre à tous de soumettre un formulaire de nouvelle vente
                     .requestMatchers(HttpMethod.POST, "/login/MdpOublie").hasAnyRole("ADMIN", "MEMBRE")
 
