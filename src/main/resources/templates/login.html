@@ -2,6 +2,22 @@
 <html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.login},
                                                 content= ~{::main})} ">
 <main>
+    <form data-th-action="@{/login}" method="post">
+        <h1>Login</h1>
 
+        <ul class="flex-outer">
+            <li>
+                <label for="username" >Login</label>
+                <input id="username" name="username" value="pseudo">
+            </li>
+            <li>
+                <label for="password" >Password</label>
+                <input id="password" name="password" type="password">
+            </li>
+            <li>
+                <button type="submit">Login</button>
+            </li>
+        </ul>
+    </form>
 </main>
 </html>
