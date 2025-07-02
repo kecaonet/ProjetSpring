@@ -20,7 +20,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     private final String INSERT = "INSERT INTO ARTICLES_VENDUS(NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
             "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE) " +
             "VALUES (:nomArticle, :description, :dateDebutEncheres, :dateFinEncheres, :prixInitial, " +
-            ":prixVente, :utilisateur.getNoUtilisateur(), :categorie.getNoCategorie())";
+            ":prixVente, :utilisateur, :categorie)";
 
     private final String READ_BY_ID = "SELECT NO_ARTICLE, NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
             "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE "
@@ -34,10 +34,12 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     private final String UPDATE = "";
 
     //à compléter
-    private final String DELETE = "";
+    private final String DELETE = "DELETE FROM ARTICLES_VENDUS WHERE no_Article = :id";
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
     public void createArticleVendu(ArticleVendu articleVendu) {
@@ -68,7 +70,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
 
     @Override
     public List<ArticleVendu> readAllArticleVendu() {
-        List<ArticleVendu> list = jdbcTemplate.query(READ_ALL, new BeanPropertyRowMapper<>(ArticleVendu.class));
+        List<ArticleVendu> list = jdbcTemplate.query(READ_ALL, new ArticleVenduRowMapper());
 
         return list;
     }
@@ -81,6 +83,10 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     @Override
     public void deleteArticleVendu(int noArticle) {
 
+
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("id", noArticle);
+        namedParameterJdbcTemplate.update(DELETE, map);
     }
 
     class ArticleVenduRowMapper implements RowMapper<ArticleVendu> {
@@ -94,8 +100,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
             a.setDateFinEncheres(rs.getDate("date_fin_encheres"));
             a.setPrixInitial(rs.getInt("prix_initial"));
             a.setPrixVente(rs.getInt("prix_vente"));
-            a.setUtilisateur(rs.getInt("utilisateur"));
-            a.setCategorie(rs.getInt("categorie"));
+            a.setUtilisateur(rs.getInt("no_utilisateur"));
+            a.setCategorie(rs.getInt("no_categorie"));
 
 
 

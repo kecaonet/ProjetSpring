@@ -1,10 +1,7 @@
 package fr.eni.projetspring.bo;
 
-import fr.eni.projetspring.dal.UtilisateurDAO;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import java.util.Date;
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -184,6 +181,7 @@ public class ArticleVendu implements Serializable {
     }
 
     public void setDateDebutEncheres(Date dateDebutEncheres) {
+
         this.dateDebutEncheres = dateDebutEncheres;
     }
 

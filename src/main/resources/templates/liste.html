@@ -18,12 +18,13 @@
     </select>
     <input type="button" value="Rechercher">
   </div>
-  <div th:each="enchere : ${Encheres}">
+  <div th:each="enchere : ${Encheres}" >
     <div th:text="${enchere.nomArticle}"></div>
       <div th:text="${enchere.description}"></div>
     <div th:text="${enchere.dateFinEncheres}"></div>
     <div th:text="${enchere.prixInitial}"></div>
-    <div th:text="${enchere.utilisateur}"></div>
+    <div th:text="${enchere.utilisateurid}"></div>
+    <div th:text="${Utilisateurs.get(enchere.utilisateurid).pseudo}"></div>
   </div>
 </main>
 </html>
