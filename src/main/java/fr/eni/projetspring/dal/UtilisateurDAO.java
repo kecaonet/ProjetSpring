@@ -16,9 +16,13 @@ public interface UtilisateurDAO {
 
     void deleteById(int id);
 
-    public boolean findEmail(String email);
+    public boolean findByEmail(String email);
 
-    public boolean findPseudo(String password);
+    /**
+     * @param pseudo le pseudo
+     * @return l'utilisateur en fonction de son pseudo
+     */
+    public Utilisateur findByPseudo(String pseudo);
 
 }
 

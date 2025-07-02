@@ -1,14 +1,32 @@
 package fr.eni.projetspring.bll;
 
 import fr.eni.projetspring.bo.Utilisateur;
+import fr.eni.projetspring.dal.UtilisateurDAO;
 import fr.eni.projetspring.exceptions.BusinessCode;
 import fr.eni.projetspring.exceptions.BusinessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class UtilisateurServiceImpl implements UtilisateurService {
+
+    private final UtilisateurDAO utilisateurDAO;
+
+    public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO) {
+        this.utilisateurDAO = utilisateurDAO;
+    }
+
+    /**
+     * @param pseudo
+     * @return les informations de l'utilisateur identifié par son pseudo
+     */
+    @Override
+    public Utilisateur charger(String pseudo) {
+        return utilisateurDAO.findByPseudo(pseudo);
+    }
+
     @Override
     public void ajouterUtilisateur(Utilisateur utilisateur) {
         /*BusinessException be = new BusinessException();
