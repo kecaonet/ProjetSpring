@@ -105,8 +105,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     private boolean validerUilisateurUnique(String email, String pseudo, BusinessException be) {
         //Valider que peseudo et email sont uniques
         try {
-            boolean pseudoExiste = true;
-            boolean emailExiste = true;
+            boolean pseudoExiste = utilisateurDAO.findPseudo(pseudo);
+            boolean emailExiste = utilisateurDAO.findEmail(email);
             if (pseudoExiste && emailExiste) {
                 be.add(BusinessCode.VALIDATION_UTILISATEUR_UNIQUE);
                 return false;
