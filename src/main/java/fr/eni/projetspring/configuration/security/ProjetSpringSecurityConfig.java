@@ -16,15 +16,15 @@ import javax.sql.DataSource;
 public class ProjetSpringSecurityConfig {
 
     protected final Log logger = LogFactory.getLog(getClass());
-    private final String SELECT_USER = "select pseudo, password from utilisateur where pseudo = ?";
-    private final String SELECT_ROLES = "select m.email, r.role from UTILISATEURS  u inner join ROLES r on r.IS_ADMIN = u.admin where pseudo = ?";
+    private final String SELECT_USER = "select pseudo, mot_de_passe from utilisateurs where pseudo =    ?";
+    //private final String SELECT_ROLES = "select m.email, r.role from UTILISATEURS  u inner join ROLES r on r.IS_ADMIN = u.admin where pseudo = ?";
 
     @Bean
     UserDetailsService userDetailsManager(DataSource dataSource) {
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
 
         jdbcUserDetailsManager.setUsersByUsernameQuery(SELECT_USER);
-        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery(SELECT_ROLES);
+        //jdbcUserDetailsManager.setAuthoritiesByUsernameQuery(SELECT_ROLES);
 
         return jdbcUserDetailsManager;
 
