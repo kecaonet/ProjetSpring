@@ -48,14 +48,34 @@ public class ProjetSpringSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> {
             auth
+                    //évite le bug de connexion sur Google
                     .requestMatchers(HttpMethod.GET, "/.well-known/*").permitAll()
+                    //Permettre aux visiteurs d'accéder à la page d'accueil (liste des ventes)
                     .requestMatchers(HttpMethod.GET, "/liste").permitAll()
+                    //Permettre aux connectés d'accéder à la page profil
                     .requestMatchers(HttpMethod.GET, "/profil").authenticated()
+                    //permettre à tous d'accéder à la page login
                     .requestMatchers(HttpMethod.GET, "/login").permitAll()
+                    // permettre à tous de soumettre un formulaire de connexion
                     .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                    // permettre à tous d'accéder à la page de connexion
+                    .requestMatchers(HttpMethod.POST, "/login/inscription").permitAll()
+                    //permettre à tous de soumettre un formulaire d'inscription
+                    .requestMatchers(HttpMethod.POST, "/login/inscription").permitAll()
+                    // permettre à tous d'accéder à la page Mot de passe oublié
+                    .requestMatchers(HttpMethod.GET, "/login/MdpOublie").permitAll()
+                    //permettre à tous de soumettre un formulaire de mot de passe oublié
+                    .requestMatchers(HttpMethod.POST, "/login/MdpOublie").permitAll()
+                    // permettre aux membres et admin d'accéder à la page detailVentes (membres désactivés ne peuvent pas enchérir)
+                    .requestMatchers(HttpMethod.GET, "/liste/detailVentes").hasAnyRole("ROLE_ADMIN", "ROLE_MEMBRE")
+                    //permettre aux membres et admin d'accéder à la page nouvelleVente (membres désactivés ne peuvent pas enchérir
+                    .requestMatchers(HttpMethod.GET, "/liste/nouvelleVente").hasAnyRole("ROLE_ADMIN", "ROLE_MEMBRE")
+                    //permettre à tous de soumettre un formulaire de nouvelle vente
+                    .requestMatchers(HttpMethod.POST, "/login/MdpOublie").hasAnyRole("ROLE_ADMIN", "ROLE_MEMBRE")
 
                     .requestMatchers("/*").permitAll()
                     .requestMatchers("/css/*").permitAll()
+                    .requestMatchers("/js/*").permitAll()
                     .requestMatchers("/images/*").permitAll()
                     .anyRequest().denyAll();
 
