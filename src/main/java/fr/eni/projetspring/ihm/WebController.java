@@ -66,9 +66,17 @@ public class WebController {
 
     @GetMapping("/details")
     public String displayVenteDetails(@RequestParam(name = "idParam") int idValue, Model model) {
-        //récupération du film dont l'id est passé en paramètre
+        //récupération de la vente dont l'id est passé en paramètre
         ArticleVendu articleVendu = articleVenduDAO.read(idValue);
 
+        List<Utilisateur> utilisateurs = utilisateurDAO.readAll();
+
+        Map<Integer, Utilisateur> utilisateursMap = new HashMap<>();
+        for (Utilisateur u : utilisateurs) {
+            utilisateursMap.put(u.getNoUtilisateur(), u);
+        }
+
+        model.addAttribute("Utilisateurs", utilisateursMap);
         model.addAttribute("ArticleVente", articleVendu);
 
         return "vente_details";
