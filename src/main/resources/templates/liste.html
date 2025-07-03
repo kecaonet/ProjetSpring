@@ -29,7 +29,7 @@
     <div th:text="'Prix initial : '+${enchere.prixInitial}"></div>
     <div class="Categorie" th:text="'Catégorie : ' + ${Categories.get(enchere.getCategorie()).libelle  }"></div>
     <div th:text="'Pseudo :  '+ ${Utilisateurs.get(enchere.utilisateurid).pseudo}"></div>
-    <a th:href="@{/enchere/details(idParam=${enchere.noArticle})}">détails</a>
+    <a th:href="@{/details(idParam=${enchere.noArticle})}">détails</a>
   </div>
   <script type="text/javascript" src="/js/liste.js"></script>
 </main>
