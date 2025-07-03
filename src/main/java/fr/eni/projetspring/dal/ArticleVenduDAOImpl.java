@@ -24,7 +24,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
 
     private final String READ_BY_ID = "SELECT NO_ARTICLE, NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
             "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE "
-            + "FROM ARTICLES_VENDUS WHERE no_article = :noArticle";
+            + "FROM ARTICLES_VENDUS WHERE no_article = :id";
 
     private final String READ_ALL = "SELECT NO_ARTICLE, NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
             "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE "
@@ -63,9 +63,10 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     }
 
     @Override
-    public ArticleVendu read(int noArticle) {
-
-        return null;
+    public ArticleVendu read(int NoArticle) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("id", NoArticle);
+        return jdbcTemplate.queryForObject(READ_BY_ID, namedParameters, new ArticleVenduDAOImpl.ArticleVenduRowMapper());
     }
 
     @Override

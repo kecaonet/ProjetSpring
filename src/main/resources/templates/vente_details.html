@@ -3,6 +3,19 @@
                                                 content= ~{::main})} ">
 
 <main>
+<div>
+    <h4>DETAILS VENTE</h4>
+
+    <div th:text="${ArticleVente.nomArticle}"></div>
+    <div th:text="'Description :' +${ArticleVente.description}"></div>
+    <div th:text="'Catégorie :' + ${Categories.get(ArticleVente.categorie).libelle}"></div>
+    <div th:text="'Meilleure offre : '+${ArticleVente.prixVente}"></div>
+    <div th:text="'Mise à prix : ' +${ArticleVente.prixInitial}"></div>
+    <div th:text="'Fin de lenchère :'+${ArticleVente.dateFinEncheres}"></div>
+    <div th:text="'Retrait : '+${ArticleVente.lieuRetrait}"></div>
+    <div th:text="'Vendeur : '+${Utilisateurs.get(ArticleVente.utilisateurid).pseudo}"></div>
+</div>
+
 
 </main>
 </html>

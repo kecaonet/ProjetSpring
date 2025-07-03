@@ -23,6 +23,11 @@ public class TestValidationArticleVendu {
         System.out.println(utilisateurDAO.readAll());
     }
     @Test
+    public void TestReadId() {
+        System.out.println(articleVenduDAO.read(11));
+
+    }
+    @Test
     public void TestInsert() throws ParseException {
         ArticleVendu articleVendu = new ArticleVendu();
         articleVendu.setNomArticle("Test");

@@ -23,6 +23,7 @@
     <input id="idBtnCategorie" type="button" value="Rechercher">
   </div>
   <div class="Enchere" th:each="enchere : ${Encheres}" >
+    <div th:text="'NoArticle : ' + ${enchere.noArticle}"></div>
     <div th:text="'Article : ' + ${enchere.nomArticle}"></div>
     <div th:text="'Description : ' + ${enchere.description}"></div>
     <div th:text="'Fin de lenchère : ' + ${enchere.dateFinEncheres}"></div>
