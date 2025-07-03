@@ -1,5 +1,6 @@
 package fr.eni.projetspring.ihm;
 
+import fr.eni.projetspring.bll.UtilisateurService;
 import fr.eni.projetspring.bo.ArticleVendu;
 import fr.eni.projetspring.bo.Categorie;
 import fr.eni.projetspring.bo.Utilisateur;
@@ -25,6 +26,8 @@ public class WebController {
 
     @Autowired
     CategorieDAO categorieDAO;
+    @Autowired
+    private UtilisateurService utilisateurService;
 
     public WebController(ArticleVenduDAO articleVenduDAO, ArticleVenduDAOImpl articleVenduDAOImpl, WebListenerRegistry webListenerRegistry, UtilisateurDAOImpl utilisateurDAOImpl) {
         this.articleVenduDAO = articleVenduDAO;
@@ -88,9 +91,13 @@ public class WebController {
     }
 
     @GetMapping("/profil")
-    public String profil(){
+    public String displayProfil(@RequestParam(name = "idParam") String pseudo, Model model) {
+
+        Utilisateur utilisateur = utilisateurService.charger(pseudo);
+        model.addAttribute("Utilisateur", utilisateur);
         return "profil";
     }
+
     @GetMapping("/connex")
     public String connex(){
         return "redirect:/index";

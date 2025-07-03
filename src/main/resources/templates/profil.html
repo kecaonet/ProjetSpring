@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.login},
+                                                content= ~{::main})} ">
 
+<main>
+    <ul>
+        <li>
+            <div data-th-text="'Prénom : ' + ${Utilisateur.prenom}"></div>
+        </li>
+        <li>
+            <div data-th-text="'Prénom : ' + ${Utilisateur.prenom}"></div>
+        </li>
+        <li>
+            <div data-th-text="'Prénom : ' + ${Utilisateur.prenom}"></div>
+        </li>
+    </ul>
 
-</body>
+</main>
 </html>
