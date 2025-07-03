@@ -75,7 +75,13 @@ public class WebController {
         for (Utilisateur u : utilisateurs) {
             utilisateursMap.put(u.getNoUtilisateur(), u);
         }
+        List<Categorie> categories = categorieDAO.readAllCategorie();
 
+        Map<Integer, Categorie> categoriesMap = new HashMap<>();
+        for (Categorie c : categories) {
+            categoriesMap.put(c.getNoCategorie(), c);
+        }
+        model.addAttribute("Categories", categoriesMap);
         model.addAttribute("Utilisateurs", utilisateursMap);
         model.addAttribute("ArticleVente", articleVendu);
 
