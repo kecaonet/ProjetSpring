@@ -22,8 +22,11 @@
             <li data-th-if="${#authorization.expression('isAuthenticated')}">
                 <a href="/logout">Log out</a>
             </li>
-            <li>
-                <a href="/profil">Profil</a>
+            <li data-th-if="${#authorization.expression('isAuthenticated')}">
+                <a href="/nouvelle vente">Nouvelle vente</a>
+            </li>
+            <li data-th-if="${#authorization.expression('isAuthenticated')}" >
+                <a data-th-href="@{/profil(idParam=${#authentication.name})}">Profil</a>
             </li>
         </ul>
     </nav>
