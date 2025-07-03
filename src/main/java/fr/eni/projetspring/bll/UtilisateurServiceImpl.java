@@ -33,26 +33,88 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         BusinessException be = new BusinessException();
         boolean isValid = true;
         isValid &= validerUtilisateur(utilisateur, be);
-        isValid &= validerUilisateurUnique(utilisateur.getEmail(), utilisateur.getPseudo(), be);
-        /*isValid &= validerPseudo(utilisateur.getPseudo(), be);
-        isValid &= validerNom(utilisateur.getNom(), be);
-        isValid &= validerPrenom(utilisateur.getPrenom(), be);
-        isValid &= validerEmail(utilisateur.getEmail(), be);
-        isValid &= validerTelephone(utilisateur.getTelephone(), be);
-        isValid &= validerRue(utilisateur.getRue(), be);
-        isValid &= validercodePostal(utilisateur.getCodePostal(), be);
-        isValid &= validerVille(utilisateur.getVille(), be);
-        isValid &= validerMotDePasse(utilisateur.getMotDePasse(),be);
-        isValid &= validerCredit(utilisateur.getCredit(), be);
-        isValid &= validerAdmin(utilisateur.isAdministrateur(), be);*/
+        isValid &= validerUtilisateurUnique(utilisateur.getEmail(), utilisateur.getPseudo(), be);
+        isValid &= validerPseudo(utilisateur.getPseudo(), be);
+        //isValid &= validerNom(utilisateur.getNom(), be);
+        //isValid &= validerPrenom(utilisateur.getPrenom(), be);
+        //isValid &= validerEmail(utilisateur.getEmail(), be);
+        //isValid &= validerTelephone(utilisateur.getTelephone(), be);
+        //isValid &= validerRue(utilisateur.getRue(), be);
+        //isValid &= validercodePostal(utilisateur.getCodePostal(), be);
+        //isValid &= validerVille(utilisateur.getVille(), be);
+        //isValid &= validerMotDePasse(utilisateur.getMotDePasse(),be);
+        //isValid &= validerCredit(utilisateur.getCredit(), be);
+        //isValid &= validerAdmin(utilisateur.isAdministrateur(), be);
 
         if (isValid) {
-            utilisateurDAO.create(utilisateur);
-
+            try {
+                utilisateurDAO.create(utilisateur);
+            } catch (DataAccessException e) { //Exception de la couche DAL
+                //Rollback auto
+                be.add(BusinessCode.BLL_UTILISATEUR_CREER_ERREUR);
+                throw be;
+            }
         } else {
             throw be;
         }
     }
+
+// --------------------------- Début Validations User ---------------------------
+
+    //private boolean validerAdmin(boolean administrateur, BusinessException be) {}
+
+    //private boolean validerCredit(int credit, BusinessException be) {}
+
+    //private boolean validerMotDePasse(String motDePasse, BusinessException be) {}
+
+    //private boolean validerVille(String ville, BusinessException be) {}
+
+    //private boolean validercodePostal(String codePostal, BusinessException be) {}
+
+    //private boolean validerRue(String rue, BusinessException be) {}
+
+    //private boolean validerTelephone(String telephone, BusinessException be) {}
+
+    //private boolean validerEmail(String email, BusinessException be) {}
+
+    //private boolean validerPrenom(String prenom, BusinessException be) {}
+
+    //private boolean validerNom(String nom, BusinessException be) {}
+
+    private boolean validerUtilisateur(Utilisateur u, BusinessException be) {
+        if (u == null) {
+            be.add(BusinessCode.VALIDATION_UTILISATEUR_NULL);
+            return false;
+        }
+        return true;
+    };
+
+    private boolean validerUtilisateurUnique(String email, String pseudo, BusinessException be) {
+        //Valider que pseudo et email sont uniques
+        try {
+            boolean pseudoExiste = utilisateurDAO.findByPseudo(pseudo);
+            boolean emailExiste = utilisateurDAO.findByEmail(email);
+            if (pseudoExiste && emailExiste) {
+                be.add(BusinessCode.VALIDATION_UTILISATEUR_UNIQUE);
+                return false;
+            }
+        } catch (DataAccessException e) {
+            //l'utilisateur existe déjà
+            be.add(BusinessCode.VALIDATION_UTILISATEUR_UNIQUE);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validerPseudo(String pseudo,  BusinessException be) {
+        if (pseudo.matches("^[a-zA-Z0-9]+$")) {
+            be.add(BusinessCode.VALIDATION_PSEUDO_INVALIDE);
+            return false;
+        }
+        return true;
+    }
+
+// --------------------------- Fin Validations User ---------------------------
 
 
     @Override
@@ -84,64 +146,4 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public Utilisateur consulterCredits(Utilisateur utilisateur) {
         return null;
     }
-
-    private boolean validerUtilisateur(Utilisateur u, BusinessException be) {
-        if (u == null) {
-            be.add(BusinessCode.VALIDATION_UTILISATEUR_NULL);
-            return false;
-        }
-        return true;
-    };
-
-/*
-    private boolean validerAdmin(boolean administrateur, BusinessException be) {
-    }
-
-    private boolean validerCredit(int credit, BusinessException be) {
-    }
-
-    private boolean validerMotDePasse(String motDePasse, BusinessException be) {
-    }
-
-    private boolean validerVille(String ville, BusinessException be) {
-    }
-
-    private boolean validercodePostal(String codePostal, BusinessException be) {
-    }
-
-    private boolean validerRue(String rue, BusinessException be) {
-    }
-
-    private boolean validerTelephone(String telephone, BusinessException be) {
-    }
-
-    private boolean validerEmail(String email, BusinessException be) {
-    }
-
-    private boolean validerPrenom(String prenom, BusinessException be) {
-    }
-
-    private boolean validerNom(String nom, BusinessException be) {
-    }
-
-    private boolean validerPseudo(String pseudo, BusinessException be) {
-    }*/
-
-    private boolean validerUilisateurUnique(String email, String pseudo, BusinessException be) {
-        //Valider que pseudo et email sont uniques
-        try {
-            boolean pseudoExiste = utilisateurDAO.findByPseudo(pseudo);
-            boolean emailExiste = utilisateurDAO.findByEmail(email);
-            if (pseudoExiste && emailExiste) {
-                be.add(BusinessCode.VALIDATION_UTILISATEUR_UNIQUE);
-                return false;
-            }
-        } catch (DataAccessException e) {
-            //l'utilisateur existe déjà
-            be.add(BusinessCode.VALIDATION_UTILISATEUR_UNIQUE);
-            return false;
-        }
-        return true;
-    }
-
 }
