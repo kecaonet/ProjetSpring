@@ -1,3 +1,13 @@
 .error {
     background-color: red;
 }
+ul{
+    list-style-type: none
+}
+
+.formModifProfil {
+    display: flex;
+    flex-direction: row ;
+}
+
+
