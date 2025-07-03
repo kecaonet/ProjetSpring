@@ -98,6 +98,17 @@ public class WebController {
         return "profil";
     }
 
+    @GetMapping("/nouvelle vente")
+    public String nouvelleVente(@RequestParam(name = "idParam") String pseudo, Model model) {
+        Utilisateur utilisateur = utilisateurService.charger(pseudo);
+        model.addAttribute("Utilisateur", utilisateur);
+
+        List<Categorie> categorieList = categorieDAO.readAllCategorie();
+        model.addAttribute("Categories", categorieList);
+        return "nouvelle_vente";
+
+    }
+
     @GetMapping("/connex")
     public String connex(){
         return "redirect:/index";
