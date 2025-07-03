@@ -23,7 +23,7 @@
                 <a href="/logout">Log out</a>
             </li>
             <li data-th-if="${#authorization.expression('isAuthenticated')}">
-                <a href="/nouvelle vente">Nouvelle vente</a>
+                <a data-th-href="@{/nouvelle vente(idParam=${#authentication.name})}">Nouvelle vente</a>
             </li>
             <li data-th-if="${#authorization.expression('isAuthenticated')}" >
                 <a data-th-href="@{/profil(idParam=${#authentication.name})}">Profil</a>

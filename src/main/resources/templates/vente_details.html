@@ -13,7 +13,7 @@
     <div th:text="'Mise à prix : ' +${ArticleVente.prixInitial}"></div>
     <div th:text="'Fin de lenchère :'+${ArticleVente.dateFinEncheres}"></div>
     <div th:text="'Retrait : '+${ArticleVente.lieuRetrait}"></div>
-    <div th:text="'Vendeur : '+${Utilisateurs.get(ArticleVente.utilisateurid).pseudo}"></div>
+    <a data-th-href="@{/profil(idParam=${Utilisateurs.get(ArticleVente.utilisateurid).pseudo})}" data-th-text="${Utilisateurs.get(ArticleVente.utilisateurid).pseudo}"></a>
 </div>
 
 
