@@ -34,12 +34,20 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         return count>=1;
     }
 
+    @Override
+    public boolean findByPseudo(String pseudo) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("pseudo", pseudo);
+        int count = jdbcTemplate.queryForObject(FIND_BY_PSEUDO, namedParameters, Integer.class);
+        return count>=1;
+    }
+
     /**
      * @param pseudo le pseudo
      * @return l'utilisateur en fonction de son pseudo
      */
     @Override
-    public Utilisateur findByPseudo(String pseudo) {
+    public Utilisateur findUtilByPseudo(String pseudo) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("pseudo", pseudo);
         return jdbcTemplate.queryForObject(FIND_BY_PSEUDO, namedParameters, new UtilisateurRowMapper());
