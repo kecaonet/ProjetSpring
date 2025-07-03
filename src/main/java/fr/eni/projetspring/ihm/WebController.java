@@ -17,8 +17,6 @@ import java.util.Map;
 
 @Controller
 public class WebController {
-
-    private final WebListenerRegistry webListenerRegistry;
     @Autowired
     UtilisateurDAO utilisateurDAO;
 
@@ -28,9 +26,10 @@ public class WebController {
     @Autowired
     CategorieDAO categorieDAO;
 
-    public WebController(ArticleVenduDAO articleVenduDAO, ArticleVenduDAOImpl articleVenduDAOImpl, WebListenerRegistry webListenerRegistry, UtilisateurDAOImpl utilisateurDAOImpl) {this.articleVenduDAO = articleVenduDAO;
+    public WebController(ArticleVenduDAO articleVenduDAO, ArticleVenduDAOImpl articleVenduDAOImpl, WebListenerRegistry webListenerRegistry, UtilisateurDAOImpl utilisateurDAOImpl) {
         this.articleVenduDAO = articleVenduDAO;
-        this.webListenerRegistry = webListenerRegistry;
+        this.categorieDAO = categorieDAO;
+        this.utilisateurDAO = utilisateurDAO;
     }
     @GetMapping("/")
     public String Racine() {
@@ -75,7 +74,13 @@ public class WebController {
         for (Utilisateur u : utilisateurs) {
             utilisateursMap.put(u.getNoUtilisateur(), u);
         }
+        List<Categorie> categories = categorieDAO.readAllCategorie();
 
+        Map<Integer, Categorie> categoriesMap = new HashMap<>();
+        for (Categorie c : categories) {
+            categoriesMap.put(c.getNoCategorie(), c);
+        }
+        model.addAttribute("Categories", categoriesMap);
         model.addAttribute("Utilisateurs", utilisateursMap);
         model.addAttribute("ArticleVente", articleVendu);
 
@@ -85,10 +90,6 @@ public class WebController {
     @GetMapping("/profil")
     public String profil(){
         return "profil";
-    }
-    @GetMapping("/login")
-    public String login(){
-        return "login";
     }
     @GetMapping("/connex")
     public String connex(){
