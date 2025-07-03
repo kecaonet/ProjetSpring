@@ -17,8 +17,6 @@ import java.util.Map;
 
 @Controller
 public class WebController {
-
-    private final WebListenerRegistry webListenerRegistry;
     @Autowired
     UtilisateurDAO utilisateurDAO;
 
@@ -28,9 +26,10 @@ public class WebController {
     @Autowired
     CategorieDAO categorieDAO;
 
-    public WebController(ArticleVenduDAO articleVenduDAO, ArticleVenduDAOImpl articleVenduDAOImpl, WebListenerRegistry webListenerRegistry, UtilisateurDAOImpl utilisateurDAOImpl) {this.articleVenduDAO = articleVenduDAO;
+    public WebController(ArticleVenduDAO articleVenduDAO, ArticleVenduDAOImpl articleVenduDAOImpl, WebListenerRegistry webListenerRegistry, UtilisateurDAOImpl utilisateurDAOImpl) {
         this.articleVenduDAO = articleVenduDAO;
-        this.webListenerRegistry = webListenerRegistry;
+        this.categorieDAO = categorieDAO;
+        this.utilisateurDAO = utilisateurDAO;
     }
     @GetMapping("/")
     public String Racine() {
@@ -91,10 +90,6 @@ public class WebController {
     @GetMapping("/profil")
     public String profil(){
         return "profil";
-    }
-    @GetMapping("/login")
-    public String login(){
-        return "login";
     }
     @GetMapping("/connex")
     public String connex(){
