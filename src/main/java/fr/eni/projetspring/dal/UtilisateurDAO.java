@@ -18,11 +18,13 @@ public interface UtilisateurDAO {
 
     public boolean findByEmail(String email);
 
+    public boolean findByPseudo(String pseudo);
+
     /**
      * @param pseudo le pseudo
      * @return l'utilisateur en fonction de son pseudo
      */
-    public Utilisateur findByPseudo(String pseudo);
+    public Utilisateur findUtilByPseudo(String pseudo);
 
 }
 

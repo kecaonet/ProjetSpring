@@ -4,9 +4,9 @@ import fr.eni.projetspring.bo.Utilisateur;
 import fr.eni.projetspring.dal.UtilisateurDAO;
 import fr.eni.projetspring.exceptions.BusinessCode;
 import fr.eni.projetspring.exceptions.BusinessException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -24,16 +24,17 @@ public class UtilisateurServiceImpl implements UtilisateurService {
      */
     @Override
     public Utilisateur charger(String pseudo) {
-        return utilisateurDAO.findByPseudo(pseudo);
+        return utilisateurDAO.findUtilByPseudo(pseudo);
     }
 
     @Override
     public void ajouterUtilisateur(Utilisateur utilisateur) {
-        /*BusinessException be = new BusinessException();
+        //Validation de l'utilisateur avant sauvegarde
+        BusinessException be = new BusinessException();
         boolean isValid = true;
         isValid &= validerUtilisateur(utilisateur, be);
         isValid &= validerUilisateurUnique(utilisateur.getEmail(), utilisateur.getPseudo(), be);
-        isValid &= validerPseudo(utilisateur.getPseudo(), be);
+        /*isValid &= validerPseudo(utilisateur.getPseudo(), be);
         isValid &= validerNom(utilisateur.getNom(), be);
         isValid &= validerPrenom(utilisateur.getPrenom(), be);
         isValid &= validerEmail(utilisateur.getEmail(), be);
@@ -43,8 +44,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         isValid &= validerVille(utilisateur.getVille(), be);
         isValid &= validerMotDePasse(utilisateur.getMotDePasse(),be);
         isValid &= validerCredit(utilisateur.getCredit(), be);
-        isValid &= validerAdmin(utilisateur.isAdministrateur(), be);
-*/
+        isValid &= validerAdmin(utilisateur.isAdministrateur(), be);*/
+
+        if (isValid) {
+            utilisateurDAO.create(utilisateur);
+
+        } else {
+            throw be;
+        }
     }
 
 
@@ -86,8 +93,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return true;
     };
 
-
-    /*private boolean validerAdmin(boolean administrateur, BusinessException be) {
+/*
+    private boolean validerAdmin(boolean administrateur, BusinessException be) {
     }
 
     private boolean validerCredit(int credit, BusinessException be) {
@@ -118,13 +125,13 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     private boolean validerPseudo(String pseudo, BusinessException be) {
-    }
+    }*/
 
     private boolean validerUilisateurUnique(String email, String pseudo, BusinessException be) {
-        //Valider que peseudo et email sont uniques
+        //Valider que pseudo et email sont uniques
         try {
-            boolean pseudoExiste = utilisateurDAO.findPseudo(pseudo);
-            boolean emailExiste = utilisateurDAO.findEmail(email);
+            boolean pseudoExiste = utilisateurDAO.findByPseudo(pseudo);
+            boolean emailExiste = utilisateurDAO.findByEmail(email);
             if (pseudoExiste && emailExiste) {
                 be.add(BusinessCode.VALIDATION_UTILISATEUR_UNIQUE);
                 return false;
@@ -135,6 +142,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             return false;
         }
         return true;
-    }*/
+    }
 
 }
