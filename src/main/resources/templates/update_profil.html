@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.login},
+                                                content= ~{::main})} ">
+<main>
+  <form data-th-action="@{/update-profil}" method="post">
+    <h1>Mon Profil</h1>
+    <div class="formModifProfil">
+      <div class="listeModifProfil">
+        <ul class="flex-outer">
+          <li>
+            <label for="username" >Pseudo</label>
+            <input id="username" name="username" placeholder="pseudo" type="text">
+          </li>
+          <li>
+            <label for="prenom" >Prenom</label>
+            <input id="prenom" name="prenom" placeholder="prenom" type="text">
+          </li>
+          <li>
+            <label for="telephone" >Télephone</label>
+            <input id="telephone" name="telephone" placeholder="0*********" type="tel">
+          </li>
+          <li>
+            <label for="codePostal" >Code postal</label>
+            <input id="codePostal" name="codePostal" placeholder="code postal" type="number">
+          </li>
+          <li>
+            <label for="password" >Mot de passe actuel</label>
+            <input id="password" name="password" type="password">
+          </li>
+          <li>
+            <label for="newPassword" >Nouveau mot de passe</label>
+            <input id="newPassword" name="newPassword" placeholder="Nouveau mot de passe" type="password">
+          </li>
+          <li>
+            <div data-th-text="'Credits : ' + ${Utilisateur.credit}"></div>
+          </li>
+        </ul>
+      </div>
+      <div class="listeModifProfil">
+        <ul class="flex-outer">
+          <li>
+            <label for="nom" >Nom</label>
+            <input id="nom" name="nom" placeholder="nom" type="text">
+          </li>
+          <li>
+            <label for="email" >Email</label>
+            <input id="email" name="email" placeholder="mail" type="email">
+          </li>
+          <li>
+            <label for="rue" >Rue</label>
+            <input id="rue" name="rue" placeholder="rue" type="text">
+          </li>
+          <li>
+            <label for="ville" >Ville</label>
+            <input id="ville" name="ville" placeholder="Ville" type="text">
+          </li>
+          <li>
+            <div> <br> </div>
+          </li>
+          <li>
+            <label for="confirmation" >Nouveau mot de passe</label>
+            <input id="confirmation" name="confirmation" placeholder="Nouveau mot de passe" type="password">
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="boutonsModifProfil">
+      <div>
+        <button type="submit">Enregister</button>
+      </div>
+      <div>
+        <button type="delete">Supprimer mon compte</button>
+      </div>
+    </div>
+  </form>
+</main>
+</html>

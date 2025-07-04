@@ -5,15 +5,35 @@
 <main>
     <ul>
         <li>
-            <div data-th-text="'Prénom : ' + ${Utilisateur.prenom}"></div>
+            <div data-th-text="'Pseudo : ' + ${Utilisateur.pseudo}"></div>
+        </li>
+        <li>
+            <div data-th-text="'Nom : ' + ${Utilisateur.nom}"></div>
         </li>
         <li>
             <div data-th-text="'Prénom : ' + ${Utilisateur.prenom}"></div>
         </li>
         <li>
-            <div data-th-text="'Prénom : ' + ${Utilisateur.prenom}"></div>
+            <div data-th-text="'email : ' + ${Utilisateur.email}"></div>
         </li>
+        <li>
+            <div data-th-text="'Téléphone : ' + ${Utilisateur.telephone}"></div>
+        </li>
+        <li>
+            <div data-th-text="'Rue : ' + ${Utilisateur.rue}"></div>
+        </li>
+        <li>
+            <div data-th-text="'Code Postal : ' + ${Utilisateur.codePostal}"></div>
+        </li>
+        <li>
+            <div data-th-text="'Ville : ' + ${Utilisateur.ville}"></div>
+        </li>
+
     </ul>
+
+    <li data-th-if="${Utilisateur.pseudo==#authentication.name}">
+        <a data-th-href="@{/updateProfil(idParam=${#authentication.name})}">Modifier le profil</a>
+    </li>
 
 </main>
 </html>
