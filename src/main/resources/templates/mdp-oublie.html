@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.login},
+                                                content= ~{::main})} ">
+<main>
+    <form data-th-action="@{/mdp-oublie}" method="post">
+        <h1>Mot de passe oublié</h1>
+
+        <ul class="flex-outer">
+            <li>
+                <label for="username" >Pseudo</label>
+                <input id="username" name="username" value="pseudo">
+            </li>
+            <li>
+                <label for="email" >Email</label>
+                <input id="email" name="email" type="email">
+            </li>
+            <li>
+                <button type="submit">Générer nouveau mdp</button>
+            </li>
+        </ul>
+    </form>
+</main>
+</html>

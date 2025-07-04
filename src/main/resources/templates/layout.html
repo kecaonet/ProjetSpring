@@ -1,0 +1,40 @@
+<html lang="fr" data-th-fragment="frag_layout(title, content)">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="${title}"></title>
+    <link rel="stylesheet" href="/css/general.css">
+</head>
+<body>
+<header>
+    <div>
+        <a href="/?language=fr"><img alt="Français"
+                                     src="/images/French.webp"></a> <a href="/?language=en"><img
+            alt="English" src="/images/English.webp"></a>
+    </div>
+    <nav>
+        <ul>
+            <li>
+                <a href="/liste">Liste</a>
+            </li>
+            <li data-th-if="${!#authorization.expression('isAuthenticated')}">
+                <a href="/login">S'inscrire - Se connecter</a>
+            </li>
+            <li data-th-if="${#authorization.expression('isAuthenticated')}">
+                <a href="/logout">Log out</a>
+            </li>
+            <li data-th-if="${#authorization.expression('isAuthenticated')}">
+                <a data-th-href="@{/nouvelle vente(idParam=${#authentication.name})}">Nouvelle vente</a>
+            </li>
+            <li data-th-if="${#authorization.expression('isAuthenticated')}" >
+                <a data-th-href="@{/profil(idParam=${#authentication.name})}">Profil</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<h2 data-th-text="${title}"></h2>
+<main data-th-replace="${content}"></main>
+<footer>
+    <p>&copy; ENI Corporation</p>
+</footer>
+</body>
+</html>
