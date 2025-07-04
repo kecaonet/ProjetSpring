@@ -94,8 +94,13 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         try {
             boolean pseudoExiste = utilisateurDAO.findByPseudo(pseudo);
             boolean emailExiste = utilisateurDAO.findByEmail(email);
-            if (pseudoExiste && emailExiste) {
-                be.add(BusinessCode.VALIDATION_UTILISATEUR_UNIQUE);
+            if (pseudoExiste || emailExiste) {
+                if (pseudoExiste) {
+                    be.add(BusinessCode.VALIDATION_PSEUDO_UNIQUE);
+                }
+                if (emailExiste) {
+                    be.add(BusinessCode.VALIDATION_EMAIL_UNIQUE);
+                }
                 return false;
             }
         } catch (DataAccessException e) {
@@ -107,7 +112,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     private boolean validerPseudo(String pseudo,  BusinessException be) {
-        if (pseudo.matches("^[a-zA-Z0-9]+$")) {
+        if (!pseudo.matches("^[a-zA-Z0-9]+$")) {
             be.add(BusinessCode.VALIDATION_PSEUDO_INVALIDE);
             return false;
         }

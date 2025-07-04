@@ -10,14 +10,14 @@ public class Utilisateur implements Serializable {
     private String pseudo;
     private String nom;
     private String prenom;
-    public String email;
+    private String email;
     private String telephone;
     private String rue;
     private String codePostal;
     private String ville;
     private String motDePasse;
-    private int credit;
-    private boolean administrateur;
+    private int credit = 100;
+    private boolean administrateur = false;
 
     private List<Enchere> enchereList = new ArrayList<>();
     private List<ArticleVendu> articleVenduList = new ArrayList<>();
@@ -25,23 +25,10 @@ public class Utilisateur implements Serializable {
     public Utilisateur() {
     }
 
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, int credit, boolean administrateur, List<Enchere> enchereList, List<ArticleVendu> articleVenduList) {
-        this.pseudo = pseudo;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.telephone = telephone;
-        this.rue = rue;
-        this.codePostal = codePostal;
-        this.ville = ville;
-        this.credit = credit;
-        this.administrateur = administrateur;
-        this.enchereList = enchereList;
-        this.articleVenduList = articleVenduList;
-    }
-
-    public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur, List<Enchere> enchereList, List<ArticleVendu> articleVenduList) {
-        this.noUtilisateur = noUtilisateur;
+    /**
+     * Constructeur pour création dans la DAO
+     */
+    public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
@@ -51,11 +38,8 @@ public class Utilisateur implements Serializable {
         this.codePostal = codePostal;
         this.ville = ville;
         this.motDePasse = motDePasse;
-        this.credit = credit;
-        this.administrateur = administrateur;
-        this.enchereList = enchereList;
-        this.articleVenduList = articleVenduList;
     }
+
 
     public String getMotDePasse() {
         return motDePasse;
@@ -181,6 +165,7 @@ public class Utilisateur implements Serializable {
         sb.append(", rue='").append(rue).append('\'');
         sb.append(", codePostal='").append(codePostal).append('\'');
         sb.append(", ville='").append(ville).append('\'');
+        //sb.append(", motDePasse='").append(motDePasse).append('\'');
         sb.append(", credit=").append(credit);
         sb.append(", administrateur=").append(administrateur);
         sb.append(", enchereList=").append(enchereList);
