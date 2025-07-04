@@ -9,7 +9,7 @@
         <ul class="flex-outer">
           <li>
             <label for="username" >Pseudo</label>
-            <input id="username" name="username" placeholder="pseudo" type="text">
+            <input   id="username" name="username" placeholder="pseudo" type="text">
           </li>
           <li>
             <label for="prenom" >Prenom</label>
@@ -25,11 +25,11 @@
           </li>
           <li>
             <label for="password" >Mot de passe actuel</label>
-            <input id="password" name="password" type="password">
+            <input id="password" name="actuelPassword" type="password">
           </li>
           <li>
             <label for="newPassword" >Nouveau mot de passe</label>
-            <input id="newPassword" name="newPassword" placeholder="Nouveau mot de passe" type="password">
+            <input id="newPassword" name="motDePasse" placeholder="Nouveau mot de passe" type="password">
           </li>
           <li>
             <div data-th-text="'Credits : ' + ${Utilisateur.credit}"></div>
@@ -58,7 +58,7 @@
             <div> <br> </div>
           </li>
           <li>
-            <label for="confirmation" >Nouveau mot de passe</label>
+            <label for="confirmation" >confirmer le nouveau mot de passe</label>
             <input id="confirmation" name="confirmation" placeholder="Nouveau mot de passe" type="password">
           </li>
         </ul>

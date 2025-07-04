@@ -9,7 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -19,6 +22,9 @@ public class UserController {
 
     @Autowired
     UtilisateurDAO utilisateurDAO;
+
+    @Autowired
+    UtilisateurController utilisateurController;
 
     /*@GetMapping("/updateProfil")
     public String showUpdateForm(@PathVariable("id") int id, Model model) {
@@ -39,19 +45,51 @@ public class UserController {
 
 
     @PostMapping("/update-profil")
-    public String updateProfil(@PathVariable("id") long id, Utilisateur utilisateur,
-                             BindingResult result, Model model) {
+    public String updateProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur,
+                               BindingResult result) {
         if (result.hasErrors()) {
             //utilisateur.setId(id);
-            return "update-user";
+            return "update_profil";
         }
+        if (utilisateur.getMotDePasse()==null) {
 
-        utilisateurDAO.update(utilisateur);
-        return "redirect:/profil";
-    }
+               try {
+                   utilisateurService.modifierUtilisateur(utilisateur);
+
+               }
+               catch (BusinessException be) {
+                   System.err.println(be.getClefsExternalisations());
+                                   be.getClefsExternalisations().forEach( key -> {
+                                      ObjectError error = new ObjectError("globalError", key);
+                                       result.addError(error);
+               });
+            }
+        }
+        return "update_profil";
+    };
+
+    //    public String createUser(@ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult) {
+    //        if (!bindingResult.hasErrors()) {
+    //            try {
+    //                utilisateurService.ajouterUtilisateur(utilisateur);
+    //                return "redirect:/liste";
+    //            } catch (BusinessException e) {
+    //                System.err.println(e.getClefsExternalisations());
+    //                e.getClefsExternalisations().forEach( key -> {
+    //                    ObjectError error = new ObjectError("globalError", key);
+    //                    bindingResult.addError(error);
+    //                });
+    //            }
+    //        }
+    //        return "create_profil";
 
 
-    @PostMapping("/update-profil")
+
+
+
+
+
+    /*@PostMapping("/update-profil")
     public String updateProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur,
                                BindingResult bindingResult) {
         String newMdp;
@@ -74,6 +112,7 @@ public class UserController {
                     }
             );
             return "update_profil";
-        }
-    }
+        }*/
+
 }
+

@@ -123,8 +123,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 
     @Override
-    public void modifierUtilisateur(int id) {
-
+    public void modifierUtilisateur(Utilisateur utilisateur) {
+        utilisateurDAO.update(utilisateur);
     }
 
     @Override

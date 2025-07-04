@@ -1,7 +1,6 @@
 package fr.eni.projetspring.bll;
 
 import fr.eni.projetspring.bo.Utilisateur;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public interface UtilisateurService{
 
     void ajouterUtilisateur(Utilisateur utilisateur);
 
-    void modifierUtilisateur(int id);
+    void modifierUtilisateur(Utilisateur utilisateur);
 
     void supprimerUtilisateur(int id);
 

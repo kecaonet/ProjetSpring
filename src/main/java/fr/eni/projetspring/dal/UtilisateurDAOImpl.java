@@ -19,12 +19,24 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
     private final String INSERT = "INSERT INTO UTILISATEURS(PSEUDO, NOM, PRENOM, EMAIL, TELEPHONE, RUE, CODE_POSTAL, VILLE, MOT_DE_PASSE, CREDIT, ADMINISTRATEUR) "
             + " VALUES (:pseudo, :nom, :prenom, :email, :telephone, :rue, : codePostal, :ville, : motDePasse, : credit, :administrateur)";
+    private final String UPDATE = "UPDATE UTILISATEURS SET "
+            + "PSEUDO = :pseudo, "
+            + "NOM = :nom, "
+            + "PRENOM = :prenom, "
+            + "EMAIL = :email, "
+            + "TELEPHONE = :telephone, "
+            + "RUE = :rue, "
+            + "CODE_POSTAL = :codePostal, "
+            + "VILLE = :ville, "
+            + "MOT_DE_PASSE = :motDePass "
+            + "WHERE ID = :id";
     private final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
     private final String FIND_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = :id";
     private final String DELETE_BY_ID = "DELETE FROM UTILISATEURS WHERE ID = :id";
     private final String FIND_BY_EMAIL = "SELECT count(email) FROM UTILISATEURS WHERE EMAIL = :email";
     private final String FIND_BY_PSEUDO = "SELECT count(pseudo) FROM UTILISATEURS WHERE PSEUDO = :pseudo";
     private final String READ_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = :pseudo";
+
 
     @Override
     public boolean findByEmail(String email) {
@@ -106,7 +118,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         namedParameters.addValue("rue", utilisateur.getRue());
         namedParameters.addValue("codePostal", utilisateur.getCodePostal());
         namedParameters.addValue("ville", utilisateur.getVille());
-        jdbcTemplate.update(INSERT, namedParameters);
+        namedParameters.addValue("motDePasse", utilisateur.getMotDePasse());
+        jdbcTemplate.update(UPDATE, namedParameters);
     }
 
     @Override
