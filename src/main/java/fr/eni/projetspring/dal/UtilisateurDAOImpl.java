@@ -71,8 +71,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         namedParameters.addValue("codePostal", utilisateur.getCodePostal());
         namedParameters.addValue("ville", utilisateur.getVille());
         namedParameters.addValue("motDePasse", utilisateur.getMotDePasse());
-        namedParameters.addValue("credit", utilisateur.getCredit());
-        namedParameters.addValue("administrateur", utilisateur.isAdministrateur());
 
 
         jdbcTemplate.update(INSERT, namedParameters, keyHolder);
@@ -98,6 +96,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
     @Override
     public void update(Utilisateur utilisateur) {
+
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("pseudo", utilisateur.getPseudo());
         namedParameters.addValue("nom", utilisateur.getNom());
@@ -107,9 +106,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         namedParameters.addValue("rue", utilisateur.getRue());
         namedParameters.addValue("codePostal", utilisateur.getCodePostal());
         namedParameters.addValue("ville", utilisateur.getVille());
-        //namedParameters.addValue("motDePasse", utilisateur.getMotDePasse());
-        //namedParameters.addValue("credit", utilisateur.getCredit());
-        //namedParameters.addValue("administrateur", utilisateur.isAdministrateur());
+        jdbcTemplate.update(INSERT, namedParameters);
     }
 
     @Override

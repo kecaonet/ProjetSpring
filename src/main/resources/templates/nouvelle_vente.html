@@ -2,14 +2,93 @@
 <html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.login},
                                                 content= ~{::main})} ">
 <main>
-  <form data-th-action="@{/nouvelle-vente}" method="post">
+    <link rel="stylesheet" href="/css/nouvelleVente.css">
     <h1>Nouvelle Vente</h1>
+  <form data-th-action="@{/nouvelle-vente}" method="post">
+<ul>
+  <li>
+<div class="DivLab">
+
     <label for="idNomArt">Article : </label>
     <input type="text" id="idNomArt">
+</div>
+  </li>
+<li>
+<div class="DivLab">
+
     <label for="idDesc">Description : </label>
     <input type="text" id="idDesc">
+</div>
+</li>
+<li>
+  <div class="DivLab">
 
-    <input type="submit">
+    <label for="idCateg">Catégorie : </label>
+    <select id="idCateg">
+      <option data-th-each="Categorie : ${Categories}" data-th-text="${Categorie.libelle}">
+    </select>
+  </div>
+</li>
+<li>
+<div class="DivLab">
+
+    <label for="idPhoto">Photo De l'article</label>
+    <input type="button" id="idPhoto" value="Uploader">
+</div>
+</li>
+<li>
+<div class="DivLab">
+
+    <label for="idPrix">Mise à prix : </label>
+    <input type="number" id="idPrix">
+</div>
+</li>
+<li>
+<div class="DivLab">
+
+    <label for="idDateDebut">Début de l'enchère : </label>
+    <input type="date" id="idDateDebut">
+</div>
+</li>
+<li>
+<div class="DivLab">
+
+    <label for="idDateFin">Fin de l'enchère : </label>
+    <input type="date" id="idDateFin">
+</div>
+</li>
+<li>
+<div>
+
+    <fieldset>
+      <legend>Retrait</legend>
+      <ul>
+        <li>
+
+      <label for="idRue">Rue : </label>
+      <input type="text" id="idRue">
+        </li>
+        <li>
+
+      <label for="idCP">Code Postal : </label>
+      <input type="text" id="idCP">
+        </li>
+        <li>
+
+      <label for="idVille">Ville : </label>
+      <input type="text" id="idVille">
+        </li>
+      </ul>
+    </fieldset>
+</div>
+
+</li>
+</ul>
+<div>
+
+    <input id="idBtnAcc" type="submit">
+    <input id="idBtnRes" type="reset">
+</div>
   </form>
 </main>
 </html>
