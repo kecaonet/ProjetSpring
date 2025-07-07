@@ -28,7 +28,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
             + "RUE = :rue, "
             + "CODE_POSTAL = :codePostal, "
             + "VILLE = :ville, "
-            + "MOT_DE_PASSE = :motDePass "
+            + "MOT_DE_PASSE = :motDePasse "
             + "WHERE ID = :id";
     private final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
     private final String FIND_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = :id";

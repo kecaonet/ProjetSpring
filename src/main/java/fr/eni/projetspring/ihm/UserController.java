@@ -35,14 +35,30 @@ public class UserController {
         return "update_profil";
     }*/
 
-    @GetMapping("/updateProfil")
-    public String modifProfil(@RequestParam(name = "idParam") String pseudo, Model model) {
+    /*@GetMapping("/updateProfil")
+    public String modifProfil(Model model) {
 
         Utilisateur utilisateur = utilisateurService.charger(pseudo);
-        model.addAttribute("Utilisateur", utilisateur);
+        model.addAttribute("Utilisateur", utilisateurEnSession);
         return "update_profil";
-    }
+    }*/
 
+        @GetMapping("/updateProfil")
+        public String modifProfil(@RequestParam(name = "idParam") String pseudo, Model model) {
+
+            Utilisateur utilisateur = utilisateurService.charger(pseudo);
+            model.addAttribute("utilisateur", utilisateur);
+            return "update_profil";
+        }
+
+
+    //   @GetMapping("/profil")
+    //    public String displayProfil(@RequestParam(name = "idParam") String pseudo, Model model) {
+    //
+    //        Utilisateur utilisateur = utilisateurService.charger(pseudo);
+    //        model.addAttribute("Utilisateur", utilisateur);
+    //        return "profil";
+    //    }
 
     @PostMapping("/update-profil")
     public String updateProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur,
@@ -54,8 +70,8 @@ public class UserController {
         if (utilisateur.getMotDePasse()==null) {
 
                try {
-                   utilisateurService.modifierUtilisateur(utilisateur);
-
+                    utilisateurService.modifierUtilisateur(utilisateur);
+                    return "profil";
                }
                catch (BusinessException be) {
                    System.err.println(be.getClefsExternalisations());
@@ -65,7 +81,7 @@ public class UserController {
                });
             }
         }
-        return "update_profil";
+       return "update_profil";
     };
 
     //    public String createUser(@ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult) {

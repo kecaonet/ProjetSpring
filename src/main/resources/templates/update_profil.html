@@ -9,19 +9,19 @@
         <ul class="flex-outer">
           <li>
             <label for="username" >Pseudo</label>
-            <input   id="username" name="username" placeholder="pseudo" type="text">
+            <input data-th-field="${utilisateur.pseudo}" id="username" name="username" placeholder="pseudo" type="text">
           </li>
           <li>
             <label for="prenom" >Prenom</label>
-            <input id="prenom" name="prenom" placeholder="prenom" type="text">
+            <input data-th-field="${utilisateur.prenom}" id="prenom" name="prenom" placeholder="prenom" type="text">
           </li>
           <li>
             <label for="telephone" >Télephone</label>
-            <input id="telephone" name="telephone" placeholder="0*********" type="tel">
+            <input data-th-field="${utilisateur.telephone}" id="telephone" name="telephone" placeholder="0*********" type="tel">
           </li>
           <li>
             <label for="codePostal" >Code postal</label>
-            <input id="codePostal" name="codePostal" placeholder="code postal" type="number">
+            <input data-th-field="${utilisateur.codePostal}" id="codePostal" name="codePostal" placeholder="code postal" type="number">
           </li>
           <li>
             <label for="password" >Mot de passe actuel</label>
@@ -31,28 +31,26 @@
             <label for="newPassword" >Nouveau mot de passe</label>
             <input id="newPassword" name="motDePasse" placeholder="Nouveau mot de passe" type="password">
           </li>
-          <li>
-            <div data-th-text="'Credits : ' + ${Utilisateur.credit}"></div>
-          </li>
+
         </ul>
       </div>
       <div class="listeModifProfil">
         <ul class="flex-outer">
           <li>
             <label for="nom" >Nom</label>
-            <input id="nom" name="nom" placeholder="nom" type="text">
+            <input data-th-field="${utilisateur.nom}" id="nom" name="nom" placeholder="nom" type="text">
           </li>
           <li>
             <label for="email" >Email</label>
-            <input id="email" name="email" placeholder="mail" type="email">
+            <input data-th-field="${utilisateur.email}" id="email" name="email" placeholder="mail" type="email">
           </li>
           <li>
             <label for="rue" >Rue</label>
-            <input id="rue" name="rue" placeholder="rue" type="text">
+            <input data-th-field="${utilisateur.rue}" id="rue" name="rue" placeholder="rue" type="text">
           </li>
           <li>
             <label for="ville" >Ville</label>
-            <input id="ville" name="ville" placeholder="Ville" type="text">
+            <input data-th-field="${utilisateur.ville}" id="ville" name="ville" placeholder="Ville" type="text">
           </li>
           <li>
             <div> <br> </div>
@@ -73,5 +71,6 @@
       </div>
     </div>
   </form>
+
 </main>
 </html>

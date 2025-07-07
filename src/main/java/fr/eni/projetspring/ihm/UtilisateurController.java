@@ -55,5 +55,11 @@ public class UtilisateurController {
 
         return "redirect:/liste";
     }
+    // Ajout pour utilisation UilisateurEnSession. Cette méthode met par défaut un nouveau membre en session
+    @ModelAttribute("utilisateurEnSession")
+    public Utilisateur utilisateurEnSession() {
+        System.out.println("Add Attribut Session");
+        return new Utilisateur();
+    }
 
 }

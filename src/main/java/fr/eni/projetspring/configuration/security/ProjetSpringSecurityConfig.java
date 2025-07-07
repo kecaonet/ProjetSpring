@@ -84,7 +84,8 @@ public class ProjetSpringSecurityConfig {
         );
         http.formLogin(form -> {
             form.loginPage("/login");
-            form.defaultSuccessUrl("/");
+            //ajout pour utilisation utilisateurEnSession
+            form.defaultSuccessUrl("/session").permitAll();
         });
 
         http.logout(logout -> {
