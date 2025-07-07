@@ -18,7 +18,7 @@ import java.util.List;
 public class UtilisateurDAOImpl implements UtilisateurDAO{
 
     private final String INSERT = "INSERT INTO UTILISATEURS(PSEUDO, NOM, PRENOM, EMAIL, TELEPHONE, RUE, CODE_POSTAL, VILLE, MOT_DE_PASSE, CREDIT, ADMINISTRATEUR) "
-            + " VALUES (:pseudo, :nom, :prenom, :email, :telephone, :rue, : codePostal, :ville, : motDePasse, : credit, :administrateur)";
+            + " VALUES (:pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse, :credit, :administrateur)";
     private final String UPDATE = "UPDATE UTILISATEURS SET "
             + "PSEUDO = :pseudo, "
             + "NOM = :nom, "
@@ -29,7 +29,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
             + "CODE_POSTAL = :codePostal, "
             + "VILLE = :ville, "
             + "MOT_DE_PASSE = :motDePasse "
-            + "WHERE ID = :id";
+            + "WHERE NO_UTILISATEUR = :noUtilisateur";
     private final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
     private final String FIND_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = :id";
     private final String DELETE_BY_ID = "DELETE FROM UTILISATEURS WHERE ID = :id";
@@ -83,11 +83,14 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         namedParameters.addValue("codePostal", utilisateur.getCodePostal());
         namedParameters.addValue("ville", utilisateur.getVille());
         namedParameters.addValue("motDePasse", utilisateur.getMotDePasse());
+        namedParameters.addValue("credit", utilisateur.getCredit());
+        namedParameters.addValue("administrateur", utilisateur.isAdministrateur());
 
-
+        System.out.println(utilisateur);
         jdbcTemplate.update(INSERT, namedParameters, keyHolder);
+        System.out.println(keyHolder.getKey());
 
-        if (keyHolder != null && keyHolder.getKey() != null) {
+        if (keyHolder.getKey() != null) {
             // Mise à jour de l'identifiant du film auto-généré par la base
             utilisateur.setNoUtilisateur((int) keyHolder.getKey().longValue());
         }
