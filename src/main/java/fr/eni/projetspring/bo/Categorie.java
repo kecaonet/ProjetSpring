@@ -14,7 +14,7 @@ public class Categorie {
         this.libelle = libelle;
     }
 
-    public Categorie(int noCategorie, String libelle, List<ArticleVendu> categorieArticle) {
+    public Categorie(int noCategorie, String libelle) {
         this.noCategorie = noCategorie;
         this.libelle = libelle;
     }

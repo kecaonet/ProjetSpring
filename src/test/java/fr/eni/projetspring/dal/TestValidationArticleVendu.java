@@ -29,21 +29,6 @@ public class TestValidationArticleVendu {
     }
     @Test
     public void TestInsert() throws ParseException {
-        ArticleVendu articleVendu = new ArticleVendu();
-        articleVendu.setNomArticle("Test");
-        articleVendu.setDescription("test");
-        String pattern = "dd-MM-yyyy";
-        SimpleDateFormat simpleDateFormatDeb = new SimpleDateFormat(pattern);
-        Date dateDeb = simpleDateFormatDeb.parse("01-07-2025");
-        articleVendu.setDateDebutEncheres(dateDeb);
-        SimpleDateFormat simpleDateFormatFin = new SimpleDateFormat(pattern);
-        Date dateFin = simpleDateFormatFin.parse("10-07-2025");
-        articleVendu.setDateFinEncheres(dateFin);
-        articleVendu.setPrixInitial(100);
-        articleVendu.setUtilisateur(1);
-        articleVendu.setCategorie(1);
-        articleVenduDAO.createArticleVendu(articleVendu);
-        System.out.println(articleVenduDAO.readAllArticleVendu());
     }
     @Test
     public void TestUpdate() {

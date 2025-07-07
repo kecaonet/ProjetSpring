@@ -1,7 +1,11 @@
 package fr.eni.projetspring.dal;
 
 import fr.eni.projetspring.bo.ArticleVendu;
+import fr.eni.projetspring.bo.Categorie;
+import fr.eni.projetspring.bo.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
+import org.springframework.data.web.SortDefault;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -17,10 +21,15 @@ import java.util.List;
 @Repository
 public class ArticleVenduDAOImpl implements ArticleVenduDAO{
 
-    private final String INSERT = "INSERT INTO ARTICLES_VENDUS(NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
-            "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE) " +
-            "VALUES (:nomArticle, :description, :dateDebutEncheres, :dateFinEncheres, :prixInitial, " +
-            ":prixVente, :utilisateur, :categorie)";
+    @Autowired
+    UtilisateurDAO utilisateurDAO;
+    @Autowired
+    CategorieDAO categorieDAO;
+
+    private final String INSERT = "INSERT INTO ARTICLES_VENDUS(NOM_ARTICLE, DESCRIPTION, NO_CATEGORIE, " +
+            " PRIX_INITIAL, PRIX_VENTE, DATE_DEBUT_ENCHERES, DATE_FIN_ENCHERES, NO_UTILISATEUR ) " +
+            "VALUES (:nomArticle, :description, :categorie , :prixInitial, :prixVente, :dateDebutEncheres, :dateFinEncheres, " +
+            ":utilisateur)";
 
     private final String READ_BY_ID = "SELECT NO_ARTICLE, NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
             "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE "
@@ -44,19 +53,19 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     @Override
     public void createArticleVendu(ArticleVendu articleVendu) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        System.out.println(articleVendu);
         parameterSource.addValue("nomArticle", articleVendu.getNomArticle());
         parameterSource.addValue("description", articleVendu.getDescription());
+        parameterSource.addValue("categorie", articleVendu.getCategorie().getNoCategorie());
+        parameterSource.addValue("prixInitial", articleVendu.getPrixInitial());
         parameterSource.addValue("dateDebutEncheres", articleVendu.getDateDebutEncheres());
         parameterSource.addValue("dateFinEncheres", articleVendu.getDateFinEncheres());
-        parameterSource.addValue("prixInitial", articleVendu.getPrixInitial());
+        parameterSource.addValue("utilisateur", articleVendu.getUtilisateur().getNoUtilisateur());
         parameterSource.addValue("prixVente", articleVendu.getPrixVente());
-        parameterSource.addValue("utilisateur", articleVendu.getUtilisateurid());
-        parameterSource.addValue("categorie", articleVendu.getCategorie());
-
-        jdbcTemplate.update(INSERT, parameterSource,  keyHolder);
-
+        System.out.println("ARTICLE VENDU NOUVEAU AVANT INSERT" + articleVendu);
+        jdbcTemplate.update(INSERT, parameterSource,  keyHolder, new String[]{"NO_ARTICLE"});
+        System.out.println("Creation key holder" + keyHolder.getKey());
         if(keyHolder != null && keyHolder.getKey() != null) {
             articleVendu.setNoArticle(keyHolder.getKey().intValue());
         }
@@ -97,12 +106,12 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
             a.setNoArticle(rs.getInt("no_article"));
             a.setNomArticle(rs.getString("nom_article"));
             a.setDescription(rs.getString("description"));
-            a.setDateDebutEncheres(rs.getDate("date_debut_encheres"));
-            a.setDateFinEncheres(rs.getDate("date_fin_encheres"));
+            a.setDateDebutEncheresSpe(rs.getDate("date_debut_encheres"));
+            a.setDateFinEncheresSpe(rs.getDate("date_fin_encheres"));
             a.setPrixInitial(rs.getInt("prix_initial"));
             a.setPrixVente(rs.getInt("prix_vente"));
-            a.setUtilisateur(rs.getInt("no_utilisateur"));
-            a.setCategorie(rs.getInt("no_categorie"));
+            a.setUtilisateur(utilisateurDAO.readById(rs.getInt("no_utilisateur")));
+            a.setCategorie(categorieDAO.readCategorie(rs.getInt("no_categorie")));
 
 
 

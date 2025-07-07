@@ -5,29 +5,32 @@ import fr.eni.projetspring.bo.ArticleVendu;
 import fr.eni.projetspring.bo.Categorie;
 import fr.eni.projetspring.bo.Utilisateur;
 import fr.eni.projetspring.dal.*;
+import fr.eni.projetspring.exceptions.BusinessException;
+import fr.eni.projetspring.ihm.converter.CategorieConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.WebListenerRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.HashMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
+import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class WebController {
+
     @Autowired
     UtilisateurDAO utilisateurDAO;
-
     @Autowired
     ArticleVenduDAO articleVenduDAO;
-
     @Autowired
     CategorieDAO categorieDAO;
     @Autowired
-    private UtilisateurService utilisateurService;
+    UtilisateurService utilisateurService;
+    @Autowired
+    CategorieConverter categorieConverter;
+
 
     public WebController(ArticleVenduDAO articleVenduDAO, ArticleVenduDAOImpl articleVenduDAOImpl, WebListenerRegistry webListenerRegistry, UtilisateurDAOImpl utilisateurDAOImpl) {
         this.articleVenduDAO = articleVenduDAO;
@@ -45,24 +48,6 @@ public class WebController {
         model.addAttribute("Encheres",listeArticles);
         System.out.println(listeArticles.toString());
 
-        List<Utilisateur> utilisateurs = utilisateurDAO.readAll();
-
-        Map<Integer, Utilisateur> utilisateursMap = new HashMap<>();
-        for (Utilisateur u : utilisateurs) {
-            utilisateursMap.put(u.getNoUtilisateur(), u);
-        }
-
-        model.addAttribute("Utilisateurs", utilisateursMap);
-
-        List<Categorie> categories = categorieDAO.readAllCategorie();
-
-        Map<Integer, Categorie> categoriesMap = new HashMap<>();
-        for (Categorie c : categories) {
-            categoriesMap.put(c.getNoCategorie(), c);
-        }
-        model.addAttribute("Categories", categoriesMap);
-
-
         return "/liste";
     }
 
@@ -71,20 +56,6 @@ public class WebController {
         //récupération de la vente dont l'id est passé en paramètre
         ArticleVendu articleVendu = articleVenduDAO.read(idValue);
 
-        List<Utilisateur> utilisateurs = utilisateurDAO.readAll();
-
-        Map<Integer, Utilisateur> utilisateursMap = new HashMap<>();
-        for (Utilisateur u : utilisateurs) {
-            utilisateursMap.put(u.getNoUtilisateur(), u);
-        }
-        List<Categorie> categories = categorieDAO.readAllCategorie();
-
-        Map<Integer, Categorie> categoriesMap = new HashMap<>();
-        for (Categorie c : categories) {
-            categoriesMap.put(c.getNoCategorie(), c);
-        }
-        model.addAttribute("Categories", categoriesMap);
-        model.addAttribute("Utilisateurs", utilisateursMap);
         model.addAttribute("ArticleVente", articleVendu);
 
         return "vente_details";
@@ -98,22 +69,47 @@ public class WebController {
         return "profil";
     }
 
-    @GetMapping("/nouvelle vente")
+    @GetMapping("/nouvelle_vente")
     public String nouvelleVente(@RequestParam(name = "idParam") String pseudo, Model model) {
         Utilisateur utilisateur = utilisateurService.charger(pseudo);
-        model.addAttribute("Utilisateur", utilisateur);
+        model.addAttribute("utilisateur", utilisateur);
 
         List<Categorie> categorieList = categorieDAO.readAllCategorie();
-        model.addAttribute("Categories", categorieList);
+        model.addAttribute("categories", categorieList);
+
         return "nouvelle_vente";
 
     }
+    @PostMapping("/nouvelle-vente")
+    public String createVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu, BindingResult bindingResult, Principal principal) {
+        System.out.println("Entrée create Vente");
+        int noCategorie = articleVendu.getCategorie().getNoCategorie();
+        Categorie categorie = categorieDAO.readCategorie(noCategorie);
+        Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
+        articleVendu.setCategorie(categorie);
+        articleVendu.setUtilisateur(utilisateurEnSession);
+        //articleVendu.setCategorie(
+        System.out.println(bindingResult.hasErrors());
+        System.out.println(bindingResult.getAllErrors());
+        System.out.println(bindingResult.getTarget());
+        System.out.println(bindingResult.getGlobalErrors());
 
-    @GetMapping("/connex")
-    public String connex(){
-        return "redirect:/index";
+        if (!bindingResult.hasErrors()) {
+            try {
+                System.out.println("Post Article");
+                articleVenduDAO.createArticleVendu(articleVendu);
+                return "redirect:/liste";
+            } catch (BusinessException e) {
+                System.out.println("Erreur");
+                System.err.println(e.getClefsExternalisations());
+                e.getClefsExternalisations().forEach( key -> {
+                    ObjectError error = new ObjectError("globalError", key);
+                    bindingResult.addError(error);
+                });
+            }
+        }
+        System.out.println("Return liste");
+        return "liste";
     }
-
-
 
 }

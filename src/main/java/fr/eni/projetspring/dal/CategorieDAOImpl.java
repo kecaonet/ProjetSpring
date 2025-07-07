@@ -42,6 +42,13 @@ public class CategorieDAOImpl implements CategorieDAO{
             categorie.setNoCategorie(keyHolder.getKey().intValue());
         }
     }
+    private String READ_BY_LIBELLE = "Select * from Categories where libelle = :Libelle";
+    @Override
+    public Categorie readCategorieByLibelle(String Libelle) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("Libelle", Libelle);
+        return jdbcTemplate.queryForObject(READ_BY_LIBELLE,parameterSource, new BeanPropertyRowMapper<>(Categorie.class));
+    }
 
     @Override
     public Categorie readCategorie(int noCategorie) {

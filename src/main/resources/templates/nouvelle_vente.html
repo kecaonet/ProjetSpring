@@ -4,57 +4,52 @@
 <main>
     <link rel="stylesheet" href="/css/nouvelleVente.css">
     <h1>Nouvelle Vente</h1>
-  <form data-th-action="@{/nouvelle-vente}" method="post">
+  <form data-th-action="@{/nouvelle-vente}" method="post"
+        data-th-object="${articleVendu}">
 <ul>
   <li>
 <div class="DivLab">
 
     <label for="idNomArt">Article : </label>
-    <input type="text" id="idNomArt">
+    <input type="text" name="nomArticle" id="idNomArt">
 </div>
   </li>
 <li>
 <div class="DivLab">
 
     <label for="idDesc">Description : </label>
-    <input type="text" id="idDesc">
+    <input type="text" name="description" id="idDesc">
 </div>
 </li>
 <li>
   <div class="DivLab">
 
     <label for="idCateg">Catégorie : </label>
-    <select id="idCateg">
-      <option data-th-each="Categorie : ${Categories}" data-th-text="${Categorie.libelle}">
+    <select id="idCateg" name="categorie">
+      <option data-th-each="categorie : ${categories}" data-th-text="${categorie.noCategorie} +' : ' +  ${categorie.libelle}" data-th-value="${categorie.noCategorie}">
     </select>
   </div>
 </li>
 <li>
 <div class="DivLab">
 
-    <label for="idPhoto">Photo De l'article</label>
-    <input type="button" id="idPhoto" value="Uploader">
-</div>
-</li>
-<li>
-<div class="DivLab">
-
     <label for="idPrix">Mise à prix : </label>
-    <input type="number" id="idPrix">
+    <input type="number" id="idPrix" name="prixInitial">
 </div>
 </li>
 <li>
 <div class="DivLab">
 
     <label for="idDateDebut">Début de l'enchère : </label>
-    <input type="date" id="idDateDebut">
+    <input type="date" id="idDateDebut" name="dateDebutEncheres">
 </div>
 </li>
+
 <li>
 <div class="DivLab">
 
     <label for="idDateFin">Fin de l'enchère : </label>
-    <input type="date" id="idDateFin">
+    <input type="date" id="idDateFin" name="dateFinEncheres">
 </div>
 </li>
 <li>
@@ -66,17 +61,17 @@
         <li>
 
       <label for="idRue">Rue : </label>
-      <input type="text" id="idRue">
+      <input data-th-field="${utilisateur.rue}" type="text" id="idRue">
         </li>
         <li>
 
       <label for="idCP">Code Postal : </label>
-      <input type="text" id="idCP">
+      <input data-th-field="${utilisateur.codePostal}" type="text" id="idCP">
         </li>
         <li>
 
       <label for="idVille">Ville : </label>
-      <input type="text" id="idVille">
+      <input data-th-field="${utilisateur.ville}" type="text" id="idVille">
         </li>
       </ul>
     </fieldset>

@@ -7,13 +7,13 @@
     <h4>DETAILS VENTE</h4>
 
     <div th:text="${ArticleVente.nomArticle}"></div>
-    <div th:text="'Description :' +${ArticleVente.description}"></div>
-    <div th:text="'Catégorie :' + ${Categories.get(ArticleVente.categorie).libelle}"></div>
+    <div th:text="'Description : ' +${ArticleVente.description}"></div>
+    <div th:text="'Catégorie : ' + ${ArticleVente.categorie.getLibelle}"></div>
     <div th:text="'Meilleure offre : '+${ArticleVente.prixVente}"></div>
     <div th:text="'Mise à prix : ' +${ArticleVente.prixInitial}"></div>
-    <div th:text="'Fin de lenchère :'+${ArticleVente.dateFinEncheres}"></div>
+    <div th:text="'Fin de lenchère : '+${ArticleVente.dateDebutEncheres}"></div>
     <div th:text="'Retrait : '+${ArticleVente.lieuRetrait}"></div>
-    <a data-th-href="@{/profil(idParam=${Utilisateurs.get(ArticleVente.utilisateurid).pseudo})}" data-th-text="${Utilisateurs.get(ArticleVente.utilisateurid).pseudo}"></a>
+    <a data-th-href="@{/profil(idParam=${ArticleVente.utilisateur.pseudo})}" data-th-text="${ArticleVente.utilisateur.pseudo}"></a>
 </div>
 
 
