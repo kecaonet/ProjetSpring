@@ -17,26 +17,12 @@ import java.util.List;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO{
 
-    private final String INSERT = "INSERT INTO UTILISATEURS(PSEUDO, NOM, PRENOM, EMAIL, TELEPHONE, RUE, CODE_POSTAL, VILLE, MOT_DE_PASSE, CREDIT, ADMINISTRATEUR) "
-            + " VALUES (:pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse, :credit, :administrateur)";
-    private final String UPDATE = "UPDATE UTILISATEURS SET "
-            + "PSEUDO = :pseudo, "
-            + "NOM = :nom, "
-            + "PRENOM = :prenom, "
-            + "EMAIL = :email, "
-            + "TELEPHONE = :telephone, "
-            + "RUE = :rue, "
-            + "CODE_POSTAL = :codePostal, "
-            + "VILLE = :ville, "
-            + "MOT_DE_PASSE = :motDePasse "
-            + "WHERE NO_UTILISATEUR = :noUtilisateur";
     private final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
     private final String FIND_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = :id";
     private final String DELETE_BY_ID = "DELETE FROM UTILISATEURS WHERE ID = :id";
     private final String FIND_BY_EMAIL = "SELECT count(email) FROM UTILISATEURS WHERE EMAIL = :email";
     private final String FIND_BY_PSEUDO = "SELECT count(pseudo) FROM UTILISATEURS WHERE PSEUDO = :pseudo";
     private final String READ_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = :pseudo";
-
 
     @Override
     public boolean findByEmail(String email) {
@@ -69,6 +55,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
+// =================================== Create Utilisateur ===================================
+
+    private final String INSERT = "INSERT INTO UTILISATEURS(PSEUDO, NOM, PRENOM, EMAIL, TELEPHONE, RUE, CODE_POSTAL, VILLE, MOT_DE_PASSE, CREDIT, ADMINISTRATEUR) "
+            + " VALUES (:pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse, :credit, :administrateur)";
+
     @Override
     public void create(Utilisateur utilisateur) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -97,17 +88,36 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
     }
 
-    @Override
-    public void deleteById(int id) {
-        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
-        namedParameters.addValue("id", id);
-        jdbcTemplate.queryForObject(DELETE_BY_ID, namedParameters, new UtilisateurRowMapper());
-    }
+// =================================== ReadAll Utilisateur ===================================
 
     @Override
     public List<Utilisateur> readAll() {
         return jdbcTemplate.query(SELECT_ALL, new UtilisateurRowMapper());
     }
+
+// ================================== ReadById Utilisateur ==================================
+
+    @Override
+    public Utilisateur readById(int id) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("id", id);
+        return jdbcTemplate.queryForObject(FIND_BY_ID, namedParameters, new UtilisateurRowMapper());
+
+    }
+
+// =================================== Update Utilisateur ===================================
+
+    private final String UPDATE = "UPDATE UTILISATEURS SET "
+            + "PSEUDO = :pseudo, "
+            + "NOM = :nom, "
+            + "PRENOM = :prenom, "
+            + "EMAIL = :email, "
+            + "TELEPHONE = :telephone, "
+            + "RUE = :rue, "
+            + "CODE_POSTAL = :codePostal, "
+            + "VILLE = :ville, "
+            + "MOT_DE_PASSE = :motDePasse "
+            + "WHERE NO_UTILISATEUR = :noUtilisateur";
 
     @Override
     public void update(Utilisateur utilisateur) {
@@ -125,12 +135,13 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         jdbcTemplate.update(UPDATE, namedParameters);
     }
 
+// =================================== Delete Utilisateur ===================================
+
     @Override
-    public Utilisateur readById(int id) {
+    public void deleteById(int id) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("id", id);
-        return jdbcTemplate.queryForObject(FIND_BY_ID, namedParameters, new UtilisateurRowMapper());
-
+        jdbcTemplate.queryForObject(DELETE_BY_ID, namedParameters, new UtilisateurRowMapper());
     }
 
     class UtilisateurRowMapper implements RowMapper<Utilisateur> {
@@ -152,6 +163,4 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
             return u;
         }
     }
-
-
 }

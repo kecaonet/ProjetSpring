@@ -5,6 +5,8 @@ import fr.eni.projetspring.dal.UtilisateurDAO;
 import fr.eni.projetspring.exceptions.BusinessCode;
 import fr.eni.projetspring.exceptions.BusinessException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +15,8 @@ import java.util.List;
 public class UtilisateurServiceImpl implements UtilisateurService {
 
     private final UtilisateurDAO utilisateurDAO;
+
+    private PasswordEncoder passwordEncoder =  new BCryptPasswordEncoder(12);
 
     public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO) {
         this.utilisateurDAO = utilisateurDAO;
@@ -27,8 +31,12 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return utilisateurDAO.findUtilByPseudo(pseudo);
     }
 
+// ================================== Création Utilisateur ==================================
+
     @Override
     public void ajouterUtilisateur(Utilisateur utilisateur) {
+        //Encodage du mot de passe entré par l'utilisateur sur l'ihm via BCrypt
+        utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
         //Validation de l'utilisateur avant sauvegarde
         BusinessException be = new BusinessException();
         boolean isValid = true;
@@ -47,6 +55,53 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         } else {
             throw be;
         }
+    }
+
+// ================================ Modification Utilisateur ================================
+
+    @Override
+    public void modifierUtilisateur(Utilisateur utilisateur) {
+        BusinessException be = new BusinessException();
+        try {
+            utilisateurDAO.update(utilisateur);
+        } catch (DataAccessException e) { //Exception de la couche DAL
+            //Rollback auto
+            be.add(e.getMessage());
+            throw be;
+        }
+    }
+
+
+// ================================= Suppression Utilisateur =================================
+
+    @Override
+    public void supprimerUtilisateur(int id) {
+
+    }
+
+// ================================== Lecture Utilisateur ==================================
+
+    @Override
+    public Utilisateur consulterUtilisateur(int id) {
+        return null;
+    }
+
+
+// ================================ Désactivation Utilisateur ================================
+
+    @Override
+    public void desactiverUtilisateur(int id) {
+
+    }
+
+    @Override
+    public List<Utilisateur> consulterUtilisateurs() {
+        return List.of();
+    }
+
+    @Override
+    public Utilisateur consulterCredits(Utilisateur utilisateur) {
+        return null;
     }
 
 // --------------------------- Début Validations User ---------------------------
@@ -91,34 +146,4 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 // --------------------------- Fin Validations User ---------------------------
 
-
-    @Override
-    public void modifierUtilisateur(Utilisateur utilisateur) {
-        utilisateurDAO.update(utilisateur);
-    }
-
-    @Override
-    public void supprimerUtilisateur(int id) {
-
-    }
-
-    @Override
-    public Utilisateur consulterUtilisateur(int id) {
-        return null;
-    }
-
-    @Override
-    public void desactiverUtilisateur(int id) {
-
-    }
-
-    @Override
-    public List<Utilisateur> consulterUtilisateurs() {
-        return List.of();
-    }
-
-    @Override
-    public Utilisateur consulterCredits(Utilisateur utilisateur) {
-        return null;
-    }
 }
