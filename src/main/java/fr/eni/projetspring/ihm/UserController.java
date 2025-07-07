@@ -2,7 +2,6 @@ package fr.eni.projetspring.ihm;
 
 import fr.eni.projetspring.bll.UtilisateurService;
 import fr.eni.projetspring.bo.Utilisateur;
-import fr.eni.projetspring.dal.UtilisateurDAO;
 import fr.eni.projetspring.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +21,6 @@ public class UserController {
     @Autowired
     private UtilisateurService utilisateurService;
 
-    @Autowired
-    UtilisateurController utilisateurController;
-
         @GetMapping("/updateProfil")
         public String modifProfil(@RequestParam(name = "idParam") String pseudo, Model model) {
 
@@ -37,10 +33,17 @@ public class UserController {
     public String updateProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur,
                                BindingResult result, Principal principal) {
             Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
-        System.out.println("principal: " + principal);
         System.out.println("Utilsateur connecté: " + utilisateurEnSession);
         System.out.println(utilisateur);
         utilisateur.setNoUtilisateur(utilisateurEnSession.getNoUtilisateur());
+        //Si le pseudo n'est pas modifié, il est set à nulle
+        if (utilisateur.getPseudo().equals(utilisateurEnSession.getPseudo())) {
+            utilisateur.setPseudo(null);
+        }
+        //Si l'email n'est pas modifié, il est set à nulle
+        if (utilisateur.getEmail().equals(utilisateurEnSession.getEmail())) {
+            utilisateur.setEmail(null);
+        }
         if (!result.hasErrors()) {
             try {
                 utilisateurService.modifierUtilisateur(utilisateur);

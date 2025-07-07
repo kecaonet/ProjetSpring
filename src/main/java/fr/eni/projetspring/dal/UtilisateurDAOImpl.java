@@ -107,23 +107,33 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 // =================================== Update Utilisateur ===================================
 
-    private String UPDATE = "UPDATE UTILISATEURS SET "
-            + "PSEUDO = :pseudo, "
-            + "NOM = :nom, "
-            + "PRENOM = :prenom, "
-            + "EMAIL = :email, "
-            + "TELEPHONE = :telephone, "
-            + "RUE = :rue, "
-            + "CODE_POSTAL = :codePostal, "
-            + "VILLE = :ville";
-    /*
-            + "MOT_DE_PASSE = :motDePasse "
-            + "WHERE NO_UTILISATEUR = :noUtilisateur";
-
-     */
-
     @Override
     public void update(Utilisateur utilisateur) {
+
+        /*
+        String UPDATE = "UPDATE UTILISATEURS SET "
+                + "PSEUDO = :pseudo, "
+                + "NOM = :nom, "
+                + "PRENOM = :prenom, "
+                + "EMAIL = :email, "
+                + "TELEPHONE = :telephone, "
+                + "RUE = :rue, "
+                + "CODE_POSTAL = :codePostal, "
+                + "VILLE = :ville";
+         */
+
+        String UPDATE = "UPDATE UTILISATEURS SET ";
+        if (utilisateur.getPseudo() != null) UPDATE += "PSEUDO = :pseudo, ";
+
+        UPDATE += "NOM = :nom, "
+                + "PRENOM = :prenom, ";
+        if (utilisateur.getEmail() != null) UPDATE += "EMAIL = :email, ";
+
+        UPDATE += "TELEPHONE = :telephone, "
+                + "RUE = :rue, "
+                + "CODE_POSTAL = :codePostal, "
+                + "VILLE = :ville";
+
 
         if(utilisateur.getMotDePasse().isEmpty()) {
             UPDATE += " WHERE NO_UTILISATEUR = :noUtilisateur";

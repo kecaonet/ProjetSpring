@@ -40,7 +40,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         //Validation de l'utilisateur avant sauvegarde
         BusinessException be = new BusinessException();
         boolean isValid = true;
-        isValid &= validerUtilisateurUnique(utilisateur.getEmail(), utilisateur.getPseudo(), be);
+        isValid &= validerPseudoUnique(utilisateur.getPseudo(), be);
+        isValid &= validerEmailUnique(utilisateur.getEmail(), be);
         isValid &= validerPseudo(utilisateur.getPseudo(), be);
 
         if (isValid) {
@@ -67,6 +68,17 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
         //Validation de l'utilisateur avant modification
         BusinessException be = new BusinessException();
+        boolean isValid = true;
+        //Si le pseudo a été modifié, rajout validation d'unicité et regex sur ce dernier
+        if (utilisateur.getPseudo() != null) {
+            isValid &= validerPseudoUnique(utilisateur.getPseudo(), be);
+            isValid &= validerPseudo(utilisateur.getPseudo(), be);
+        }
+        //Si l'email a été modifié, rajout validation d'unicité sur ce dernier
+        if (utilisateur.getEmail() != null) {
+            isValid &= validerEmailUnique(utilisateur.getEmail(), be);
+        }
+        if (isValid) {
             try {
                 utilisateurDAO.update(utilisateur);
             } catch (DataAccessException e) { //Exception de la couche DAL
@@ -74,8 +86,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
                 be.add(BusinessCode.BLL_UTILISATEUR_UPDATE_ERREUR + " " + e.getMessage());
                 throw be;
             }
+        }
     }
-
 
 // ================================= Suppression Utilisateur =================================
 
@@ -122,23 +134,33 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return true;
     };
 
-    private boolean validerUtilisateurUnique(String email, String pseudo, BusinessException be) {
-        //Valider que pseudo et email sont uniques
+    private boolean validerPseudoUnique(String pseudo, BusinessException be) {
+        //Valider que le pseudo est unique
         try {
             boolean pseudoExiste = utilisateurDAO.findByPseudo(pseudo);
-            boolean emailExiste = utilisateurDAO.findByEmail(email);
-            if (pseudoExiste || emailExiste) {
-                if (pseudoExiste) {
-                    be.add(BusinessCode.VALIDATION_PSEUDO_UNIQUE);
-                }
-                if (emailExiste) {
-                    be.add(BusinessCode.VALIDATION_EMAIL_UNIQUE);
-                }
+            if (pseudoExiste) {
+                be.add(BusinessCode.VALIDATION_PSEUDO_UNIQUE);
                 return false;
             }
         } catch (DataAccessException e) {
             //l'utilisateur existe déjà
-            be.add(BusinessCode.VALIDATION_UTILISATEUR_UNIQUE);
+            be.add(BusinessCode.VALIDATION_PSEUDO_UNIQUE);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validerEmailUnique(String email, BusinessException be) {
+        //Valider que l'email est unique
+        try {
+            boolean emailExiste = utilisateurDAO.findByEmail(email);
+            if (emailExiste) {
+                be.add(BusinessCode.VALIDATION_EMAIL_UNIQUE);
+                return false;
+            }
+        } catch (DataAccessException e) {
+            //l'utilisateur existe déjà
+            be.add(BusinessCode.VALIDATION_EMAIL_UNIQUE);
             return false;
         }
         return true;
