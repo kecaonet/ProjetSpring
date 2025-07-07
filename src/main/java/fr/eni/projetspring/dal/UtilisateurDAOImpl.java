@@ -107,7 +107,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 // =================================== Update Utilisateur ===================================
 
-    private final String UPDATE = "UPDATE UTILISATEURS SET "
+    private String UPDATE = "UPDATE UTILISATEURS SET "
             + "PSEUDO = :pseudo, "
             + "NOM = :nom, "
             + "PRENOM = :prenom, "
@@ -115,14 +115,24 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
             + "TELEPHONE = :telephone, "
             + "RUE = :rue, "
             + "CODE_POSTAL = :codePostal, "
-            + "VILLE = :ville, "
+            + "VILLE = :ville";
+    /*
             + "MOT_DE_PASSE = :motDePasse "
             + "WHERE NO_UTILISATEUR = :noUtilisateur";
+
+     */
 
     @Override
     public void update(Utilisateur utilisateur) {
 
+        if(utilisateur.getMotDePasse().isEmpty()) {
+            UPDATE += " WHERE NO_UTILISATEUR = :noUtilisateur";
+        }else {
+            UPDATE += ", MOT_DE_PASSE = :motDePasse WHERE NO_UTILISATEUR = :noUtilisateur";
+        };
+
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("noUtilisateur", utilisateur.getNoUtilisateur());
         namedParameters.addValue("pseudo", utilisateur.getPseudo());
         namedParameters.addValue("nom", utilisateur.getNom());
         namedParameters.addValue("prenom", utilisateur.getPrenom());

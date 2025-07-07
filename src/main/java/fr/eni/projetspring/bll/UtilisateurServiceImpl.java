@@ -40,7 +40,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         //Validation de l'utilisateur avant sauvegarde
         BusinessException be = new BusinessException();
         boolean isValid = true;
-        isValid &= validerUtilisateur(utilisateur, be);
         isValid &= validerUtilisateurUnique(utilisateur.getEmail(), utilisateur.getPseudo(), be);
         isValid &= validerPseudo(utilisateur.getPseudo(), be);
 
@@ -61,14 +60,20 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public void modifierUtilisateur(Utilisateur utilisateur) {
-        BusinessException be = new BusinessException();
-        try {
-            utilisateurDAO.update(utilisateur);
-        } catch (DataAccessException e) { //Exception de la couche DAL
-            //Rollback auto
-            be.add(e.getMessage());
-            throw be;
+        //Vérif de la présence d'un nouveau mot de passe
+        if (!utilisateur.getMotDePasse().isEmpty()) {
+            //Encodage du mot de passe entré par l'utilisateur sur l'ihm via BCrypt
+            utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
         }
+        //Validation de l'utilisateur avant modification
+        BusinessException be = new BusinessException();
+            try {
+                utilisateurDAO.update(utilisateur);
+            } catch (DataAccessException e) { //Exception de la couche DAL
+                //Rollback auto
+                be.add(BusinessCode.BLL_UTILISATEUR_UPDATE_ERREUR + " " + e.getMessage());
+                throw be;
+            }
     }
 
 
@@ -85,7 +90,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public Utilisateur consulterUtilisateur(int id) {
         return null;
     }
-
+    @Override
+    public Utilisateur consulterUtilisateurParPseudo(String pseudo) {
+        return utilisateurDAO.findUtilByPseudo(pseudo);
+    }
 
 // ================================ Désactivation Utilisateur ================================
 

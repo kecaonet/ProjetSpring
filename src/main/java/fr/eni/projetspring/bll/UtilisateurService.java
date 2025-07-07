@@ -20,6 +20,8 @@ public interface UtilisateurService{
 
     Utilisateur consulterUtilisateur (int id);
 
+    Utilisateur consulterUtilisateurParPseudo(String pseudo);
+
     void desactiverUtilisateur(int id);
 
     List<Utilisateur> consulterUtilisateurs();
