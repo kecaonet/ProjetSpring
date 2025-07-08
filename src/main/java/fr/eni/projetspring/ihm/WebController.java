@@ -3,6 +3,7 @@ package fr.eni.projetspring.ihm;
 import fr.eni.projetspring.bll.UtilisateurService;
 import fr.eni.projetspring.bo.ArticleVendu;
 import fr.eni.projetspring.bo.Categorie;
+import fr.eni.projetspring.bo.Enchere;
 import fr.eni.projetspring.bo.Utilisateur;
 import fr.eni.projetspring.dal.*;
 import fr.eni.projetspring.exceptions.BusinessException;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -29,7 +31,7 @@ public class WebController {
     @Autowired
     UtilisateurService utilisateurService;
     @Autowired
-    CategorieConverter categorieConverter;
+    EnchereDAO enchereDAO;
 
 
     public WebController(ArticleVenduDAO articleVenduDAO, ArticleVenduDAOImpl articleVenduDAOImpl, WebListenerRegistry webListenerRegistry, UtilisateurDAOImpl utilisateurDAOImpl) {
@@ -37,15 +39,17 @@ public class WebController {
         this.categorieDAO = categorieDAO;
         this.utilisateurDAO = utilisateurDAO;
     }
+
     @GetMapping("/")
     public String Racine() {
         return "redirect:/liste";
     }
+
     @GetMapping("/liste")
     public String index(Model model) {
 
         List<ArticleVendu> listeArticles = articleVenduDAO.readAllArticleVendu();
-        model.addAttribute("Encheres",listeArticles);
+        model.addAttribute("Encheres", listeArticles);
         System.out.println(listeArticles.toString());
 
         return "/liste";
@@ -80,6 +84,7 @@ public class WebController {
         return "nouvelle_vente";
 
     }
+
     @PostMapping("/nouvelle-vente")
     public String createVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu, BindingResult bindingResult, Principal principal) {
         System.out.println("Entrée create Vente");
@@ -88,7 +93,6 @@ public class WebController {
         Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
         articleVendu.setCategorie(categorie);
         articleVendu.setUtilisateur(utilisateurEnSession);
-        //articleVendu.setCategorie(
         System.out.println(bindingResult.hasErrors());
         System.out.println(bindingResult.getAllErrors());
         System.out.println(bindingResult.getTarget());
@@ -102,7 +106,7 @@ public class WebController {
             } catch (BusinessException e) {
                 System.out.println("Erreur");
                 System.err.println(e.getClefsExternalisations());
-                e.getClefsExternalisations().forEach( key -> {
+                e.getClefsExternalisations().forEach(key -> {
                     ObjectError error = new ObjectError("globalError", key);
                     bindingResult.addError(error);
                 });
@@ -112,4 +116,30 @@ public class WebController {
         return "liste";
     }
 
+    @PostMapping("/nouvelle_enchere")
+    public String nouvelleEnchere(@ModelAttribute("Enchere") Enchere enchereMod, BindingResult bindingResult, Principal principal) {
+        System.out.println("Entree nouvelle enchère");
+        Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
+        enchereMod.setDateEnchere(LocalDate.now());
+        enchereMod.setMontantEnchere(enchereMod.getMontantEnchere());
+        enchereMod.setArticleVendu(enchereMod.getArticleVendu());
+        enchereMod.setUtilisateur(utilisateurEnSession);
+        if (!bindingResult.hasErrors()) {
+            try {
+                System.out.println("Post Enchere");
+                enchereDAO.create(enchereMod);
+                utilisateurEnSession.setEnchereList(enchereMod);
+            } catch (BusinessException e) {
+                System.out.println("Erreur");
+                System.err.println(e.getClefsExternalisations());
+                e.getClefsExternalisations().forEach(key -> {
+                    ObjectError error = new ObjectError("globalError", key);
+                    bindingResult.addError(error);
+                });
+            }
+            return "redirect:/liste";
+        }
+        return "liste";
+    }
 }
+

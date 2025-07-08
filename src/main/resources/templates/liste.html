@@ -18,9 +18,21 @@
       <option value="Sport&Loisirs">Sport&Loisirs</option>
     </select>
     <input id="idBtnCategorie" type="button" value="Rechercher">
+    <div data-th-if="${#authorization.expression('isAuthenticated')}">
+      <select id="idSelectFiltres">
+        <option value="Defaut">Choisir une option</option>
+        <option value="EnCours">Ventes en cours</option>
+        <option value="Participees">Ventes Participées</option>
+        <option value="Remportees">Ventes Remportées</option>
+        <option value="VentesPerso">Ventes Personnelles</option>
+        <option value="VentesPasDebut">Ventes non commencées</option>
+        <option value="VentesPersoEnCours">Ventes Personnelles en cours</option>
+        <option value="VentesPersoTerminées">Ventes Terminées</option>
+      </select>
+    </div>
   </div>
   <div class="Enchere" th:each="enchere : ${Encheres}" >
-    <div id="idDivNom" th:text="'Article : ' + ${enchere.nomArticle}"></div>
+    <div id="idDivNom" class="NomArticle" th:text="'Article : ' + ${enchere.nomArticle}"></div>
     <div th:text="'Description : ' + ${enchere.description}"></div>
     <div th:text="'Fin de lenchère : ' + ${enchere.dateDebutEncheres}"></div>
     <div th:text="'Prix initial : '+${enchere.prixInitial}"></div>

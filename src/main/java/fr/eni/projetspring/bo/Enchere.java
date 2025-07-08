@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Enchere {
 
+    private int noEnchere;
     private LocalDate dateEnchere;
     private int montantEnchere;
 
@@ -11,6 +12,14 @@ public class Enchere {
     private ArticleVendu articleVendu;
 
     public Enchere() {
+    }
+
+    public Enchere(int noEnchere, LocalDate dateEnchere, int montantEnchere, Utilisateur utilisateur, ArticleVendu articleVendu) {
+        this.noEnchere = noEnchere;
+        this.dateEnchere = dateEnchere;
+        this.montantEnchere = montantEnchere;
+        this.utilisateur = utilisateur;
+        this.articleVendu = articleVendu;
     }
 
     public Enchere(LocalDate dateEnchere, int montantEnchere, Utilisateur utilisateur, ArticleVendu articleVendu) {
@@ -50,6 +59,14 @@ public class Enchere {
 
     public void setArticleVendu(ArticleVendu articleVendu) {
         this.articleVendu = articleVendu;
+    }
+
+    public int getNoEnchere() {
+        return noEnchere;
+    }
+
+    public void setNoEnchere(int noEnchere) {
+        this.noEnchere = noEnchere;
     }
 
     @Override

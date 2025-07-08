@@ -24,53 +24,37 @@ for (i = 0; i < document.getElementsByClassName("Enchere").length; i++) {
 }
 
 function Recherche() {
-    let Categ = "Catégorie : " + document.getElementById("idSelectCategorie").value;
-    console.log(Categ);
-    if (Categ == "Catégorie : Defaut") {
-        console.log("entrée Defaut")
-        for (i = 0; i < document.getElementsByClassName("Categorie").length; i++) {
-            console.log(document.getElementsByClassName("Categorie")[i].getAttribute("id"));
-            console.log(document.getElementsByClassName("Categorie")[i]);
-            document.getElementsByClassName("Categorie")[i].parentElement.removeAttribute("style");
-        }
-    }
-    else {
 
-    for (i = 0; i < document.getElementsByClassName("Categorie").length; i++) {
-        console.log(document.getElementsByClassName("Categorie")[i].getAttribute("id"));
-    if (document.getElementsByClassName("Categorie")[i].getAttribute("id") != Categ) {
-        console.log("Entrée suppression");
-        console.log(document.getElementsByClassName("Categorie")[i]);
-        document.getElementsByClassName("Categorie")[i].parentElement.style.display = "none";
-    }
-    if (document.getElementsByClassName("Categorie")[i].getAttribute("id") == Categ) {
-        console.log("Entrée réaffichage");
-        console.log(document.getElementsByClassName("Categorie")[i]);
-        console.log(document.getElementsByClassName("Categorie")[i].parentElement);
-        document.getElementsByClassName("Categorie")[i].parentElement.removeAttribute("style");
-    }
-    }
-    }
+    let Categ = "Catégorie : " + document.getElementById("idSelectCategorie").value;
     let Filtre = document.getElementById("idInputFiltre").value
     console.log(Filtre);
-    if (Filtre == "") {
-        console.log("Entree affichage tout")
+    console.log(Categ);
+
+
+
+    if (Categ == "Catégorie : Defaut" && Filtre == "") {
+        console.log("Entree affichage Defaut et sans filtre")
+        for (i = 0; i < document.getElementsByClassName("Categorie").length; i++) {
+            document.getElementsByClassName("Categorie")[i].parentElement.removeAttribute("style")
+        }
+    } else if (Categ == "Catégorie : Defaut") {
+        console.log("Entree affichage Defaut");
         for (i = 0; i < document.getElementsByClassName("Categorie").length; i++) {
             document.getElementsByClassName("Categorie")[i].parentElement.removeAttribute("style");
+            console.log(document.getElementById("idDivNom").textContent.slice(10));
+            if (document.getElementsByClassName("NomArticle")[i].textContent.slice(10) != Filtre) {
+                document.getElementsByClassName("Categorie")[i].parentElement.style.display = "none";
+            }
         }
-    }
-    else {
+    } else if (Filtre == "") {
+        console.log("Entree affichage sans filtre")
+        for (i = 0; i < document.getElementsByClassName("Categorie").length; i++) {
+            if (Categ == document.getElementsByClassName("Categorie")[i].textContent) {
+                document.getElementsByClassName("Categorie")[i].parentElement.removeAttribute("style");
 
-    for (i=0; i < document.getElementsByClassName("Categorie").length; i++) {
-        console.log(document.getElementById("idDivNom").textContent.slice(10))
-        console.log()
-        if (document.getElementById("idDivNom").textContent.slice(10) == Filtre) {
-            console.log("Entree Filtre")
+            } else {
+                document.getElementsByClassName("Categorie")[i].parentElement.style.display = "none";
+            }
         }
-        else {
-            console.log("Entree suppression")
-            document.getElementsByClassName("Categorie")[i].parentElement.style.display = "none";
-        }
-    }
     }
 }

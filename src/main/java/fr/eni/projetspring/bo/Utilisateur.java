@@ -151,8 +151,8 @@ public class Utilisateur implements Serializable {
         return enchereList;
     }
 
-    public void setEnchereList(List<Enchere> enchereList) {
-        this.enchereList = enchereList;
+    public void setEnchereList(Enchere enchere) {this.enchereList.add(enchere);
+
     }
 
     public List<ArticleVendu> getArticleVenduList() {
