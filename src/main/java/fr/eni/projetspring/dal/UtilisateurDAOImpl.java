@@ -19,7 +19,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
     private final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
     private final String FIND_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = :id";
-    private final String DELETE_BY_ID = "DELETE FROM UTILISATEURS WHERE ID = :id";
     private final String FIND_BY_EMAIL = "SELECT count(email) FROM UTILISATEURS WHERE EMAIL = :email";
     private final String FIND_BY_PSEUDO = "SELECT count(pseudo) FROM UTILISATEURS WHERE PSEUDO = :pseudo";
     private final String READ_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = :pseudo";
@@ -157,12 +156,16 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 // =================================== Delete Utilisateur ===================================
 
+    private final String DELETE_BY_ID = "DELETE FROM UTILISATEURS WHERE NO_UTILISATEUR = :noUtilisateur";
+
     @Override
-    public void deleteById(int id) {
+    public void deleteById(int noUtilisateur) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
-        namedParameters.addValue("id", id);
-        jdbcTemplate.queryForObject(DELETE_BY_ID, namedParameters, new UtilisateurRowMapper());
+        namedParameters.addValue("noUtilisateur", noUtilisateur);
+        jdbcTemplate.update(DELETE_BY_ID, namedParameters);
     }
+
+// ===================================== Row Mapper =====================================
 
     class UtilisateurRowMapper implements RowMapper<Utilisateur> {
         @Override

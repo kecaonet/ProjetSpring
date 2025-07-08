@@ -21,18 +21,18 @@ public class UserController {
     @Autowired
     private UtilisateurService utilisateurService;
 
-        @GetMapping("/updateProfil")
-        public String modifProfil(@RequestParam(name = "idParam") String pseudo, Model model) {
+    @GetMapping("/updateProfil")
+    public String modifProfil(@RequestParam(name = "idParam") String pseudo, Model model) {
 
-            Utilisateur utilisateur = utilisateurService.charger(pseudo);
-            model.addAttribute("utilisateur", utilisateur);
-            return "update_profil";
-        }
+        Utilisateur utilisateur = utilisateurService.charger(pseudo);
+        model.addAttribute("utilisateur", utilisateur);
+        return "update_profil";
+    }
 
     @PostMapping("/update-profil")
     public String updateProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur,
                                BindingResult result, Principal principal) {
-            Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
+        Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
         System.out.println("Utilsateur connecté: " + utilisateurEnSession);
         System.out.println(utilisateur);
         utilisateur.setNoUtilisateur(utilisateurEnSession.getNoUtilisateur());
@@ -47,7 +47,8 @@ public class UserController {
         if (!result.hasErrors()) {
             try {
                 utilisateurService.modifierUtilisateur(utilisateur);
-                return "redirect:/liste";
+                //return "redirect:/liste";
+                return "redirect:/logout";
             } catch (BusinessException e) {
                 System.err.println(e.getClefsExternalisations());
                 e.getClefsExternalisations().forEach( key -> {
