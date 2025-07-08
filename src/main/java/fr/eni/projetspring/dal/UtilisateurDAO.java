@@ -10,11 +10,11 @@ public interface UtilisateurDAO {
 
     void update(Utilisateur utilisateur);
 
-    Utilisateur readById(int id);
+    Utilisateur readById(int noUtilisateur);
 
     List<Utilisateur> readAll();
 
-    void deleteById(int id);
+    void deleteById(int noUtilisateur);
 
     public boolean findByEmail(String email);
 

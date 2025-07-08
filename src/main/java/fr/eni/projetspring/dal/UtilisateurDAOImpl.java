@@ -97,9 +97,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 // ================================== ReadById Utilisateur ==================================
 
     @Override
-    public Utilisateur readById(int id) {
+    public Utilisateur readById(int noUtilisateur) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
-        namedParameters.addValue("id", id);
+        namedParameters.addValue("noUtilisateur", noUtilisateur);
         return jdbcTemplate.queryForObject(FIND_BY_ID, namedParameters, new UtilisateurRowMapper());
 
     }
@@ -162,7 +162,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
     public void deleteById(int noUtilisateur) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("noUtilisateur", noUtilisateur);
+        System.out.println("DAO: deleteById");
         jdbcTemplate.update(DELETE_BY_ID, namedParameters);
+        System.out.println("BDD: check");
     }
 
 // ===================================== Row Mapper =====================================

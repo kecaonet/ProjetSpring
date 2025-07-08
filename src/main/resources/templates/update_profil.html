@@ -66,8 +66,11 @@
       <div>
         <button type="submit">Enregister</button>
       </div>
+      <button type="reset">Annuler</button>
       <div>
-        <button type="delete">Supprimer mon compte</button>
+        <button>
+          <a data-th-href="@{/deleteProfil}">Supprimer mon compte (a href dans bouton)</a>
+        </button>
       </div>
     </div>
   </form>

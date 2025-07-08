@@ -16,13 +16,13 @@ public interface UtilisateurService{
 
     void modifierUtilisateur(Utilisateur utilisateur);
 
-    void supprimerUtilisateur(int id);
+    void supprimerUtilisateur(int noUtilisateur);
 
-    Utilisateur consulterUtilisateur (int id);
+    Utilisateur consulterUtilisateur (int noUtilisateur);
 
     Utilisateur consulterUtilisateurParPseudo(String pseudo);
 
-    void desactiverUtilisateur(int id);
+    void desactiverUtilisateur(int noUtilisateur);
 
     List<Utilisateur> consulterUtilisateurs();
 

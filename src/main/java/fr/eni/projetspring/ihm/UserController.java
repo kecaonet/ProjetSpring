@@ -60,5 +60,15 @@ public class UserController {
         System.out.println("erreur updateProfil");
         return "update_profil";
     };
+
+    @GetMapping("/deleteProfil")
+    public String suppProfil(Principal principal) {
+        Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
+        System.out.println("id de l'utilisateur connecté: " +  utilisateurEnSession.getNoUtilisateur());
+        System.out.println("Controller: deleteProfil");
+        utilisateurService.supprimerUtilisateur(utilisateurEnSession.getNoUtilisateur());
+        return "redirect:/logout";
+    }
+
 }
 

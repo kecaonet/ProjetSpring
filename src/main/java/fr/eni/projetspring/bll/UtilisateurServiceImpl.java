@@ -92,14 +92,15 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 // ================================= Suppression Utilisateur =================================
 
     @Override
-    public void supprimerUtilisateur(int id) {
-
+    public void supprimerUtilisateur(int noUtilisateur) {
+        System.out.println("Service: supprimerUtilisateur");
+        utilisateurDAO.deleteById(noUtilisateur);
     }
 
 // ================================== Lecture Utilisateur ==================================
 
     @Override
-    public Utilisateur consulterUtilisateur(int id) {
+    public Utilisateur consulterUtilisateur(int noUtilisateur) {
         return null;
     }
     @Override
@@ -110,7 +111,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 // ================================ Désactivation Utilisateur ================================
 
     @Override
-    public void desactiverUtilisateur(int id) {
+    public void desactiverUtilisateur(int noUtilisateur) {
 
     }
 
