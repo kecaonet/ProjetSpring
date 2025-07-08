@@ -120,15 +120,22 @@ public class WebController {
     public String nouvelleEnchere(@ModelAttribute("Enchere") Enchere enchereMod, BindingResult bindingResult, Principal principal) {
         System.out.println("Entree nouvelle enchère");
         Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
-        enchereMod.setDateEnchere(LocalDate.now());
+
         enchereMod.setMontantEnchere(enchereMod.getMontantEnchere());
-        enchereMod.setArticleVendu(enchereMod.getArticleVendu());
+        enchereMod.setDateEnchere(LocalDate.now());
+        System.out.println(enchereMod.getArticleVendu());
+        enchereMod.setArticleVendu((enchereMod.getArticleVendu()));
+        System.out.println("Set Utilisateur : ");
+        System.out.println(utilisateurEnSession);
         enchereMod.setUtilisateur(utilisateurEnSession);
+        System.out.println(bindingResult.getAllErrors());
+        System.out.println(enchereMod);
         if (!bindingResult.hasErrors()) {
             try {
                 System.out.println("Post Enchere");
                 enchereDAO.create(enchereMod);
                 utilisateurEnSession.setEnchereList(enchereMod);
+
             } catch (BusinessException e) {
                 System.out.println("Erreur");
                 System.err.println(e.getClefsExternalisations());

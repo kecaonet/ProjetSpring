@@ -29,6 +29,8 @@ public class EnchereDAOImpl implements EnchereDAO {
 
 
     private String INSERT ="INSERT INTO Encheres (date_enchere,montant_enchere,no_article,no_utilisateur) Values(:date_enchere,:montant_enchere,:articleVendu,:no_utilisateur)";
+    private String UPDATEVENTE = "update articles_vendus set prix_vente = :prixvente where no_article = :noarticle";
+
     @Override
     public void create(Enchere enchere) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -42,6 +44,11 @@ public class EnchereDAOImpl implements EnchereDAO {
         parameterSource.addValue("no_utilisateur", enchere.getUtilisateur().getNoUtilisateur());
         System.out.println("ARTICLE VENDU NOUVEAU AVANT INSERT" + enchere);
         jdbcTemplate.update(INSERT, parameterSource,  keyHolder, new String[]{"NO_ARTICLE"});
+        MapSqlParameterSource parameterSource2 = new MapSqlParameterSource();
+        parameterSource2.addValue("prixvente",enchere.getMontantEnchere());
+        parameterSource2.addValue("noarticle",enchere.getArticleVendu().getNoArticle());
+        jdbcTemplate.update(UPDATEVENTE, parameterSource2);
+
         System.out.println("Creation key holder" + keyHolder.getKey());
         if(keyHolder != null && keyHolder.getKey() != null) {
             enchere.setNoEnchere(keyHolder.getKey().intValue());

@@ -16,8 +16,8 @@
     <a data-th-href="@{/profil(idParam=${ArticleVente.utilisateur.pseudo})}" data-th-text="${ArticleVente.utilisateur.pseudo}"></a>
     <form data-th-action="@{/nouvelle_enchere}" method="post"
           data-th-object="${Enchere}">
-    <input type="text" name="article" style="display:none" data-th-value="${ArticleVente}">
-    <input type="number" name="montant">
+    <input type="text" name="articleVendu.noArticle" style="display:none" data-th-value="${ArticleVente.noArticle}">
+    <input type="number" name="montantEnchere">
     <input type="submit">
     </form>
 </div>
