@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 public class ProjetSpringSecurityConfig {
 
     protected final Log logger = LogFactory.getLog(getClass());
-    private final String SELECT_USER = "select pseudo, mot_de_passe, 1 from utilisateurs where pseudo =?";
+    private final String SELECT_USER = "select pseudo, mot_de_passe, is_desactive from utilisateurs where pseudo =?";
     private final String SELECT_ROLES = "select u.pseudo, r.role from UTILISATEURS  u inner join ROLES r on r.IS_ADMIN = u.administrateur where pseudo = ?";
 
     /**
@@ -72,8 +72,10 @@ public class ProjetSpringSecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/nouvelle_vente").hasRole("MEMBRE")
                     //permettre à tous de soumettre un formulaire de nouvelle vente
                     .requestMatchers(HttpMethod.POST, "/nouvelle-vente").hasRole("MEMBRE")
-                    //permettre à tous de soumettre un formulaire de nouvelle vente
+                    //permettre à tous de soumettre un formulaire de nouvelle enchere
                     .requestMatchers(HttpMethod.POST, "/nouvelle_enchere").hasRole("MEMBRE")
+                    //permettre à tous de soumettre un formulaire de nouvelle enchere
+                    .requestMatchers(HttpMethod.POST, "/view_admin").hasRole("ADMIN")
 
                     .requestMatchers("/*").permitAll()
                     .requestMatchers("/css/*").permitAll()
