@@ -62,7 +62,7 @@ public class WebController {
     public String displayVenteDetails(@RequestParam(name = "idParam") int idValue, Model model) {
         //récupération de la vente dont l'id est passé en paramètre
         ArticleVendu articleVendu = articleVenduDAO.read(idValue);
-
+        model.addAttribute("date",LocalDate.now());
         model.addAttribute("ArticleVente", articleVendu);
 
         return "vente_details";
@@ -128,15 +128,14 @@ public class WebController {
         enchereMod.setDateEnchere(LocalDate.now());
         System.out.println(enchereMod.getArticleVendu());
         enchereMod.setArticleVendu((enchereMod.getArticleVendu()));
-        System.out.println("Set Utilisateur : ");
-        System.out.println(utilisateurEnSession);
-        enchereMod.setUtilisateur(utilisateurEnSession);
+        enchereMod.setUtilisateur(utilisateurEnSession.getNoUtilisateur());
         System.out.println(bindingResult.getAllErrors());
         System.out.println(enchereMod);
         if (!bindingResult.hasErrors()) {
             try {
                 System.out.println("Post Enchere");
                 enchereDAO.create(enchereMod);
+                System.out.println("SetEnchereController");
                 utilisateurEnSession.setEnchereList(enchereMod);
 
             } catch (BusinessException e) {

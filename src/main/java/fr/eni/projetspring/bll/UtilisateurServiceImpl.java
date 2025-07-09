@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,6 +44,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         isValid &= validerPseudoUnique(utilisateur.getPseudo(), be);
         isValid &= validerEmailUnique(utilisateur.getEmail(), be);
         isValid &= validerPseudo(utilisateur.getPseudo(), be);
+        utilisateur.setDesactive(true);
 
         if (isValid) {
             try {
@@ -93,7 +95,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public void supprimerUtilisateur(int noUtilisateur) {
-        System.out.println("Service: supprimerUtilisateur");
         utilisateurDAO.deleteById(noUtilisateur);
     }
 
@@ -101,24 +102,44 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public Utilisateur consulterUtilisateur(int noUtilisateur) {
-        return null;
+        return utilisateurDAO.readById(noUtilisateur);
     }
+
     @Override
     public Utilisateur consulterUtilisateurParPseudo(String pseudo) {
         return utilisateurDAO.findUtilByPseudo(pseudo);
+    }
+
+// ================================ Activation Utilisateur ================================
+
+    @Override
+    public void activerUtilisateur(int noUtilisateur) {
+        utilisateurDAO.desactivateById(noUtilisateur,true);
     }
 
 // ================================ Désactivation Utilisateur ================================
 
     @Override
     public void desactiverUtilisateur(int noUtilisateur) {
-
+        utilisateurDAO.desactivateById(noUtilisateur,false);
     }
+
+// ========================== Lecture de tous les utilisateurs non admin ==========================
 
     @Override
     public List<Utilisateur> consulterUtilisateurs() {
-        return List.of();
+        List<Utilisateur> utilisateurs = new ArrayList<>();
+        for (Utilisateur u : utilisateurDAO.readAll() ) {
+            System.out.println("Utilisateur: " + u);
+            System.out.println("isDesactive: " + u.isDesactive());
+            if (!u.isAdministrateur()) {
+                utilisateurs.add(u);
+            }
+        }
+        return utilisateurs;
     }
+
+// ======================================= Lecture Crédits =======================================
 
     @Override
     public Utilisateur consulterCredits(Utilisateur utilisateur) {

@@ -16,6 +16,8 @@ public interface UtilisateurDAO {
 
     void deleteById(int noUtilisateur);
 
+    void desactivateById(int noUtilisateur, boolean activeOrDesactive);
+
     public boolean findByEmail(String email);
 
     public boolean findByPseudo(String pseudo);

@@ -1,0 +1,26 @@
+<!doctype html>
+<html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.admin},
+                                                content= ~{::main})} ">
+<main>
+    <link rel="stylesheet" href="/css/liste.css">
+    <section>
+        <h1>Liste des utilisateurs à refroidir</h1>
+    </section>
+    <div>
+        <label>Utilisateurs :</label>
+    </div>
+    <div class="Enchere" th:each="utilisateur : ${utilisateurs}" >
+        <div id="idDivNom" class="NomArticle" th:text="'Pseudo : ' + ${utilisateur.getPseudo()}"></div>
+        <div th:text="'Nom : ' + ${utilisateur.getNom()}"></div>
+        <div th:text="'Prénom : ' + ${utilisateur.getPrenom()}"></div>
+        <div th:text="'Email : ' + ${utilisateur.getEmail()}"></div>
+        <div th:text="'Téléphone : '+${utilisateur.getTelephone()}"></div>
+        <div th:text="'Rue : ' +${utilisateur.getRue()}"></div>
+        <div th:text="'Code Postal : ' +${utilisateur.getCodePostal()}"></div>
+        <div th:text="'Ville : ' +${utilisateur.getVille()}"></div>
+        <div th:text="'Crédit : ' +${utilisateur.getCredit()}"></div>
+        <a th:href="@{/profil(idParam=${utilisateur.getPseudo()})}">Profil utilisateur</a>
+    </div>
+    <script type="text/javascript" src="/js/liste.js"></script>
+</main>
+</html>
