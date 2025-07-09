@@ -22,14 +22,12 @@
             <input type="submit">
         </li>
     </form>
-    <form xmlns:th="http://www.thymeleaf.org"
-            method="post"
-            data-th-action="@{/modif_vente}"
-            data-th-object="${ArticleVente}">
-        <li data-th-if="${#authentication.name == ArticleVente.utilisateur.pseudo}">
-            <button type="submit" name="modifVente">Modifier la vente</button>
+
+    <ul>
+        <li data-th-if="${#authentication.name == ArticleVente.utilisateur.pseudo && ArticleVente.dateDebutEncheres >= date}">
+            <a data-th-href="@{/modif_vente(idParam=${ArticleVente.noArticle})}">Modifier la vente</a>
         </li>
-    </form>
+    </ul>
 
 </div>
 

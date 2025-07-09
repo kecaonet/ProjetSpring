@@ -1,22 +1,29 @@
 package fr.eni.projetspring.ihm;
 
 import fr.eni.projetspring.bll.UtilisateurService;
+import fr.eni.projetspring.bo.ArticleVendu;
 import fr.eni.projetspring.bo.Utilisateur;
+import fr.eni.projetspring.dal.ArticleVenduDAOImpl;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.security.Principal;
+import java.time.LocalDate;
 
 
 @Controller
 @SessionAttributes("utilisateurEnSession")
 public class UtilisateurController {
+    private final ArticleVenduDAOImpl articleVenduDAOImpl;
     private UtilisateurService utilisateurService;
 
-    public UtilisateurController(UtilisateurService utilisateurService) {
+    public UtilisateurController(UtilisateurService utilisateurService, ArticleVenduDAOImpl articleVenduDAOImpl) {
         this.utilisateurService = utilisateurService;
+        this.articleVenduDAOImpl = articleVenduDAOImpl;
     }
 
     @GetMapping("/login")
@@ -62,4 +69,47 @@ public class UtilisateurController {
         return new Utilisateur();
     }
 
+    @GetMapping("/modif_vente")
+    public String modifVente(@RequestParam(name = "idParam") int noArticle, Model model, Principal principal) {
+
+        Utilisateur utilisateurEnSession = utilisateurService.charger(principal.getName());
+        ArticleVendu articleVendu = articleVenduDAOImpl.read(noArticle);
+        model.addAttribute("articleVendu", articleVendu);
+        model.addAttribute("utilisateur", utilisateurEnSession);
+        model.addAttribute("dateJour", LocalDate.now());
+        return "modif_vente";
+    }
+/*
+    @PostMapping("/vente")
+    public String uploadVente(@ModelAttribute("utilisateur") ArticleVendu articleVendu,
+                               BindingResult result, Principal principal) {
+        Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
+        System.out.println("Utilsateur connecté: " + utilisateurEnSession);
+        System.out.println(utilisateur);
+        utilisateur.setNoUtilisateur(utilisateurEnSession.getNoUtilisateur());
+        //Si le pseudo n'est pas modifié, il est set à nulle
+        if (utilisateur.getPseudo().equals(utilisateurEnSession.getPseudo())) {
+            utilisateur.setPseudo(null);
+        }
+        //Si l'email n'est pas modifié, il est set à nulle
+        if (utilisateur.getEmail().equals(utilisateurEnSession.getEmail())) {
+            utilisateur.setEmail(null);
+        }
+        if (!result.hasErrors()) {
+            try {
+                utilisateurService.modifierUtilisateur(utilisateur);
+                //return "redirect:/liste";
+                return "redirect:/logout";
+            } catch (BusinessException e) {
+                System.err.println(e.getClefsExternalisations());
+                e.getClefsExternalisations().forEach( key -> {
+                    ObjectError error = new ObjectError("globalError", key);
+                    result.addError(error);
+                });
+            }
+        }
+        System.out.println("erreur updateProfil");
+        return "update_profil";
+    };
+*/
 }
