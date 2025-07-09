@@ -36,13 +36,13 @@ public class TestValidationUtilisateur {
         enchere.setUtilisateur(5);
         enchere.setDateEnchere(LocalDate.of(2025,7,9));
         enchere.setArticleVendu(11);
+        enchereDAO.create(enchere);
         Utilisateur util = utilisateurDAO.readById(5);
         util.setEnchereList(enchere);
         System.out.println(util.getEnchereList());
         System.out.println(util);
         System.out.println(util.getEnchereList().get(0).getNoEnchere());
-        System.out.println(util.getEnchereList().get(0));
-        enchereDAO.delete(util.getEnchereList().get(0).getUtilisateur(),util.getEnchereList().get(0));
+        enchereDAO.delete(util.getEnchereList().get(0).getNoEnchere());
         System.out.println(util.getEnchereList());
 
     }
