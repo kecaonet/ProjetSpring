@@ -17,7 +17,8 @@ public class Utilisateur implements Serializable {
     private String ville;
     private String motDePasse;
     private int credit = 100;
-    private boolean administrateur = false;
+    private boolean administrateur;
+    private boolean isDesactive;
 
     private List<Enchere> enchereList = new ArrayList<>();
     private List<ArticleVendu> articleVenduList = new ArrayList<>();
@@ -28,7 +29,7 @@ public class Utilisateur implements Serializable {
     /**
      * Constructeur pour création dans la DAO
      */
-    public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse) {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
@@ -151,8 +152,14 @@ public class Utilisateur implements Serializable {
         return enchereList;
     }
 
-    public void setEnchereList(Enchere enchere) {this.enchereList.add(enchere);
+    public void setEnchereList(Enchere enchere) {this.enchereList.add(enchere); }
 
+    public boolean isDesactive() {
+        return isDesactive;
+    }
+
+    public void setDesactive(boolean desactive) {
+        isDesactive = desactive;
     }
 
     public List<ArticleVendu> getArticleVenduList() {
@@ -178,6 +185,7 @@ public class Utilisateur implements Serializable {
         //sb.append(", motDePasse='").append(motDePasse).append('\'');
         sb.append(", credit=").append(credit);
         sb.append(", administrateur=").append(administrateur);
+        sb.append(", isDesactive=").append(isDesactive);
         sb.append(", enchereList=").append(enchereList);
         sb.append(", articleVenduList=").append(articleVenduList);
         sb.append('}');

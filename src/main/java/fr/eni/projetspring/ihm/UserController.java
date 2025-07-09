@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -27,6 +28,12 @@ public class UserController {
         Utilisateur utilisateur = utilisateurService.charger(pseudo);
         model.addAttribute("utilisateur", utilisateur);
         return "update_profil";
+    }
+    @GetMapping("/admin")
+    public String admin(Model model) {
+        List<Utilisateur> utilisateurList = utilisateurService.consulterUtilisateurs();
+        model.addAttribute("utilisateurs", utilisateurList);
+        return "/view_admin";
     }
 
     @PostMapping("/update-profil")
@@ -68,6 +75,27 @@ public class UserController {
         System.out.println("Controller: deleteProfil");
         utilisateurService.supprimerUtilisateur(utilisateurEnSession.getNoUtilisateur());
         return "redirect:/logout";
+    }
+
+    @GetMapping("/desactivateProfil")
+    public String desactivateProfil(@RequestParam(value = "idParam") int noUtilisateur) {
+        System.out.println("Controller id desactivateProfil: " +  noUtilisateur);
+        Utilisateur utilisateurCible = utilisateurService.consulterUtilisateur(noUtilisateur);
+        System.out.println("utilisateurCible avant desactiveProfil: " + utilisateurCible);
+        if(utilisateurCible.isDesactive()){
+            utilisateurService.desactiverUtilisateur(noUtilisateur);
+        }else {
+            utilisateurService.activerUtilisateur(noUtilisateur);
+        }
+        System.out.println("utilisateurCible après desactiveProfil: " + utilisateurCible.isDesactive());
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/killProfil")
+    public String killProfil(@RequestParam(value = "idParam") int noUtilisateur) {
+        System.out.println("Controller killProfil check");
+        utilisateurService.supprimerUtilisateur(noUtilisateur);
+        return "redirect:/admin";
     }
 
 }

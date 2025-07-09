@@ -34,22 +34,18 @@
     <li data-th-if="${Utilisateur.pseudo==#authentication.name}">
         <a data-th-href="@{/updateProfil(idParam=${#authentication.name})}">Modifier le profil</a>
     </li>
-    <form xmlns:th="http://www.thymeleaf.org"
-          method="post"
-          data-th-action="@{/desactiver}"
-          data-th-object="${utilisateur}">
-        <li data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}">
-            <button type="submit">Désactiver l'utilisateur</button>
-        </li>
-    </form>
-    <form xmlns:th="http://www.thymeleaf.org"
-          method="post"
-          data-th-action="@{/supprimer}"
-          data-th-object="${utilisateur}">
-        <li data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}">
-            <button type="submit">Supprimer l'utilisateur</button>
-        </li>
-    </form>
-
+    <li data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <button data-th-if="${Utilisateur.isDesactive()==true}">
+            <a data-th-href="@{/desactivateProfil(idParam=${Utilisateur.noUtilisateur})}">Désactiver ce compte</a>
+        </button>
+        <button data-th-if="${Utilisateur.isDesactive()==false}">
+            <a data-th-href="@{/desactivateProfil(idParam=${Utilisateur.noUtilisateur})}">Activer ce compte</a>
+        </button>
+    </li>
+    <li data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <button>
+            <a data-th-href="@{/killProfil(idParam=${Utilisateur.noUtilisateur})}">ERADIQUER CE COMPTE</a>
+        </button>
+    </li>
 </main>
 </html>

@@ -17,8 +17,6 @@ import java.util.List;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO{
 
-    private final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
-    private final String FIND_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = :id";
     private final String FIND_BY_EMAIL = "SELECT count(email) FROM UTILISATEURS WHERE EMAIL = :email";
     private final String FIND_BY_PSEUDO = "SELECT count(pseudo) FROM UTILISATEURS WHERE PSEUDO = :pseudo";
     private final String READ_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = :pseudo";
@@ -89,18 +87,24 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 // =================================== ReadAll Utilisateur ===================================
 
+    private final String READ_ALL = "SELECT NO_UTILISATEUR, PSEUDO, NOM, PRENOM, EMAIL, TELEPHONE, RUE, " +
+            "CODE_POSTAL, VILLE, CREDIT, ADMINISTRATEUR, IS_DESACTIVE FROM UTILISATEURS";
+
     @Override
     public List<Utilisateur> readAll() {
-        return jdbcTemplate.query(SELECT_ALL, new UtilisateurRowMapper());
+        return jdbcTemplate.query(READ_ALL, new UtilisateurRowMapperForAdmin());
     }
 
 // ================================== ReadById Utilisateur ==================================
+
+    private final String READ_BY_ID = "SELECT NO_UTILISATEUR, PSEUDO, NOM, PRENOM, EMAIL, TELEPHONE, RUE, " +
+            "CODE_POSTAL, VILLE, MOT_DE_PASSE, CREDIT, ADMINISTRATEUR, IS_DESACTIVE FROM UTILISATEURS WHERE NO_UTILISATEUR = :noUtilisateur";
 
     @Override
     public Utilisateur readById(int noUtilisateur) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("noUtilisateur", noUtilisateur);
-        return jdbcTemplate.queryForObject(FIND_BY_ID, namedParameters, new UtilisateurRowMapper());
+        return jdbcTemplate.queryForObject(READ_BY_ID, namedParameters, new UtilisateurRowMapper());
 
     }
 
@@ -108,18 +112,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
     @Override
     public void update(Utilisateur utilisateur) {
-
-        /*
-        String UPDATE = "UPDATE UTILISATEURS SET "
-                + "PSEUDO = :pseudo, "
-                + "NOM = :nom, "
-                + "PRENOM = :prenom, "
-                + "EMAIL = :email, "
-                + "TELEPHONE = :telephone, "
-                + "RUE = :rue, "
-                + "CODE_POSTAL = :codePostal, "
-                + "VILLE = :ville";
-         */
 
         String UPDATE = "UPDATE UTILISATEURS SET ";
         if (utilisateur.getPseudo() != null) UPDATE += "PSEUDO = :pseudo, ";
@@ -167,6 +159,20 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         System.out.println("BDD: check");
     }
 
+// =================================== Desactivate Utilisateur ===================================
+
+    private String DESACTIVATE_BY_ID = "UPDATE UTILISATEURS SET IS_DESACTIVE = :isDesactive WHERE NO_UTILISATEUR = :noUtilisateur";
+
+    @Override
+    public void desactivateById(int noUtilisateur, boolean activeOrDesactive) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("noUtilisateur", noUtilisateur);
+        namedParameters.addValue("isDesactive", activeOrDesactive);
+        System.out.println("DAO: desactivateById check");
+        jdbcTemplate.update(DESACTIVATE_BY_ID, namedParameters);
+        System.out.println("BDD: desactivateById check");
+    }
+
 // ===================================== Row Mapper =====================================
 
     class UtilisateurRowMapper implements RowMapper<Utilisateur> {
@@ -185,6 +191,27 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
             u.setMotDePasse(rs.getString("mot_De_Passe"));
             u.setCredit(rs.getInt("credit"));
             u.setAdministrateur(rs.getBoolean("administrateur"));
+            u.setDesactive(rs.getBoolean("is_Desactive"));
+            return u;
+        }
+    }
+
+    class UtilisateurRowMapperForAdmin implements RowMapper<Utilisateur> {
+        @Override
+        public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Utilisateur u = new Utilisateur();
+            u.setNoUtilisateur(rs.getInt("no_Utilisateur"));
+            u.setPseudo(rs.getString("pseudo"));
+            u.setNom(rs.getString("nom"));
+            u.setPrenom(rs.getString("prenom"));
+            u.setEmail(rs.getString("email"));
+            u.setTelephone(rs.getString("telephone"));
+            u.setRue(rs.getString("rue"));
+            u.setCodePostal(rs.getString("code_Postal"));
+            u.setVille(rs.getString("ville"));
+            u.setCredit(rs.getInt("credit"));
+            u.setAdministrateur(rs.getBoolean("administrateur"));
+            u.setDesactive(rs.getBoolean("is_Desactive"));
             return u;
         }
     }

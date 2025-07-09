@@ -22,6 +22,8 @@ public interface UtilisateurService{
 
     Utilisateur consulterUtilisateurParPseudo(String pseudo);
 
+    void activerUtilisateur(int noUtilisateur);
+
     void desactiverUtilisateur(int noUtilisateur);
 
     List<Utilisateur> consulterUtilisateurs();
