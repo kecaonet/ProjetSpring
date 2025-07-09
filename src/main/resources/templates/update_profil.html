@@ -9,27 +9,27 @@
         <ul class="flex-outer">
           <li>
             <label for="username" >Pseudo</label>
-            <input data-th-field="${utilisateur.pseudo}" id="username" name="username" placeholder="pseudo" type="text">
+            <input data-th-field="${utilisateur.pseudo}" id="username" name="username" placeholder="pseudo" type="text" pattern="^[a-zA-Z0-9]+$" required>
           </li>
           <li>
             <label for="prenom" >Prenom</label>
-            <input data-th-field="${utilisateur.prenom}" id="prenom" name="prenom" placeholder="prenom" type="text">
+            <input data-th-field="${utilisateur.prenom}" id="prenom" name="prenom" placeholder="prenom" type="text" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\-]+$" required>
           </li>
           <li>
             <label for="telephone" >Télephone</label>
-            <input data-th-field="${utilisateur.telephone}" id="telephone" name="telephone" placeholder="0*********" type="tel">
+            <input data-th-field="${utilisateur.telephone}" id="telephone" name="telephone" placeholder="0*********" type="tel" pattern="[0]{1}[0-9]{9}" required>
           </li>
           <li>
             <label for="codePostal" >Code postal</label>
-            <input data-th-field="${utilisateur.codePostal}" id="codePostal" name="codePostal" placeholder="code postal" type="number">
+            <input data-th-field="${utilisateur.codePostal}" id="codePostal" name="codePostal" placeholder="code postal" type="number" pattern="[0-9]{5}" required>
           </li>
           <li>
             <label for="password" >Mot de passe actuel</label>
-            <input id="password" name="actuelPassword" type="password">
+            <input id="password" name="actuelPassword" type="password" title="Renseignez votre mot de passe (min. 8 caractères dont au moins 1 minuscule, 1 majuscule et un chiffre)" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" >
           </li>
           <li>
             <label for="newPassword" >Nouveau mot de passe</label>
-            <input id="newPassword" name="motDePasse" placeholder="Nouveau mot de passe" type="password">
+            <input id="newPassword" name="motDePasse" placeholder="Nouveau mot de passe" type="password" title="Renseignez votre mot de passe (min. 8 caractères dont au moins 1 minuscule, 1 majuscule et un chiffre)" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" >
           </li>
 
         </ul>
@@ -38,7 +38,7 @@
         <ul class="flex-outer">
           <li>
             <label for="nom" >Nom</label>
-            <input data-th-field="${utilisateur.nom}" id="nom" name="nom" placeholder="nom" type="text">
+            <input data-th-field="${utilisateur.nom}" id="nom" name="nom" placeholder="nom" type="text" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\-]+$" required>
           </li>
           <li>
             <label for="email" >Email</label>
@@ -46,18 +46,18 @@
           </li>
           <li>
             <label for="rue" >Rue</label>
-            <input data-th-field="${utilisateur.rue}" id="rue" name="rue" placeholder="rue" type="text">
+            <input data-th-field="${utilisateur.rue}" id="rue" name="rue" placeholder="rue" type="text" pattern="[A-Za-zÀ-ÿ0-9\s.,'’\-\/]+" required>
           </li>
           <li>
             <label for="ville" >Ville</label>
-            <input data-th-field="${utilisateur.ville}" id="ville" name="ville" placeholder="Ville" type="text">
+            <input data-th-field="${utilisateur.ville}" id="ville" name="ville" placeholder="Ville" type="text" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\-]+$" required>
           </li>
           <li>
             <div> <br> </div>
           </li>
           <li>
             <label for="confirmation" >confirmer le nouveau mot de passe</label>
-            <input id="confirmation" name="confirmation" placeholder="Nouveau mot de passe" type="password">
+            <input id="confirmation" name="confirmation" placeholder="Nouveau mot de passe" type="password" title="Renseignez votre mot de passe (min. 8 caractères dont au moins 1 minuscule, 1 majuscule et un chiffre)" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" >
           </li>
         </ul>
       </div>

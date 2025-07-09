@@ -9,3 +9,45 @@ ul{
     display: flex;
     flex-direction: row ;
 }
+
+.entete {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.logos {
+    display: flex;
+    flex-direction: column;
+}
+
+.liensList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 500px;
+
+}
+.liensNav  {
+    display: flex;
+    justify-content: space-evenly;
+    width: 500px;
+
+}
+
+.logoEni img {
+    height: 60px;
+    width: 60px;
+}
+
+.langue{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.langue img{
+
+    height: 15px;
+    width: 25px;
+}

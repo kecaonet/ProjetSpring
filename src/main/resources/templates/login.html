@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.login},
-                                                content= ~{::main})} ">
+                                                content= ~{::main},
+                                                ressourcesSupp=~{:: #ressources-css})}">
+<head>
+    <th:block id="ressources-css">
+        <link rel="stylesheet" href="/css/login.css"/>
+
+    </th:block>
+</head>
+
+
 <main>
     <form data-th-action="@{/login}" method="post">
         <h1>Login</h1>
@@ -9,11 +18,11 @@
         <ul class="flex-outer">
             <li>
                 <label for="username" >Login</label>
-                <input id="username" name="username" value="pseudo">
+                <input id="username" name="username" placeholder="pseudo">
             </li>
             <li>
                 <label for="password" >Password</label>
-                <input id="password" name="password" type="password">
+                <input id="password" name="password" type="password" placeholder="mot de passe" title="Renseignez votre mot de passe (min. 8 caractères dont au moins 1 minuscule, 1 majuscule et un chiffre)" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
             </li>
             <li>
                 <button type="submit">Login</button>

@@ -3,34 +3,43 @@
                                                 content= ~{::main})} ">
 <main>
   <link rel="stylesheet" href="/css/liste.css">
+  <link rel="stylesheet" href="/css/main.css">
   <section>
     <h1 data-th-text="#{index.h1}"></h1>
   </section>
-  <div>
-    <label>Filtres :</label>
-    <input type="text" id="idInputFiltre">
-    <label>Catégorie :</label>
-    <select id="idSelectCategorie">
-      <option value="Defaut">Choisir une option</option>
-      <option value="Informatique">Informatique</option>
-      <option value="Ameublement">Ameublement</option>
-      <option value="Vêtement">Vêtement</option>
-      <option value="Sport&Loisirs">Sport&Loisirs</option>
-    </select>
-    <input id="idBtnCategorie" type="button" value="Rechercher">
-    <div data-th-if="${#authorization.expression('isAuthenticated')}">
-      <select id="idSelectFiltres">
-        <option value="Defaut">Choisir une option</option>
-        <option value="EnCours">Ventes en cours</option>
-        <option value="Participees">Ventes Participées</option>
-        <option value="Remportees">Ventes Remportées</option>
-        <option value="VentesPerso">Ventes Personnelles</option>
-        <option value="VentesPasDebut">Ventes non commencées</option>
-        <option value="VentesPersoEnCours">Ventes Personnelles en cours</option>
-        <option value="VentesPersoTerminées">Ventes Terminées</option>
-      </select>
+  <div class="categories">
+    <div class="blocCategories">
+      <div class="filtres">
+        <label>Filtres :</label>
+        <input type="text" id="idInputFiltre">
+      </div>
+      <div class="listCategories">
+        <label>Catégorie :</label>
+        <select id="idSelectCategorie">
+          <option value="Defaut">Choisir une option</option>
+          <option value="Informatique">Informatique</option>
+          <option value="Ameublement">Ameublement</option>
+          <option value="Vêtement">Vêtement</option>
+          <option value="Sport&Loisirs">Sport&Loisirs</option>
+        </select>
+      </div>
     </div>
+      <div class="btnCategories">
+        <input id="idBtnCategorie" type="button" value="Rechercher">
+      </div>
   </div>
+      <div data-th-if="${#authorization.expression('isAuthenticated')}">
+        <select id="idSelectFiltres">
+          <option value="Defaut">Choisir une option</option>
+          <option value="EnCours">Ventes en cours</option>
+          <option value="Participees">Ventes Participées</option>
+          <option value="Remportees">Ventes Remportées</option>
+          <option value="VentesPerso">Ventes Personnelles</option>
+          <option value="VentesPasDebut">Ventes non commencées</option>
+          <option value="VentesPersoEnCours">Ventes Personnelles en cours</option>
+          <option value="VentesPersoTerminées">Ventes Terminées</option>
+        </select>
+      </div>
   <div class="Enchere" th:each="enchere : ${Encheres}" >
     <div id="idDivNom" class="NomArticle" th:text="'Article : ' + ${enchere.nomArticle}"></div>
     <div th:text="'Description : ' + ${enchere.description}"></div>
