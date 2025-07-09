@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +23,8 @@ public class ArticleVendu implements Serializable {
     private Utilisateur utilisateur; //objet
     private Categorie categorie; //ca doit être l'objet
     private Retrait lieuRetrait;
-    private List<Enchere> enchereList;
+    private List<Enchere> enchereList = new ArrayList<>();
+
 
     /**
      * Constructeur vide
@@ -238,8 +240,8 @@ public class ArticleVendu implements Serializable {
         return enchereList;
     }
 
-    public void setEnchereList(List<Enchere> enchereList) {
-        this.enchereList = enchereList;
+    public void setEnchereList(Enchere enchere) {
+        enchereList.add(enchere);
     }
     public void setDateDebutEncheresSpe(Date date) {
         Date dateDeb = date;

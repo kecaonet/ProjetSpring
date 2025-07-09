@@ -17,7 +17,7 @@
     <form data-th-action="@{/nouvelle_enchere}" method="post"
           data-th-object="${Enchere}">
         <li data-th-if="${#authentication.name != ArticleVente.utilisateur.pseudo}">
-            <input type="text" name="articleVendu.noArticle" style="display:none" data-th-value="${ArticleVente.noArticle}">
+            <input type="text" name="articleVendu" style="display:none" data-th-value="${ArticleVente.noArticle}">
             <input type="number" name="montantEnchere">
             <input type="submit">
         </li>

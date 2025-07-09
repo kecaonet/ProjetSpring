@@ -152,7 +152,7 @@ public class Utilisateur implements Serializable {
         return enchereList;
     }
 
-    public void setEnchereList(Enchere enchere) {this.enchereList.add(enchere); }
+    public void setEnchereList(int ind,Enchere enchere) {this.enchereList.set(ind,enchere); }
 
     public boolean isDesactive() {
         return isDesactive;
