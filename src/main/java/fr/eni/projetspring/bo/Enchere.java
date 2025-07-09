@@ -7,14 +7,13 @@ public class Enchere {
     private int noEnchere;
     private LocalDate dateEnchere;
     private int montantEnchere;
-
-    private Utilisateur utilisateur;
-    private ArticleVendu articleVendu;
+    private int utilisateur;
+    private int articleVendu;
 
     public Enchere() {
     }
 
-    public Enchere(int noEnchere, LocalDate dateEnchere, int montantEnchere, Utilisateur utilisateur, ArticleVendu articleVendu) {
+    public Enchere(int noEnchere, LocalDate dateEnchere, int montantEnchere, int utilisateur, int articleVendu) {
         this.noEnchere = noEnchere;
         this.dateEnchere = dateEnchere;
         this.montantEnchere = montantEnchere;
@@ -22,7 +21,7 @@ public class Enchere {
         this.articleVendu = articleVendu;
     }
 
-    public Enchere(LocalDate dateEnchere, int montantEnchere, Utilisateur utilisateur, ArticleVendu articleVendu) {
+    public Enchere(LocalDate dateEnchere, int montantEnchere, int utilisateur, int articleVendu) {
         this.dateEnchere = dateEnchere;
         this.montantEnchere = montantEnchere;
         this.utilisateur = utilisateur;
@@ -45,19 +44,19 @@ public class Enchere {
         this.montantEnchere = montantEnchere;
     }
 
-    public Utilisateur getUtilisateur() {
+    public int getUtilisateur() {
         return utilisateur;
     }
 
-    public void setUtilisateur(Utilisateur utilisateur) {
+    public void setUtilisateur(int utilisateur) {
         this.utilisateur = utilisateur;
     }
 
-    public ArticleVendu getArticleVendu() {
+    public int getArticleVendu() {
         return articleVendu;
     }
 
-    public void setArticleVendu(ArticleVendu articleVendu) {
+    public void setArticleVendu(int articleVendu) {
         this.articleVendu = articleVendu;
     }
 

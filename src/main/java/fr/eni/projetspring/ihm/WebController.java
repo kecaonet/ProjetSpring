@@ -135,8 +135,6 @@ public class WebController {
             try {
                 System.out.println("Post Enchere");
                 enchereDAO.create(enchereMod);
-                System.out.println("SetEnchereController");
-                utilisateurEnSession.setEnchereList(enchereMod);
 
             } catch (BusinessException e) {
                 System.out.println("Erreur");
