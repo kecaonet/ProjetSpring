@@ -2,50 +2,55 @@
 <html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.accueil},
                                                 content= ~{::main})} ">
 <main>
-  <link rel="stylesheet" href="/css/liste.css">
-  <link rel="stylesheet" href="/css/main.css">
-  <section>
-    <h1 data-th-text="#{index.h1}"></h1>
-  </section>
-  <div class="categories">
-    <div class="blocCategories">
-      <div class="filtres">
-        <label>Filtres :</label>
-        <input type="text" id="idInputFiltre">
-      </div>
-      <div class="listCategories">
-        <label>Catégorie :</label>
-        <select id="idCateg" name="categorie">
-          <option data-th-each="categorie : ${categories}" data-th-text="${categorie.noCategorie} +' : ' +  ${categorie.libelle}" data-th-value="${categorie.noCategorie}">
-        </select>
-      </div>
+    <link rel="stylesheet" href="/css/liste.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <section>
+        <h1 data-th-text="#{index.h1}"></h1>
+    </section>
+    <div class="categories">
+        <div class="blocCategories">
+            <div class="filtres">
+                <label>Filtres :</label>
+                <input type="text" id="idInputFiltre">
+            </div>
+            <div class="listCategories">
+                <label>Catégorie :</label>
+                <select id="idCateg" name="categorie">
+                    <option data-th-each="categorie : ${categories}"
+                            data-th-text="${categorie.noCategorie} +' : ' +  ${categorie.libelle}"
+                            data-th-value="${categorie.noCategorie}">
+                </select>
+            </div>
+        </div>
+        <div class="btnCategories">
+            <input id="idBtnCategorie" type="button" value="Rechercher">
+        </div>
     </div>
-      <div class="btnCategories">
-        <input id="idBtnCategorie" type="button" value="Rechercher">
-      </div>
-  </div>
-      <div data-th-if="${#authorization.expression('isAuthenticated')}">
+    <div data-th-if="${#authorization.expression('isAuthenticated')}">
         <select id="idSelectFiltres">
-          <option value="Defaut">Choisir une option</option>
-          <option value="EnCours">Ventes en cours</option>
-          <option value="Participees">Ventes Participées</option>
-          <option value="Remportees">Ventes Remportées</option>
-          <option value="VentesPerso">Ventes Personnelles</option>
-          <option value="VentesPasDebut">Ventes non commencées</option>
-          <option value="VentesPersoEnCours">Ventes Personnelles en cours</option>
-          <option value="VentesPersoTerminées">Ventes Terminées</option>
+            <option value="Defaut">Choisir une option</option>
+            <option value="EnCours">Ventes en cours</option>
+            <option value="Participees">Ventes Participées</option>
+            <option value="Remportees">Ventes Remportées</option>
+            <option value="VentesPerso">Ventes Personnelles</option>
+            <option value="VentesPasDebut">Ventes non commencées</option>
+            <option value="VentesPersoEnCours">Ventes Personnelles en cours</option>
+            <option value="VentesPersoTerminées">Ventes Terminées</option>
         </select>
-      </div>
-  <div class="Enchere" th:each="enchere : ${Encheres}" >
-    <div id="idDivNom" class="NomArticle" th:text="'Article : ' + ${enchere.nomArticle}"></div>
-    <div th:text="'Description : ' + ${enchere.description}"></div>
-    <div th:text="'Fin de lenchère : ' + ${enchere.dateDebutEncheres}"></div>
-    <div th:text="'Prix initial : '+${enchere.prixInitial}"></div>
-    <div th:text="'Prix vente : ' +${enchere.prixVente}"></div>
-    <div class="Categorie" th:text="'Catégorie : ' + ${enchere.categorie.libelle  }"></div>
-    <div th:text="'Pseudo :  '+ ${enchere.utilisateur.pseudo}"></div>
-    <a th:href="@{/details(idParam=${enchere.noArticle})}">détails</a>
-  </div>
-  <script type="text/javascript" src="/js/liste.js"></script>
+    </div>
+    <section class="fenetreEnchere">
+    <div class="Enchere" th:each="enchere : ${Encheres}"
+         th:classappend="${enchere.dateDebutEncheres <= date and enchere.dateFinEncheres >= date } ? 'desactive' : 'actif'">
+        <div id="idDivNom" class="NomArticle" th:text="'Article : ' + ${enchere.nomArticle}"></div>
+        <div th:text="'Description : ' + ${enchere.description}"></div>
+        <div th:text="'Fin de lenchère : ' + ${enchere.dateDebutEncheres}"></div>
+        <div th:text="'Prix initial : '+${enchere.prixInitial}"></div>
+        <div th:text="'Meilleure offre : ' +${enchere.prixVente}"></div>
+        <div class="Categorie" th:text="'Catégorie : ' + ${enchere.categorie.libelle  }"></div>
+        <div th:text="'Pseudo :  '+ ${enchere.utilisateur.pseudo}"></div>
+        <a th:href="@{/details(idParam=${enchere.noArticle})}">détails</a>
+    </div>
+    </section>
+    <script type="text/javascript" src="/js/liste.js"></script>
 </main>
 </html>

@@ -28,11 +28,11 @@
     background-color: white;
 }
 
-.userViewAdmin.desactive {
+.userViewAdmin.desactive, .Enchere.desactive {
     background-color: #b6fcb6; /* vert pâle */
 }
 
-.userViewAdmin.actif {
+.userViewAdmin.actif, .Enchere.actif {
     background-color: #fcb6b6; /* rouge pâle */
 }
 
