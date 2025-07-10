@@ -1,7 +1,7 @@
 .Enchere, .userViewAdmin {
     border: black solid 1px;
     border-radius: 5px;
-    width: 45vw;
+    width: 27vw;
 }
 
 /*.listeObjets{*/
@@ -16,7 +16,7 @@
 /*    margin-bottom: 5px;*/
 /*}*/
 
-.userViewAdmin {
+.userViewAdmin, .Enchere {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,6 +28,11 @@
     background-color: white;
 }
 
+.Enchere {
+    align-items: flex-start;
+    padding: 1em;
+}
+
 .userViewAdmin.desactive, .Enchere.desactive {
     background-color: #b6fcb6; /* vert pâle */
 }
@@ -36,11 +41,19 @@
     background-color: #fcb6b6; /* rouge pâle */
 }
 
-.fenetreAdmin{
+.fenetreAdmin, .fenetreEnchere {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
+    margin-right: 20vw;
+    margin-left: 20vw;
+}
+
+.fenetreEnchereSuper{
+    width: 100vw;
+    display: flex;
+    justify-self: center;
 }
 
 .listeObjets{
@@ -63,14 +76,10 @@
 .categories {
     display: flex;
     flex-direction: row;
-    width: 80%;
+    width: 100vw;
     margin-bottom: 50px;
     margin-top: 100px;
-
-}
-
-.listCategories{
-
+    justify-content: center;
 }
 
 .btnCategories{

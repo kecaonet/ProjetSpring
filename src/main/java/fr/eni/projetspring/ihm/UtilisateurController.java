@@ -6,8 +6,10 @@ import fr.eni.projetspring.bo.Categorie;
 import fr.eni.projetspring.bo.Utilisateur;
 import fr.eni.projetspring.dal.ArticleVenduDAOImpl;
 import fr.eni.projetspring.dal.CategorieDAO;
+import fr.eni.projetspring.dal.CategorieDAOImpl;
 import fr.eni.projetspring.exceptions.BusinessException;
 import fr.eni.projetspring.ihm.converter.CategorieConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 
 @Controller
@@ -23,12 +26,14 @@ public class UtilisateurController {
     private final ArticleVenduDAOImpl articleVenduDAOImpl;
     private final CategorieConverter categorieConverter;
     private UtilisateurService utilisateurService;
+    @Autowired
     private CategorieDAO categorieDAO;
 
     public UtilisateurController(UtilisateurService utilisateurService, ArticleVenduDAOImpl articleVenduDAOImpl, CategorieConverter categorieConverter) {
         this.utilisateurService = utilisateurService;
         this.articleVenduDAOImpl = articleVenduDAOImpl;
         this.categorieConverter = categorieConverter;
+
     }
 
     @GetMapping("/login")
@@ -81,13 +86,13 @@ public class UtilisateurController {
     public String modifVente(@RequestParam(name = "idParam") int noArticle, Model model, Principal principal) {
         System.out.println("test controller Get modif vente");
 
-        //Categorie categorie = categorieDAO.readCategorie(articleVendu.getNocategorie());
+        List<Categorie> categList = categorieDAO.readAllCategorie();
         //Utilisateur utilisateurEnSession = utilisateurService.charger(principal.getName());
         ArticleVendu articleVendu = articleVenduDAOImpl.read(noArticle);
         model.addAttribute("articleVendu", articleVendu);
         //model.addAttribute("utilisateur", utilisateurEnSession);
         //model.addAttribute("dateJour", LocalDate.now());
-        //model.addAttribute("categorie", categorie);
+        model.addAttribute("categories", categList);
         return "modif_vente";
     }
 

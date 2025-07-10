@@ -10,7 +10,7 @@
 </head>
 
 <main>
-    <form data-th-action="@{/modif_vente}" method="post" data-th-object="${articleVendu}">>
+    <form data-th-action="@{/modif_vente}" method="post" data-th-object="${articleVendu}">
         <h1>Modifier ma vente</h1>
         <div class="formModifVente">
             <div class="listeModifVente">
@@ -19,22 +19,26 @@
                         <div class="DivLab">
                             <label for="idNomArt">Article : </label>
                             <input data-th-field="${articleVendu.nomArticle}" id="idNomArt" name="nomArticle"
-                                   type="text" pattern="^[a-zA-Z0-9]+$" required>
+                                   type="text" pattern="[A-Za-zÀ-ÿ0-9\s.,'’\-\/]+" required>
                         </div>
                     </li>
                     <li>
                         <div class="DivLab">
                             <label for="idDesc">Description : </label>
                             <input data-th-field="${articleVendu.description}" id="idDesc" name="description"
-                                   type="text" pattern="^[a-zA-Z0-9]+$" required>
+                                   type="text" pattern="[A-Za-zÀ-ÿ0-9\s.,'’\-\/]+" required>
                         </div>
                     </li>
 
                     <li>
                         <div class="DivLab">
                             <label for="idCateg">Catégorie : </label>
-                            <input data-th-field="${articleVendu.categorie.libelle}" id="idCateg" name="categorie"
-                                   type="text" pattern="^[a-zA-Z0-9]+$" required>
+                            <select id="idCateg" name="categorie">
+                                <option>Choisir catégorie</option>
+                                <option data-th-each="categorie : ${categories}"
+                                        data-th-text="${categorie.noCategorie} +' : ' +  ${categorie.libelle}"
+                                        data-th-value="${categorie.noCategorie}">
+                            </select>
                         </div>
                     </li>
 
@@ -49,14 +53,14 @@
                         <div class="DivLab">
                             <label for="idDateDebut">Début de l'enchère : </label>
                             <input data-th-field="${articleVendu.dateDebutEncheres}" id="idDateDebut"
-                                   name="dateDebutEncheres" type="date" required>
+                                   name="dateDebutEncheres" type="date">
                         </div>
                     </li>
                     <li>
                         <div class="DivLab">
                             <label for="idDateFin">Fin de l'enchère : </label>
                             <input data-th-field="${articleVendu.dateFinEncheres}" id="idDateFin" name="dateFinEncheres"
-                                   type="date" required>
+                                   type="date">
                         </div>
                     </li>
                     <li style="display:none">
