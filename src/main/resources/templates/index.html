@@ -5,31 +5,31 @@
     <section>
         <h1 data-th-text="#{index.h1}"></h1>
     </section>
-        <link rel="stylesheet" href="/css/liste.css">
-        <section>
-            <h1 data-th-text="#{index.h1}"></h1>
-        </section>
-        <div>
-            <label>Filtres :</label>
-            <input type="text">
-            <label>Catégorie :</label>
-            <select id="idSelectCategorie">
-                <option value="Defaut">Choisir une option</option>
-                <option value="Informatique">Informatique</option>
-                <option value="Ameublement">Ameublement</option>
-                <option value="Vêtement">Vêtement</option>
-                <option value="Sport&Loisirs">Sport&Loisirs</option>
-            </select>
-            <input id="idBtnCategorie" type="button" value="Rechercher">
-        </div>
-        <div class="Enchere" th:each="enchere : ${Encheres}" >
-            <div th:text="'Article : ' + ${enchere.nomArticle}"></div>
-            <div th:text="'Description : ' + ${enchere.description}"></div>
-            <div th:text="'Fin de lenchère : ' + ${enchere.dateFinEncheres}"></div>
-            <div th:text="'Prix initial : '+${enchere.prixInitial}"></div>
-            <div class="Categorie" th:text="'Catégorie : ' + ${Categories.get(enchere.getCategorie()).libelle  }"></div>
-            <div th:text="'Pseudo :  '+ ${Utilisateurs.get(enchere.utilisateurid).pseudo}"></div>
-        </div>
-        <script type="text/javascript" src="/js/liste.js"></script>
-    </main>
+    <link rel="stylesheet" href="/css/liste.css">
+    <section>
+        <h1 data-th-text="#{index.h1}"></h1>
+    </section>
+    <div>
+        <label>Filtres :</label>
+        <input type="text">
+        <label>Catégorie :</label>
+        <select id="idSelectCategorie">
+            <option value="Defaut">Choisir une option</option>
+            <option value="Informatique">Informatique</option>
+            <option value="Ameublement">Ameublement</option>
+            <option value="Vêtement">Vêtement</option>
+            <option value="Sport&Loisirs">Sport&Loisirs</option>
+        </select>
+        <input id="idBtnCategorie" type="button" value="Rechercher">
+    </div>
+    <div class="Enchere" th:each="enchere : ${Encheres}">
+        <div th:text="'Article : ' + ${enchere.nomArticle}"></div>
+        <div th:text="'Description : ' + ${enchere.description}"></div>
+        <div th:text="'Fin de lenchère : ' + ${enchere.dateFinEncheres}"></div>
+        <div th:text="'Prix initial : '+${enchere.prixInitial}"></div>
+        <div class="Categorie" th:text="'Catégorie : ' + ${Categories.get(enchere.getCategorie()).libelle  }"></div>
+        <div th:text="'Pseudo :  '+ ${Utilisateurs.get(enchere.utilisateurid).pseudo}"></div>
+    </div>
+    <script type="text/javascript" src="/js/liste.js"></script>
+</main>
 </html>

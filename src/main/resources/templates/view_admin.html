@@ -8,12 +8,13 @@
         <div style="display: flex; flex-direction: row; margin-bottom: 15px;">
 
             <select name="categorie">
-                <option name="categorie" data-th-each="categorie : ${categories}" data-th-text="${categorie.libelle}" data-th-value="${categorie.noCategorie}"></option>
+                <option name="categorie" data-th-each="categorie : ${categories}" data-th-text="${categorie.libelle}"
+                        data-th-value="${categorie.noCategorie}"></option>
             </select>
-        <form style="margin-left: 10px" data-th-action="@{/ajoutCategorie}" method="post">
-            <input type="text" name="libelle">
-            <button>Ajout d'une catégorie</button>
-        </form>
+            <form style="margin-left: 10px" data-th-action="@{/ajoutCategorie}" method="post">
+                <input type="text" name="libelle">
+                <button>Ajout d'une catégorie</button>
+            </form>
         </div>
 
     </section>
@@ -35,7 +36,7 @@
                 <div th:text="'Ville : ' +${utilisateur.getVille()}"></div>
                 <div th:text="'Crédit : ' +${utilisateur.getCredit()}"></div>
                 <a th:href="@{/profil(idParam=${utilisateur.getPseudo()})}">Profil utilisateur</a>
-<!--        </fieldset>-->
+        <!--        </fieldset>-->
     </section>
     </span>
     <script type="text/javascript" src="/js/liste.js"></script>

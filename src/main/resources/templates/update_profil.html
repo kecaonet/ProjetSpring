@@ -2,10 +2,10 @@
 <html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.login},
                                                 content= ~{::main})} ">
 <main>
-        <h1 class="titreForm">Mon Profil</h1>
-<section class ="sectionForm">
-<fieldset>
-    <form data-th-action="@{/update-profil}" method="post">
+    <h1 class="titreForm">Mon Profil</h1>
+    <section class="sectionForm">
+        <fieldset>
+            <form data-th-action="@{/update-profil}" method="post">
                 <ul class="flex-outer">
                     <li>
                         <label for="username">Pseudo</label>
@@ -66,13 +66,13 @@
                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                     </li>
                     <li class="btnStyle">
-                <button type="submit">Enregister</button>
-            <button type="reset">Annuler</button>
-                    <a data-th-href="@{/deleteProfil}">Supprimer mon compte</a>
+                        <button type="submit">Enregister</button>
+                        <button type="reset">Annuler</button>
+                        <a data-th-href="@{/deleteProfil}">Supprimer mon compte</a>
                     </li>
                 </ul>
-    </form>
-    </fieldset>
+            </form>
+        </fieldset>
     </section>
 
 </main>

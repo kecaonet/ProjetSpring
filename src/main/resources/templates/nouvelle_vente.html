@@ -25,9 +25,11 @@
   <div class="DivLab">
 
     <label for="idCateg">Catégorie : </label>
-    <select id="idCateg" name="categorie">
-      <option data-th-each="categorie : ${categories}" data-th-text="${categorie.noCategorie} +' : ' +  ${categorie.libelle}" data-th-value="${categorie.noCategorie}">
-    </select>
+      <select id="idCateg" name="categorie">
+          <option data-th-each="categorie : ${categories}"
+                  data-th-text="${categorie.noCategorie} +' : ' +  ${categorie.libelle}"
+                  data-th-value="${categorie.noCategorie}">
+      </select>
   </div>
 </li>
 <li>

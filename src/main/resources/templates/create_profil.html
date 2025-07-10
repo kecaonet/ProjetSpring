@@ -3,63 +3,64 @@
                                                 content= ~{::main})} ">
 <main>
     <h1 class="titreForm">Création du profil</h1>
-<section class ="sectionForm">
-<fieldset>
-  <form xmlns:th="http://www.thymeleaf.org"
-        method="post"
-        data-th-action="@{/createProfil}"
-        data-th-object="${utilisateur}">
+    <section class="sectionForm">
+        <fieldset>
+            <form
+                    method="post"
+                    data-th-action="@{/createProfil}"
+                    data-th-object="${utilisateur}">
 
-    <ul class="flex-outer">
-      <li>
-        <label for="pseudo" >Pseudo:</label>
-        <input value="CrashTest01" type="text" minlength="1" maxlength="30" id="pseudo" name="pseudo" pattern="^[a-zA-Z0-9]+$" required>
-      </li>
-      <li>
-        <label for="nom" >Nom:</label>
-        <input value="Crash" type="text" minlength="1" maxlength="30" id="nom" name="nom" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\-]+$" required>
-      </li>
-      <li>
-        <label for="prenom" >Prénom:</label>
-        <input value="Test" type="text" minlength="1" maxlength="30" id="prenom" name="prenom" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\-]+$" required>
-      </li>
-      <li>
-        <label for="email" >Email:</label>
-        <input value="toto@test.com" type="email" minlength="1" maxlength="50" id="email" name="email" pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}" required>
-      </li>
-      <li>
-        <label for="telephone" >Téléphone:</label>
-        <input value="0123456789" type="text" id="telephone" name="telephone" pattern="[0]{1}[0-9]{9}" required>
-      </li>
-      <li>
-        <label for="rue" >Rue:</label>
-        <input value="1 Rue de Toto" id="rue" name="rue" pattern="[A-Za-zÀ-ÿ0-9\s.,'’\-\/]+" required>
-      </li>
-      <li>
-        <label for="codePostal" >Code postal:</label>
-        <input value="00001" type="text" id="codePostal" name="codePostal" pattern="[0-9]{5}" required>
-      </li>
-      <li>
-        <label for="ville" >Ville:</label>
-        <input value="TotoVille" id="ville" name="ville" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\-]+$" required>
-      </li>
-      <li>
-        <label for="motDePasse" >Mot de passe:</label>
-        <input value="1234" type="password" id="motDePasse" name="motDePasse" minlength="8" title="Renseignez votre mot de passe (min. 8 caractères dont au moins 1 minuscule, 1 majuscule et un chiffre)" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-      </li>
-      <!--
-      <li>
-        <label for="mdp-repeat" >Répéter mot de passe:</label>
-        <input type="password" id="mdp-repeat" name="mdp-repeat">
-      </li>
-      -->
-      <li class="btnStyle">
-        <button type="submit">Créer</button>
-        <a href="/liste">Annuler</a>
-      </li>
-    </ul>
-  </form>
-</fieldset>
-</section>
+                <ul class="flex-outer">
+                    <li>
+                        <label for="pseudo">Pseudo:</label>
+                        <input value="CrashTest01" type="text" minlength="1" maxlength="30" id="pseudo" name="pseudo"
+                               pattern="^[a-zA-Z0-9]+$" required>
+                    </li>
+                    <li>
+                        <label for="nom">Nom:</label>
+                        <input value="Crash" type="text" minlength="1" maxlength="30" id="nom" name="nom"
+                               pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\-]+$" required>
+                    </li>
+                    <li>
+                        <label for="prenom">Prénom:</label>
+                        <input value="Test" type="text" minlength="1" maxlength="30" id="prenom" name="prenom"
+                               pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\-]+$" required>
+                    </li>
+                    <li>
+                        <label for="email">Email:</label>
+                        <input value="toto@test.com" type="email" minlength="1" maxlength="50" id="email" name="email"
+                               pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}" required>
+                    </li>
+                    <li>
+                        <label for="telephone">Téléphone:</label>
+                        <input value="0123456789" type="text" id="telephone" name="telephone" pattern="[0]{1}[0-9]{9}"
+                               required>
+                    </li>
+                    <li>
+                        <label for="rue">Rue:</label>
+                        <input value="1 Rue de Toto" id="rue" name="rue" pattern="[A-Za-zÀ-ÿ0-9\s.,'’\-\/]+" required>
+                    </li>
+                    <li>
+                        <label for="codePostal">Code postal:</label>
+                        <input value="00001" type="text" id="codePostal" name="codePostal" pattern="[0-9]{5}" required>
+                    </li>
+                    <li>
+                        <label for="ville">Ville:</label>
+                        <input value="TotoVille" id="ville" name="ville" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\-]+$" required>
+                    </li>
+                    <li>
+                        <label for="motDePasse">Mot de passe:</label>
+                        <input value="1234" type="password" id="motDePasse" name="motDePasse" minlength="8"
+                               title="Renseignez votre mot de passe (min. 8 caractères dont au moins 1 minuscule, 1 majuscule et un chiffre)"
+                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                    </li>
+                    <li class="btnStyle">
+                        <button type="submit">Créer</button>
+                        <a href="/liste">Annuler</a>
+                    </li>
+                </ul>
+            </form>
+        </fieldset>
+    </section>
 </main>
 </html>

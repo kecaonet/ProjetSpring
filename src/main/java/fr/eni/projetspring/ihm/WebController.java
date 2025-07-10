@@ -97,6 +97,8 @@ public class WebController {
         Categorie categorie = categorieDAO.readCategorie(noCategorie);
         Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
         articleVendu.setCategorie(categorie);
+        articleVendu.setDateDebutEncheres(articleVendu.getDateDebutEncheres());
+        articleVendu.setDateFinEncheres(articleVendu.getDateFinEncheres());
         articleVendu.setUtilisateur(utilisateurEnSession);
         articleVendu.setLieuRetrait(articleVendu.getLieuRetrait());
         System.out.println(bindingResult.hasErrors());

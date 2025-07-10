@@ -258,7 +258,7 @@ public class ArticleVendu implements Serializable {
     public void setDateFinEncheresSpe(Date date) {
         Date dateDeb = date;
         LocalDate dateDef = Instant.ofEpochMilli(dateDeb.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-        this.dateDebutEncheres = dateDef;
+        this.dateFinEncheres = dateDef;
     }
     public void setUtilisateurSpe(int Categ) {
 

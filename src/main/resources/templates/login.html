@@ -10,33 +10,35 @@
 
 
 <main>
-        <h1 class="titreForm">Connexion</h1>
-<section class ="sectionForm">
-<fieldset>
-    <form data-th-action="@{/login}" method="post">
-        <div class="error" data-th-if="${param.error}">Login/Password Error</div>
-        <div data-th-if="${param.logout}">Error Logout</div>
-        <ul class="flex-outer">
-            <li>
-                <label for="username" >Login</label>
-                <input id="username" name="username" placeholder="pseudo">
-            </li>
-            <li>
-                <label for="password" >Password</label>
-                <input id="password" name="password" type="password" placeholder="mot de passe" title="Renseignez votre mot de passe (min. 8 caractères dont au moins 1 minuscule, 1 majuscule et un chiffre)" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-            </li>
-            <li>
-                <label for="idCheck">Rester connecté ?</label>
-                <input type="checkbox" id="idCheck" name="remember-me">
-            </li>
-            <li class="btnStyle">
-                <button id="idBtnLog" type="submit">Connexion</button>
-                <a href="create_profil.html" data-th-href="@{/createProfil}">Créer un compte</a>
-            </li>
-        </ul>
-    </form>
-</fieldset>
-</section>
-<script src="/js/login.js"></script>
+    <h1 class="titreForm">Connexion</h1>
+    <section class="sectionForm">
+        <fieldset>
+            <form data-th-action="@{/login}" method="post">
+                <div class="error" data-th-if="${param.error}">Login/Password Error</div>
+                <div data-th-if="${param.logout}">Error Logout</div>
+                <ul class="flex-outer">
+                    <li>
+                        <label for="username">Login</label>
+                        <input id="username" name="username" placeholder="pseudo">
+                    </li>
+                    <li>
+                        <label for="password">Password</label>
+                        <input id="password" name="password" type="password" placeholder="mot de passe"
+                               title="Renseignez votre mot de passe (min. 8 caractères dont au moins 1 minuscule, 1 majuscule et un chiffre)"
+                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                    </li>
+                    <li>
+                        <label for="idCheck">Rester connecté ?</label>
+                        <input type="checkbox" id="idCheck" name="remember-me">
+                    </li>
+                    <li class="btnStyle">
+                        <button id="idBtnLog" type="submit">Connexion</button>
+                        <a href="create_profil.html" data-th-href="@{/createProfil}">Créer un compte</a>
+                    </li>
+                </ul>
+            </form>
+        </fieldset>
+    </section>
+    <script src="/js/login.js"></script>
 </main>
 </html>

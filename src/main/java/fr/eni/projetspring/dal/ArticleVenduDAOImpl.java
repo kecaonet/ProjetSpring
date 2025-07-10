@@ -1,6 +1,7 @@
 package fr.eni.projetspring.dal;
 
 import fr.eni.projetspring.bo.ArticleVendu;
+import fr.eni.projetspring.bo.Retrait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -20,19 +21,14 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     UtilisateurDAO utilisateurDAO;
     @Autowired
     CategorieDAO categorieDAO;
+    @Autowired
+    RetraitDAO RetraitDAO;
 
-    private final String INSERT = "INSERT INTO ARTICLES_VENDUS(NOM_ARTICLE, DESCRIPTION, NO_CATEGORIE, " +
-            " PRIX_INITIAL, PRIX_VENTE, DATE_DEBUT_ENCHERES, DATE_FIN_ENCHERES, NO_UTILISATEUR ) " +
-            "VALUES (:nomArticle, :description, :categorie , :prixInitial, :prixVente, :dateDebutEncheres, :dateFinEncheres, " +
-            ":utilisateur)";
 
     private final String READ_BY_ID = "SELECT NO_ARTICLE, NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
             "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE "
             + "FROM ARTICLES_VENDUS WHERE no_article = :id";
 
-    private final String READ_ALL = "SELECT NO_ARTICLE, NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
-            "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE "
-            + "FROM ARTICLES_VENDUS";
 
     //à compléter
     private final String UPDATE = "";
@@ -45,6 +41,11 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    private final String INSERT = "INSERT INTO ARTICLES_VENDUS(NOM_ARTICLE, DESCRIPTION, NO_CATEGORIE, " +
+            " PRIX_INITIAL, PRIX_VENTE, DATE_DEBUT_ENCHERES, DATE_FIN_ENCHERES, NO_UTILISATEUR ) " +
+            "VALUES (:nomArticle, :description, :categorie , :prixInitial, :prixVente, :dateDebutEncheres, :dateFinEncheres, " +
+            ":utilisateur)";
+
     @Override
     public void createArticleVendu(ArticleVendu articleVendu) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -55,7 +56,9 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
         parameterSource.addValue("categorie", articleVendu.getCategorie().getNoCategorie());
         parameterSource.addValue("prixInitial", articleVendu.getPrixInitial());
         parameterSource.addValue("dateDebutEncheres", articleVendu.getDateDebutEncheres());
+        System.out.println("Date début enchère" + articleVendu.getDateDebutEncheres());
         parameterSource.addValue("dateFinEncheres", articleVendu.getDateFinEncheres());
+        System.out.println("Date fin enchère" + articleVendu.getDateFinEncheres());
         parameterSource.addValue("utilisateur", articleVendu.getUtilisateur().getNoUtilisateur());
         parameterSource.addValue("prixVente", articleVendu.getPrixVente());
         System.out.println("ARTICLE VENDU NOUVEAU AVANT INSERT" + articleVendu);
@@ -72,6 +75,9 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
         namedParameters.addValue("id", NoArticle);
         return jdbcTemplate.queryForObject(READ_BY_ID, namedParameters, new ArticleVenduDAOImpl.ArticleVenduRowMapper());
     }
+    private final String READ_ALL = "SELECT NO_ARTICLE, NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
+            "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE "
+            + "FROM ARTICLES_VENDUS";
 
     @Override
     public List<ArticleVendu> readAllArticleVendu() {
@@ -123,6 +129,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
             a.setPrixVente(rs.getInt("prix_vente"));
             a.setUtilisateur(utilisateurDAO.readById(rs.getInt("no_utilisateur")));
             a.setCategorie(categorieDAO.readCategorie(rs.getInt("no_categorie")));
+
 
             return a;
         }
