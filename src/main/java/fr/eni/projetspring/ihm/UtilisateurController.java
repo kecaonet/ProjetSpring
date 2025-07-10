@@ -2,14 +2,17 @@ package fr.eni.projetspring.ihm;
 
 import fr.eni.projetspring.bll.UtilisateurService;
 import fr.eni.projetspring.bo.ArticleVendu;
+import fr.eni.projetspring.bo.Retrait;
 import fr.eni.projetspring.bo.Utilisateur;
 import fr.eni.projetspring.dal.ArticleVenduDAOImpl;
+import fr.eni.projetspring.dal.CategorieDAO;
+import fr.eni.projetspring.exceptions.BusinessException;
+import fr.eni.projetspring.ihm.converter.CategorieConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -19,11 +22,14 @@ import java.time.LocalDate;
 @SessionAttributes("utilisateurEnSession")
 public class UtilisateurController {
     private final ArticleVenduDAOImpl articleVenduDAOImpl;
+    private final CategorieConverter categorieConverter;
     private UtilisateurService utilisateurService;
+    private CategorieDAO categorieDAO;
 
-    public UtilisateurController(UtilisateurService utilisateurService, ArticleVenduDAOImpl articleVenduDAOImpl) {
+    public UtilisateurController(UtilisateurService utilisateurService, ArticleVenduDAOImpl articleVenduDAOImpl, CategorieConverter categorieConverter) {
         this.utilisateurService = utilisateurService;
         this.articleVenduDAOImpl = articleVenduDAOImpl;
+        this.categorieConverter = categorieConverter;
     }
 
     @GetMapping("/login")
@@ -72,34 +78,25 @@ public class UtilisateurController {
     @GetMapping("/modif_vente")
     public String modifVente(@RequestParam(name = "idParam") int noArticle, Model model, Principal principal) {
 
+        //Categorie categorie = categorieDAO.readCategorie(articleVendu.getNocategorie());
         Utilisateur utilisateurEnSession = utilisateurService.charger(principal.getName());
         ArticleVendu articleVendu = articleVenduDAOImpl.read(noArticle);
         model.addAttribute("articleVendu", articleVendu);
         model.addAttribute("utilisateur", utilisateurEnSession);
         model.addAttribute("dateJour", LocalDate.now());
+        //model.addAttribute("categorie", categorie);
         return "modif_vente";
     }
-/*
-    @PostMapping("/vente")
-    public String uploadVente(@ModelAttribute("utilisateur") ArticleVendu articleVendu,
-                               BindingResult result, Principal principal) {
-        Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
-        System.out.println("Utilsateur connecté: " + utilisateurEnSession);
-        System.out.println(utilisateur);
-        utilisateur.setNoUtilisateur(utilisateurEnSession.getNoUtilisateur());
-        //Si le pseudo n'est pas modifié, il est set à nulle
-        if (utilisateur.getPseudo().equals(utilisateurEnSession.getPseudo())) {
-            utilisateur.setPseudo(null);
-        }
-        //Si l'email n'est pas modifié, il est set à nulle
-        if (utilisateur.getEmail().equals(utilisateurEnSession.getEmail())) {
-            utilisateur.setEmail(null);
-        }
+
+    @PostMapping("/modif_vente")
+    public String uploadVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu, @ModelAttribute("retrait") Retrait retrait,
+                              BindingResult result) {
+
         if (!result.hasErrors()) {
             try {
-                utilisateurService.modifierUtilisateur(utilisateur);
+                utilisateurService.modifVente(articleVendu);
                 //return "redirect:/liste";
-                return "redirect:/logout";
+                return "redirect:/details";
             } catch (BusinessException e) {
                 System.err.println(e.getClefsExternalisations());
                 e.getClefsExternalisations().forEach( key -> {
@@ -109,7 +106,7 @@ public class UtilisateurController {
             }
         }
         System.out.println("erreur updateProfil");
-        return "update_profil";
+        return "modif_vente";
     };
-*/
+
 }

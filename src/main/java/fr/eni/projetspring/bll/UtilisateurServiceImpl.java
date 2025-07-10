@@ -1,6 +1,8 @@
 package fr.eni.projetspring.bll;
 
+import fr.eni.projetspring.bo.ArticleVendu;
 import fr.eni.projetspring.bo.Utilisateur;
+import fr.eni.projetspring.dal.ArticleVenduDAO;
 import fr.eni.projetspring.dal.UtilisateurDAO;
 import fr.eni.projetspring.exceptions.BusinessCode;
 import fr.eni.projetspring.exceptions.BusinessException;
@@ -8,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +19,13 @@ import java.util.List;
 public class UtilisateurServiceImpl implements UtilisateurService {
 
     private final UtilisateurDAO utilisateurDAO;
+    private final ArticleVenduDAO articleVenduDAO;
 
     private PasswordEncoder passwordEncoder =  new BCryptPasswordEncoder(12);
 
-    public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO) {
+    public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO, ArticleVenduDAO articleVenduDAO) {
         this.utilisateurDAO = utilisateurDAO;
+        this.articleVenduDAO = articleVenduDAO;
     }
 
     /**
@@ -144,6 +149,21 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public Utilisateur consulterCredits(Utilisateur utilisateur) {
         return null;
+    }
+
+    // ======================================= Modifs Ventes  =======================================
+
+    @Override
+    @Transactional
+    public void modifVente(ArticleVendu articleVendu) {
+        BusinessException be = new BusinessException();
+            try {
+                articleVenduDAO.updateArticleVendu(articleVendu);
+            } catch (DataAccessException e) { //Exception de la couche DAL
+                //Rollback auto
+                be.add(BusinessCode.BLL_UTILISATEUR_UPDATE_ERREUR + " " + e.getMessage());
+                throw be;
+            }
     }
 
 // --------------------------- Début Validations User ---------------------------

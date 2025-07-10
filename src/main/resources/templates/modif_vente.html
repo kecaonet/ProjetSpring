@@ -10,7 +10,7 @@
 </head>
 
 <main>
-  <form data-th-action="@{/modif_vente}" method="post">
+  <form data-th-action="@{/modif_vente}" method="post"  data-th-object="${articleVendu}">>
     <h1>Modifier ma vente</h1>
     <div class="formModifVente">
       <div class="listeModifVente">
@@ -30,7 +30,7 @@
             <li>
               <div class="DivLab">
                 <label for="idCateg">Catégorie : </label>
-                <input data-th-field="${articleVendu.categorie}" id="idCateg" name="categorie" type="text" pattern="^[a-zA-Z0-9]+$" required>
+                <input data-th-field="${articleVendu.categorie.libelle}" id="idCateg" name="categorie" type="text" pattern="^[a-zA-Z0-9]+$" required>
               </div>
             </li>
             <li>
@@ -51,6 +51,7 @@
                 <input data-th-field="${articleVendu.dateFinEncheres}" id="idDateFin" name="dateFinEncheres" type="date" required>
               </div>
             </li>
+            <!--
             <li>
               <div>
                 <fieldset>
@@ -58,20 +59,21 @@
                   <ul>
                     <li>
                       <label for="idRue">Rue : </label>
-                      <input data-th-field="${utilisateur.rue}" id="idRue" name="rue" type="text" pattern="^[a-zA-Z0-9]+$" required>
+                      <input data-th-field="${retrait.rue}" id="idRue" name="rue" type="text" pattern="[A-Za-zÀ-ÿ0-9\s.,'’\-\/]+" required>
                     </li>
                     <li>
                       <label for="idCP">Code Postal : </label>
-                      <input data-th-field="${utilisateur.codePostal}" type="text" id="idCP">
+                      <input data-th-field="${retrait.codePostal}" type="text" id="idCP">
                     </li>
                     <li>
                       <label for="idVille">Ville : </label>
-                      <input data-th-field="${utilisateur.ville}" type="text" id="idVille">
+                      <input data-th-field="${retrait.ville}" type="text" id="idVille">
                     </li>
                   </ul>
                 </fieldset>
               </div>
             </li>
+            -->
           </ul>
       </div>
     </div>
@@ -79,14 +81,6 @@
       <div>
         <button type="submit">Enregister</button>
       </div>
-      <!--
-      <button type="reset">Annuler</button>
-      <div>
-        <button>
-          <a data-th-href="@{/deleteProfil}">Supprimer mon compte (a href dans bouton)</a>
-        </button>
-      </div>
-      -->
     </div>
   </form>
 
