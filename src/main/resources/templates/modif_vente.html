@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.login},
+                                                content= ~{::main},
+                                                ressourcesSupp=~{:: #ressources-css})}">
+<head>
+  <th:block id="ressources-css">
+    <link rel="stylesheet" href="/css/login.css"/>
+
+  </th:block>
+</head>
+
+<main>
+  <form data-th-action="@{/modif_vente}" method="post"  data-th-object="${articleVendu}">>
+    <h1>Modifier ma vente</h1>
+    <div class="formModifVente">
+      <div class="listeModifVente">
+          <ul>
+            <li>
+              <div class="DivLab">
+                <label for="idNomArt">Article : </label>
+                <input data-th-field="${articleVendu.nomArticle}" id="idNomArt" name="nomArticle" type="text" pattern="^[a-zA-Z0-9]+$" required>
+              </div>
+            </li>
+            <li>
+              <div class="DivLab">
+                <label for="idDesc">Description : </label>
+                <input data-th-field="${articleVendu.description}" id="idDesc" name="description" type="text" pattern="^[a-zA-Z0-9]+$" required>
+              </div>
+            </li>
+
+            <li>
+              <div class="DivLab">
+                <label for="idCateg">Catégorie : </label>
+                <input data-th-field="${articleVendu.categorie.libelle}" id="idCateg" name="categorie" type="text" pattern="^[a-zA-Z0-9]+$" required>
+              </div>
+            </li>
+
+            <li>
+              <div class="DivLab">
+                <label for="idPrix">Mise à prix : </label>
+                <input data-th-field="${articleVendu.prixInitial}" id="idPrix" name="prixInitial" type="text" pattern="^[a-zA-Z0-9]+$" required>
+              </div>
+            </li>
+            <li>
+              <div class="DivLab">
+                <label for="idDateDebut">Début de l'enchère : </label>
+                <input data-th-field="${articleVendu.dateDebutEncheres}" id="idDateDebut" name="dateDebutEncheres" type="date" required>
+              </div>
+            </li>
+            <li>
+              <div class="DivLab">
+                <label for="idDateFin">Fin de l'enchère : </label>
+                <input data-th-field="${articleVendu.dateFinEncheres}" id="idDateFin" name="dateFinEncheres" type="date" required>
+              </div>
+            </li>
+            <!--
+            <li>
+              <div>
+                <fieldset>
+                  <legend>Retrait</legend>
+                  <ul>
+                    <li>
+                      <label for="idRue">Rue : </label>
+                      <input data-th-field="${retrait.rue}" id="idRue" name="rue" type="text" pattern="[A-Za-zÀ-ÿ0-9\s.,'’\-\/]+" required>
+                    </li>
+                    <li>
+                      <label for="idCP">Code Postal : </label>
+                      <input data-th-field="${retrait.codePostal}" type="text" id="idCP">
+                    </li>
+                    <li>
+                      <label for="idVille">Ville : </label>
+                      <input data-th-field="${retrait.ville}" type="text" id="idVille">
+                    </li>
+                  </ul>
+                </fieldset>
+              </div>
+            </li>
+            -->
+          </ul>
+      </div>
+    </div>
+    <div class="boutonsModifVente">
+      <div>
+        <button type="submit">Enregister</button>
+      </div>
+    </div>
+  </form>
+
+</main>
+</html>

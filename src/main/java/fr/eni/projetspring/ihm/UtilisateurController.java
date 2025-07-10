@@ -1,11 +1,17 @@
 package fr.eni.projetspring.ihm;
 
 import fr.eni.projetspring.bll.UtilisateurService;
+import fr.eni.projetspring.bo.ArticleVendu;
 import fr.eni.projetspring.bo.Utilisateur;
+import fr.eni.projetspring.dal.ArticleVenduDAOImpl;
+import fr.eni.projetspring.dal.CategorieDAO;
+import fr.eni.projetspring.exceptions.BusinessException;
+import fr.eni.projetspring.ihm.converter.CategorieConverter;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -13,10 +19,15 @@ import java.security.Principal;
 @Controller
 @SessionAttributes("utilisateurEnSession")
 public class UtilisateurController {
+    private final ArticleVenduDAOImpl articleVenduDAOImpl;
+    private final CategorieConverter categorieConverter;
     private UtilisateurService utilisateurService;
+    private CategorieDAO categorieDAO;
 
-    public UtilisateurController(UtilisateurService utilisateurService) {
+    public UtilisateurController(UtilisateurService utilisateurService, ArticleVenduDAOImpl articleVenduDAOImpl, CategorieConverter categorieConverter) {
         this.utilisateurService = utilisateurService;
+        this.articleVenduDAOImpl = articleVenduDAOImpl;
+        this.categorieConverter = categorieConverter;
     }
 
     @GetMapping("/login")
@@ -61,5 +72,46 @@ public class UtilisateurController {
         System.out.println("Add Attribut Session");
         return new Utilisateur();
     }
+
+    @GetMapping("/modif_vente")
+    public String modifVente(@RequestParam(name = "idParam") int noArticle, Model model, Principal principal) {
+        System.out.println("test controller Get modif vente");
+
+        //Categorie categorie = categorieDAO.readCategorie(articleVendu.getNocategorie());
+        //Utilisateur utilisateurEnSession = utilisateurService.charger(principal.getName());
+        ArticleVendu articleVendu = articleVenduDAOImpl.read(noArticle);
+        model.addAttribute("articleVendu", articleVendu);
+        //model.addAttribute("utilisateur", utilisateurEnSession);
+        //model.addAttribute("dateJour", LocalDate.now());
+        //model.addAttribute("categorie", categorie);
+        return "modif_vente";
+    }
+
+    @PostMapping("/modif_vente")
+    public String uploadVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
+                              BindingResult result, Principal principal) {
+        Utilisateur utilisateur = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
+
+        articleVendu.setUtilisateur(utilisateur);
+        System.out.println(articleVendu);
+        System.out.println(result.getAllErrors());
+        System.out.println(articleVendu.getNoArticle());
+        if (!result.hasErrors()) {
+            try {
+                utilisateurService.modifVente(articleVendu);
+                //return "redirect:/liste";
+                System.out.println("test Controller Post modifVente OK");
+                return "redirect:/liste";
+            } catch (BusinessException e) {
+                System.err.println(e.getClefsExternalisations());
+                e.getClefsExternalisations().forEach( key -> {
+                    ObjectError error = new ObjectError("globalError", key);
+                    result.addError(error);
+                });
+            }
+        }
+        System.out.println("erreur updateProfil");
+        return "modif_vente";
+    };
 
 }

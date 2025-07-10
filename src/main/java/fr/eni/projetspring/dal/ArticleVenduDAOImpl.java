@@ -1,12 +1,7 @@
 package fr.eni.projetspring.dal;
 
 import fr.eni.projetspring.bo.ArticleVendu;
-import fr.eni.projetspring.bo.Categorie;
-import fr.eni.projetspring.bo.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
-import org.springframework.data.web.SortDefault;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -88,7 +83,30 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     @Override
     public void updateArticleVendu(ArticleVendu articleVendu) {
 
-    }
+            String UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS SET ";
+                UPDATE_ARTICLE += "NOM_ARTICLE = :nomArticle, "
+                        + "DESCRIPTION = :description, "
+                        + "PRIX_INITIAL = :prixInitial, "
+                        + "PRIX_VENTE = :prixVente, "
+                        + "DATE_DEBUT_ENCHERES = :dateDebutEncheres, "
+                        + "DATE_FIN_ENCHERES = :dateFinEncheres ";
+
+                UPDATE_ARTICLE += " WHERE NO_ARTICLE = :noArticle";
+
+            MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+            namedParameters.addValue("noArticle", articleVendu.getNoArticle());
+            namedParameters.addValue("nomArticle", articleVendu.getNomArticle());
+            namedParameters.addValue("description", articleVendu.getDescription());
+            namedParameters.addValue("prixInitial", articleVendu.getPrixInitial());
+            namedParameters.addValue("prixVente", articleVendu.getPrixVente());
+            namedParameters.addValue("dateDebutEncheres", articleVendu.getDateDebutEncheres());
+            namedParameters.addValue("dateFinEncheres", articleVendu.getDateFinEncheres());
+
+            jdbcTemplate.update(UPDATE_ARTICLE, namedParameters);
+
+            }
+
+
 
     @Override
     public void deleteArticleVendu(int noArticle) {
@@ -102,6 +120,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     class ArticleVenduRowMapper implements RowMapper<ArticleVendu> {
         @Override
         public ArticleVendu mapRow(ResultSet rs, int rowNum) throws SQLException {
+
             ArticleVendu a = new ArticleVendu();
             a.setNoArticle(rs.getInt("no_article"));
             a.setNomArticle(rs.getString("nom_article"));
@@ -112,10 +131,6 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
             a.setPrixVente(rs.getInt("prix_vente"));
             a.setUtilisateur(utilisateurDAO.readById(rs.getInt("no_utilisateur")));
             a.setCategorie(categorieDAO.readCategorie(rs.getInt("no_categorie")));
-
-
-
-
 
             return a;
         }
