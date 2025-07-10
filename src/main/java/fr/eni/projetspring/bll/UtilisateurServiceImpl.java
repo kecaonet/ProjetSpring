@@ -23,7 +23,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     private final ArticleVenduDAO articleVenduDAO;
     private final CategorieDAO categorieDAO;
 
-    private PasswordEncoder passwordEncoder =  new BCryptPasswordEncoder(12);
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
     public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO, ArticleVenduDAO articleVenduDAO, CategorieDAO categorieDAO) {
         this.utilisateurDAO = utilisateurDAO;
@@ -122,14 +122,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public void activerUtilisateur(int noUtilisateur) {
-        utilisateurDAO.desactivateById(noUtilisateur,true);
+        utilisateurDAO.desactivateById(noUtilisateur, true);
     }
 
 // ================================ Désactivation Utilisateur ================================
 
     @Override
     public void desactiverUtilisateur(int noUtilisateur) {
-        utilisateurDAO.desactivateById(noUtilisateur,false);
+        utilisateurDAO.desactivateById(noUtilisateur, false);
     }
 
 // ========================== Lecture de tous les utilisateurs non admin ==========================
@@ -137,7 +137,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public List<Utilisateur> consulterUtilisateurs() {
         List<Utilisateur> utilisateurs = new ArrayList<>();
-        for (Utilisateur u : utilisateurDAO.readAll() ) {
+        for (Utilisateur u : utilisateurDAO.readAll()) {
             System.out.println("Utilisateur: " + u);
             System.out.println("isDesactive: " + u.isDesactive());
             if (!u.isAdministrateur()) {
@@ -159,15 +159,16 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public void modifVente(ArticleVendu articleVendu) {
         BusinessException be = new BusinessException();
-            try {
-                articleVenduDAO.updateArticleVendu(articleVendu);
-                System.out.println("test modif Article Vendu: " + articleVendu);
-            } catch (DataAccessException e) { //Exception de la couche DAL
-                //Rollback auto
-                be.add(BusinessCode.BLL_VENTE_UPDATE_ERREUR + " " + e.getMessage());
-                throw be;
-            }
+        try {
+            articleVenduDAO.updateArticleVendu(articleVendu);
+            System.out.println("test modif Article Vendu: " + articleVendu);
+        } catch (DataAccessException e) { //Exception de la couche DAL
+            //Rollback auto
+            be.add(BusinessCode.BLL_VENTE_UPDATE_ERREUR + " " + e.getMessage());
+            throw be;
+        }
     }
+
     @Override
     public void supprimerVente(int id) {
         BusinessException be = new BusinessException();
@@ -189,7 +190,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             return false;
         }
         return true;
-    };
+    }
+
+    ;
 
     private boolean validerPseudoUnique(String pseudo, BusinessException be) {
         //Valider que le pseudo est unique
@@ -223,7 +226,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return true;
     }
 
-    private boolean validerPseudo(String pseudo,  BusinessException be) {
+    private boolean validerPseudo(String pseudo, BusinessException be) {
         if (!pseudo.matches("^[a-zA-Z0-9]+$")) {
             be.add(BusinessCode.VALIDATION_PSEUDO_INVALIDE);
             return false;

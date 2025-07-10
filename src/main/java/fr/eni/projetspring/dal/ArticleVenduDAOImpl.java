@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class ArticleVenduDAOImpl implements ArticleVenduDAO{
+public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     @Autowired
     UtilisateurDAO utilisateurDAO;
@@ -62,9 +62,9 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
         parameterSource.addValue("utilisateur", articleVendu.getUtilisateur().getNoUtilisateur());
         parameterSource.addValue("prixVente", articleVendu.getPrixVente());
         System.out.println("ARTICLE VENDU NOUVEAU AVANT INSERT" + articleVendu);
-        jdbcTemplate.update(INSERT, parameterSource,  keyHolder, new String[]{"NO_ARTICLE"});
+        jdbcTemplate.update(INSERT, parameterSource, keyHolder, new String[]{"NO_ARTICLE"});
         System.out.println("Creation key holder" + keyHolder.getKey());
-        if(keyHolder != null && keyHolder.getKey() != null) {
+        if (keyHolder != null && keyHolder.getKey() != null) {
             articleVendu.setNoArticle(keyHolder.getKey().intValue());
         }
     }
@@ -75,6 +75,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
         namedParameters.addValue("id", NoArticle);
         return jdbcTemplate.queryForObject(READ_BY_ID, namedParameters, new ArticleVenduDAOImpl.ArticleVenduRowMapper());
     }
+
     private final String READ_ALL = "SELECT NO_ARTICLE, NOM_ARTICLE, DESCRIPTION, DATE_DEBUT_ENCHERES, " +
             "DATE_FIN_ENCHERES, PRIX_INITIAL, PRIX_VENTE, NO_UTILISATEUR, NO_CATEGORIE "
             + "FROM ARTICLES_VENDUS";
@@ -89,22 +90,21 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     @Override
     public void updateArticleVendu(ArticleVendu articleVendu) {
 
-            String UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS SET NOM_ARTICLE = :nomArticle, DESCRIPTION = :description , PRIX_INITIAL = :prixInitial, PRIX_VENTE = :prixVente,DATE_DEBUT_ENCHERES = :dateDebutEncheres, DATE_FIN_ENCHERES = :dateFinEncheres WHERE NO_ARTICLE = :noArticle";
+        String UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS SET NOM_ARTICLE = :nomArticle, DESCRIPTION = :description , PRIX_INITIAL = :prixInitial, PRIX_VENTE = :prixVente,DATE_DEBUT_ENCHERES = :dateDebutEncheres, DATE_FIN_ENCHERES = :dateFinEncheres WHERE NO_ARTICLE = :noArticle";
 
-            MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         System.out.println("Article en cours" + articleVendu);
-            namedParameters.addValue("noArticle", articleVendu.getNoArticle());
-            namedParameters.addValue("nomArticle", articleVendu.getNomArticle());
-            namedParameters.addValue("description", articleVendu.getDescription());
-            namedParameters.addValue("prixInitial", articleVendu.getPrixInitial());
-            namedParameters.addValue("prixVente", articleVendu.getPrixVente());
-            namedParameters.addValue("dateDebutEncheres", articleVendu.getDateDebutEncheres());
-            namedParameters.addValue("dateFinEncheres", articleVendu.getDateFinEncheres());
+        namedParameters.addValue("noArticle", articleVendu.getNoArticle());
+        namedParameters.addValue("nomArticle", articleVendu.getNomArticle());
+        namedParameters.addValue("description", articleVendu.getDescription());
+        namedParameters.addValue("prixInitial", articleVendu.getPrixInitial());
+        namedParameters.addValue("prixVente", articleVendu.getPrixVente());
+        namedParameters.addValue("dateDebutEncheres", articleVendu.getDateDebutEncheres());
+        namedParameters.addValue("dateFinEncheres", articleVendu.getDateFinEncheres());
 
-            jdbcTemplate.update(UPDATE_ARTICLE, namedParameters);
+        jdbcTemplate.update(UPDATE_ARTICLE, namedParameters);
 
-            }
-
+    }
 
 
     @Override

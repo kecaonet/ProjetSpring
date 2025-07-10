@@ -32,10 +32,12 @@ public class UtilisateurController {
     }
 
     @GetMapping("/login")
-    public String login() { return "login";}
+    public String login() {
+        return "login";
+    }
 
     @GetMapping("/session")
-    String chargerUtilisateurEnSession(@ModelAttribute("utilisateurEnSession")Utilisateur utilisateurEnSession, Principal principal) {
+    String chargerUtilisateurEnSession(@ModelAttribute("utilisateurEnSession") Utilisateur utilisateurEnSession, Principal principal) {
         String pseudo = principal.getName();
         Utilisateur aCharger = utilisateurService.charger(pseudo);
         if (aCharger != null) {
@@ -67,6 +69,7 @@ public class UtilisateurController {
 
         return "redirect:/liste";
     }
+
     // Ajout pour utilisation UilisateurEnSession. Cette méthode met par défaut un nouveau membre en session
     @ModelAttribute("utilisateurEnSession")
     public Utilisateur utilisateurEnSession() {
@@ -105,7 +108,7 @@ public class UtilisateurController {
                 return "redirect:/liste";
             } catch (BusinessException e) {
                 System.err.println(e.getClefsExternalisations());
-                e.getClefsExternalisations().forEach( key -> {
+                e.getClefsExternalisations().forEach(key -> {
                     ObjectError error = new ObjectError("globalError", key);
                     result.addError(error);
                 });
@@ -113,15 +116,19 @@ public class UtilisateurController {
         }
         System.out.println("erreur updateProfil");
         return "modif_vente";
-    };
+    }
+
+    ;
+
     @PostMapping("/supprimer_vente")
     public String supprimerVente(@RequestParam(value = "idParam") int noArticle) {
-            utilisateurService.supprimerVente(noArticle);
-            //return "redirect:/liste";
-            System.out.println("test Controller Post Supp OK");
-            return "redirect:/liste";
-        }
-        @PostMapping("/ajoutCategorie")
+        utilisateurService.supprimerVente(noArticle);
+        //return "redirect:/liste";
+        System.out.println("test Controller Post Supp OK");
+        return "redirect:/liste";
+    }
+
+    @PostMapping("/ajoutCategorie")
     public String modifCategorie(@ModelAttribute("categorie") Categorie categorie, Model model) {
         categorie.setLibelle(categorie.getLibelle());
         utilisateurService.ajouterCategorie(categorie);

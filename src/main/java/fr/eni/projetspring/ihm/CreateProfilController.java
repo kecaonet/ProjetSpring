@@ -38,7 +38,7 @@ public class CreateProfilController {
                 return "redirect:/liste";
             } catch (BusinessException e) {
                 System.err.println(e.getClefsExternalisations());
-                e.getClefsExternalisations().forEach( key -> {
+                e.getClefsExternalisations().forEach(key -> {
                     ObjectError error = new ObjectError("globalError", key);
                     bindingResult.addError(error);
                 });

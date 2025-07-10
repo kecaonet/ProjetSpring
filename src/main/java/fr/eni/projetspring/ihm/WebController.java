@@ -64,7 +64,7 @@ public class WebController {
     public String displayVenteDetails(@RequestParam(name = "idParam") int idValue, Model model) {
         //récupération de la vente dont l'id est passé en paramètre
         ArticleVendu articleVendu = articleVenduDAO.read(idValue);
-        model.addAttribute("date",LocalDate.now());
+        model.addAttribute("date", LocalDate.now());
         model.addAttribute("ArticleVente", articleVendu);
 
         return "vente_details";

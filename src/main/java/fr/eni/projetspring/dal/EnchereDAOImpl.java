@@ -42,7 +42,7 @@ public class EnchereDAOImpl implements EnchereDAO {
     }
 
 
-    private String INSERT ="INSERT INTO Encheres (date_enchere,montant_enchere,no_article,no_utilisateur) Values(:date_enchere,:montant_enchere,:no_article,:no_utilisateur)";
+    private String INSERT = "INSERT INTO Encheres (date_enchere,montant_enchere,no_article,no_utilisateur) Values(:date_enchere,:montant_enchere,:no_article,:no_utilisateur)";
     private String UPDATEVENTE = "update articles_vendus set prix_vente = :prixvente where no_article = :noarticle";
 
     @Override
@@ -60,16 +60,16 @@ public class EnchereDAOImpl implements EnchereDAO {
         parameterSource.addValue("no_article", enchere.getArticleVendu());
         parameterSource.addValue("no_utilisateur", enchere.getUtilisateur());
 
-        jdbcTemplate.update(INSERT, parameterSource,  keyHolder, new String[]{"NO_ARTICLE"});
+        jdbcTemplate.update(INSERT, parameterSource, keyHolder, new String[]{"NO_ARTICLE"});
 
 
         MapSqlParameterSource parameterSource2 = new MapSqlParameterSource();
-        parameterSource2.addValue("prixvente",enchere.getMontantEnchere());
-        parameterSource2.addValue("noarticle",enchere.getArticleVendu());
+        parameterSource2.addValue("prixvente", enchere.getMontantEnchere());
+        parameterSource2.addValue("noarticle", enchere.getArticleVendu());
         jdbcTemplate.update(UPDATEVENTE, parameterSource2);
         System.out.println("Set enchère");
         System.out.println(enchere);
-        Enchere enchere2 = new Enchere(enchere.getDateEnchere(), enchere.getMontantEnchere(), enchere.getUtilisateur(),  enchere.getArticleVendu());
+        Enchere enchere2 = new Enchere(enchere.getDateEnchere(), enchere.getMontantEnchere(), enchere.getUtilisateur(), enchere.getArticleVendu());
 //        System.out.println(utilisateurService.consulterUtilisateur(enchere.getUtilisateur()));
 //        utilisateurService.consulterUtilisateur(enchere.getUtilisateur()).setEnchereList(enchere);
         System.out.println(enchere.getArticleVendu());
@@ -78,7 +78,7 @@ public class EnchereDAOImpl implements EnchereDAO {
         System.out.println(articleVenduDAO.read(enchere.getArticleVendu()));
         //System.out.println(utilisateurService.consulterUtilisateur(enchere.getUtilisateur()).getEnchereList());
         System.out.println(articleVenduDAO.read(enchere.getArticleVendu()).getEnchereList());
-        if(keyHolder != null && keyHolder.getKey() != null) {
+        if (keyHolder != null && keyHolder.getKey() != null) {
             enchere.setNoEnchere(keyHolder.getKey().intValue());
         }
     }
@@ -97,13 +97,15 @@ public class EnchereDAOImpl implements EnchereDAO {
     public void update(int id) {
 
     }
+
     String DELETE = "DELETE FROM enchere where no_enchere = :id";
+
     @Override
     public void delete(int id) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
 
         parameterSource.addValue("id", id);
 
-            jdbcTemplate.getJdbcTemplate().update(DELETE, parameterSource);
-        }
+        jdbcTemplate.getJdbcTemplate().update(DELETE, parameterSource);
     }
+}

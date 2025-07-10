@@ -6,7 +6,7 @@ import fr.eni.projetspring.bo.Utilisateur;
 
 import java.util.List;
 
-public interface UtilisateurService{
+public interface UtilisateurService {
 
     /**
      * @param pseudo
@@ -21,7 +21,7 @@ public interface UtilisateurService{
 
     void supprimerUtilisateur(int noUtilisateur);
 
-    Utilisateur consulterUtilisateur (int noUtilisateur);
+    Utilisateur consulterUtilisateur(int noUtilisateur);
 
     Utilisateur consulterUtilisateurParPseudo(String pseudo);
 

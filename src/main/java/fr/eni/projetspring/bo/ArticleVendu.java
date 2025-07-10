@@ -34,6 +34,7 @@ public class ArticleVendu implements Serializable {
 
     /**
      * Constructeur sans "id"
+     *
      * @param nomArticle
      * @param description
      * @param dateDebutEncheres
@@ -60,6 +61,7 @@ public class ArticleVendu implements Serializable {
 
     /**
      * Constructeur complet
+     *
      * @param noArticle
      * @param nomArticle
      * @param description
@@ -88,6 +90,7 @@ public class ArticleVendu implements Serializable {
 
     /**
      * Constructeur sans "id" et sans "lieuRetrait"
+     *
      * @param nomArticle
      * @param description
      * @param dateDebutEncheres
@@ -112,6 +115,7 @@ public class ArticleVendu implements Serializable {
 
     /**
      * Constructeur sans "lieuRetrait"
+     *
      * @param noArticle
      * @param nomArticle
      * @param description
@@ -135,8 +139,10 @@ public class ArticleVendu implements Serializable {
         this.categorie = categorie;
         this.enchereList = enchereList;
     }
+
     /**
      * Constructeur sans "lieuRetrait"
+     *
      * @param nomArticle
      * @param description
      * @param dateDebutEncheres
@@ -214,7 +220,9 @@ public class ArticleVendu implements Serializable {
         this.prixVente = prixVente;
     }
 
-    public Utilisateur getUtilisateur() { return utilisateur; }
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
 
     public void setUtilisateur(Utilisateur util) {
         this.utilisateur = util;
@@ -245,21 +253,24 @@ public class ArticleVendu implements Serializable {
         System.out.println(enchere);
         System.out.println(enchereList);
 
-        this.enchereList.add(enchereList.size(),enchere);
+        this.enchereList.add(enchereList.size(), enchere);
         System.out.println(this.enchereList);
         System.out.println(enchereList);
 
     }
+
     public void setDateDebutEncheresSpe(Date date) {
         Date dateDeb = date;
         LocalDate dateDef = Instant.ofEpochMilli(dateDeb.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
         this.dateDebutEncheres = dateDef;
     }
+
     public void setDateFinEncheresSpe(Date date) {
         Date dateDeb = date;
         LocalDate dateDef = Instant.ofEpochMilli(dateDeb.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
         this.dateFinEncheres = dateDef;
     }
+
     public void setUtilisateurSpe(int Categ) {
 
 

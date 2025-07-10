@@ -15,11 +15,10 @@ import java.util.List;
 
 @Repository
 
-public class UtilisateurDAOImpl implements UtilisateurDAO{
+public class UtilisateurDAOImpl implements UtilisateurDAO {
+
 
     private final String FIND_BY_EMAIL = "SELECT count(email) FROM UTILISATEURS WHERE EMAIL = :email";
-    private final String FIND_BY_PSEUDO = "SELECT count(pseudo) FROM UTILISATEURS WHERE PSEUDO = :pseudo";
-    private final String READ_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = :pseudo";
 
     @Override
     public boolean findByEmail(String email) {
@@ -27,21 +26,25 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         namedParameters.addValue("email", email);
 
         int count = jdbcTemplate.queryForObject(FIND_BY_EMAIL, namedParameters, Integer.class);
-        return count>=1;
+        return count >= 1;
     }
+
+    private final String FIND_BY_PSEUDO = "SELECT count(pseudo) FROM UTILISATEURS WHERE PSEUDO = :pseudo";
 
     @Override
     public boolean findByPseudo(String pseudo) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("pseudo", pseudo);
         int count = jdbcTemplate.queryForObject(FIND_BY_PSEUDO, namedParameters, Integer.class);
-        return count>=1;
+        return count >= 1;
     }
 
     /**
      * @param pseudo le pseudo
      * @return l'utilisateur en fonction de son pseudo
      */
+    private final String READ_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = :pseudo";
+
     @Override
     public Utilisateur findUtilByPseudo(String pseudo) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
@@ -126,11 +129,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
                 + "VILLE = :ville";
 
 
-        if(utilisateur.getMotDePasse().isEmpty()) {
+        if (utilisateur.getMotDePasse().isEmpty()) {
             UPDATE += " WHERE NO_UTILISATEUR = :noUtilisateur";
-        }else {
+        } else {
             UPDATE += ", MOT_DE_PASSE = :motDePasse WHERE NO_UTILISATEUR = :noUtilisateur";
-        };
+        }
+        ;
 
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("noUtilisateur", utilisateur.getNoUtilisateur());

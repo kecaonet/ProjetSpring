@@ -40,6 +40,7 @@ public class Utilisateur implements Serializable {
         this.ville = ville;
         this.motDePasse = motDePasse;
     }
+
     //Constructeur sans DAO pour modification utilisateur sans modif mot de passe
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville) {
         this.pseudo = pseudo;
@@ -152,7 +153,9 @@ public class Utilisateur implements Serializable {
         return enchereList;
     }
 
-    public void setEnchereList(Enchere enchere) {enchereList.add(enchereList.size(),enchere); }
+    public void setEnchereList(Enchere enchere) {
+        enchereList.add(enchereList.size(), enchere);
+    }
 
     public boolean isDesactive() {
         return isDesactive;

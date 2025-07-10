@@ -10,23 +10,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class RetraitDAOImpl implements RetraitDAO{
+public class RetraitDAOImpl implements RetraitDAO {
 
-    private final String INSERT = "INSERT INTO RETRAITS(RUE, CODEPOSTAL, VILLE, NO_ARTICLE) " +
-            "VALUES (:rue, :codepostal, :ville, :no_article)";
-
-    private final String READ_BY_ID = "SELECT RUE, CODEPOSTAL, VILLE, NO_ARTICLE " +
-            "FROM RETRAITS WHERE NO_ARTICLE = :noArticle";
-
-    private final String READ_ALL = "SELECT RUE, CODEPOSTAL, VILLE, NO_ARTICLE " +
-            "FROM RETRAITS";
-
-    private final String UPDATE = "";
-
-    private final String DELETE = "";
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
+
+    private final String INSERT = "INSERT INTO RETRAITS(RUE, CODEPOSTAL, VILLE, NO_ARTICLE) " + "VALUES (:rue, :codepostal, :ville, :no_article)";
 
     @Override
     public void createRetrait(Retrait retrait) {
@@ -40,14 +30,17 @@ public class RetraitDAOImpl implements RetraitDAO{
         jdbcTemplate.update(INSERT, parameterSource);
     }
 
+    private final String READ_BY_ID = "SELECT RUE, CODEPOSTAL, VILLE, NO_ARTICLE " + "FROM RETRAITS WHERE NO_ARTICLE = :noArticle";
+
     @Override
     public Retrait readRetrait(int noArticle) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("noArticle", noArticle);
 
-        return jdbcTemplate.queryForObject(READ_BY_ID, parameterSource,
-                new BeanPropertyRowMapper<>(Retrait.class));
+        return jdbcTemplate.queryForObject(READ_BY_ID, parameterSource, new BeanPropertyRowMapper<>(Retrait.class));
     }
+
+    private final String READ_ALL = "SELECT RUE, CODEPOSTAL, VILLE, NO_ARTICLE " + "FROM RETRAITS";
 
     @Override
     public List<Retrait> readAllRetrait() {

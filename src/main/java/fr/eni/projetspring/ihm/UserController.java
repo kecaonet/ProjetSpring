@@ -34,6 +34,7 @@ public class UserController {
         model.addAttribute("utilisateur", utilisateur);
         return "update_profil";
     }
+
     @GetMapping("/admin")
     public String admin(Model model) {
         List<Utilisateur> utilisateurList = utilisateurService.consulterUtilisateurs();
@@ -65,7 +66,7 @@ public class UserController {
                 return "redirect:/logout";
             } catch (BusinessException e) {
                 System.err.println(e.getClefsExternalisations());
-                e.getClefsExternalisations().forEach( key -> {
+                e.getClefsExternalisations().forEach(key -> {
                     ObjectError error = new ObjectError("globalError", key);
                     result.addError(error);
                 });
@@ -73,12 +74,14 @@ public class UserController {
         }
         System.out.println("erreur updateProfil");
         return "update_profil";
-    };
+    }
+
+    ;
 
     @GetMapping("/deleteProfil")
     public String suppProfil(Principal principal) {
         Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
-        System.out.println("id de l'utilisateur connecté: " +  utilisateurEnSession.getNoUtilisateur());
+        System.out.println("id de l'utilisateur connecté: " + utilisateurEnSession.getNoUtilisateur());
         System.out.println("Controller: deleteProfil");
         utilisateurService.supprimerUtilisateur(utilisateurEnSession.getNoUtilisateur());
         return "redirect:/logout";
@@ -86,12 +89,12 @@ public class UserController {
 
     @GetMapping("/desactivateProfil")
     public String desactivateProfil(@RequestParam(value = "idParam") int noUtilisateur) {
-        System.out.println("Controller id desactivateProfil: " +  noUtilisateur);
+        System.out.println("Controller id desactivateProfil: " + noUtilisateur);
         Utilisateur utilisateurCible = utilisateurService.consulterUtilisateur(noUtilisateur);
         System.out.println("utilisateurCible avant desactiveProfil: " + utilisateurCible);
-        if(utilisateurCible.isDesactive()){
+        if (utilisateurCible.isDesactive()) {
             utilisateurService.desactiverUtilisateur(noUtilisateur);
-        }else {
+        } else {
             utilisateurService.activerUtilisateur(noUtilisateur);
         }
         System.out.println("utilisateurCible après desactiveProfil: " + utilisateurCible.isDesactive());
