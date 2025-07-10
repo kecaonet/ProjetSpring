@@ -39,15 +39,15 @@
         <a data-th-href="@{/updateProfil(idParam=${#authentication.name})}">Modifier le profil</a>
     </li>
     <li data-th-if="${#authorization.expression('hasRole(''ADMIN'')')} and ${Utilisateur.pseudo!=#authentication.name}" class="btnStyle">
-        <button data-th-if="${Utilisateur.isDesactive()==true}">
-            <a data-th-href="@{/desactivateProfil(idParam=${Utilisateur.noUtilisateur})}">Désactiver ce compte</a>
-        </button>
-        <button data-th-if="${Utilisateur.isDesactive()==false}">
-            <a data-th-href="@{/desactivateProfil(idParam=${Utilisateur.noUtilisateur})}">Activer ce compte</a>
-        </button>
-        <button>
+<!--        <button data-th-if="${Utilisateur.isDesactive()==true}">-->
+            <a data-th-if="${Utilisateur.isDesactive()==true}" data-th-href="@{/desactivateProfil(idParam=${Utilisateur.noUtilisateur})}">Désactiver ce compte</a>
+<!--        </button>-->
+<!--        <button data-th-if="${Utilisateur.isDesactive()==false}">-->
+            <a data-th-if="${Utilisateur.isDesactive()==false}" data-th-href="@{/desactivateProfil(idParam=${Utilisateur.noUtilisateur})}">Activer ce compte</a>
+<!--        </button>-->
+<!--        <button>-->
             <a data-th-href="@{/killProfil(idParam=${Utilisateur.noUtilisateur})}">ERADIQUER CE COMPTE</a>
-        </button>
+<!--        </button>-->
     </li>
 </fieldset>
     </section>

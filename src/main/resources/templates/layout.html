@@ -33,9 +33,6 @@
                     <a href="/login">S'inscrire - Se connecter</a>
                 </li>
                 <li data-th-if="${#authorization.expression('isAuthenticated')}">
-                    <a href="/logout">Déconnexion</a>
-                </li>
-                <li data-th-if="${#authorization.expression('isAuthenticated')}">
                     <a data-th-href="@{/nouvelle_vente(idParam=${#authentication.name})}">Nouvelle vente</a>
                 </li>
                 <li data-th-if="${#authorization.expression('isAuthenticated')}">
@@ -43,6 +40,9 @@
                 </li>
                 <li data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}">
                     <a data-th-href="@{/admin}">Admin</a>
+                </li>
+                <li data-th-if="${#authorization.expression('isAuthenticated')}">
+                    <a href="/logout">Déconnexion</a>
                 </li>
                 <li>
                     <button onclick="history.back();">Retour</button>
