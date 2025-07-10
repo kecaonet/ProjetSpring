@@ -1,6 +1,7 @@
 package fr.eni.projetspring.bll;
 
 import fr.eni.projetspring.bo.ArticleVendu;
+import fr.eni.projetspring.bo.Categorie;
 import fr.eni.projetspring.bo.Utilisateur;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public interface UtilisateurService{
      * @return les informations de l'utilisateur identifié par son pseudo
      */
     Utilisateur charger(String pseudo);
+
 
     void ajouterUtilisateur(Utilisateur utilisateur);
 
@@ -33,4 +35,7 @@ public interface UtilisateurService{
 
     void modifVente(ArticleVendu articleVendu);
 
+    void supprimerVente(int id);
+
+    void ajouterCategorie(Categorie categorie);
 }

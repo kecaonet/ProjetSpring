@@ -83,17 +83,10 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     @Override
     public void updateArticleVendu(ArticleVendu articleVendu) {
 
-            String UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS SET ";
-                UPDATE_ARTICLE += "NOM_ARTICLE = :nomArticle, "
-                        + "DESCRIPTION = :description, "
-                        + "PRIX_INITIAL = :prixInitial, "
-                        + "PRIX_VENTE = :prixVente, "
-                        + "DATE_DEBUT_ENCHERES = :dateDebutEncheres, "
-                        + "DATE_FIN_ENCHERES = :dateFinEncheres ";
-
-                UPDATE_ARTICLE += " WHERE NO_ARTICLE = :noArticle";
+            String UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS SET NOM_ARTICLE = :nomArticle, DESCRIPTION = :description , PRIX_INITIAL = :prixInitial, PRIX_VENTE = :prixVente,DATE_DEBUT_ENCHERES = :dateDebutEncheres, DATE_FIN_ENCHERES = :dateFinEncheres WHERE NO_ARTICLE = :noArticle";
 
             MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        System.out.println("Article en cours" + articleVendu);
             namedParameters.addValue("noArticle", articleVendu.getNoArticle());
             namedParameters.addValue("nomArticle", articleVendu.getNomArticle());
             namedParameters.addValue("description", articleVendu.getDescription());
@@ -110,7 +103,6 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
 
     @Override
     public void deleteArticleVendu(int noArticle) {
-
 
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("id", noArticle);

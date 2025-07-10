@@ -15,12 +15,8 @@
       </div>
       <div class="listCategories">
         <label>Catégorie :</label>
-        <select id="idSelectCategorie">
-          <option value="Defaut">Choisir une option</option>
-          <option value="Informatique">Informatique</option>
-          <option value="Ameublement">Ameublement</option>
-          <option value="Vêtement">Vêtement</option>
-          <option value="Sport&Loisirs">Sport&Loisirs</option>
+        <select id="idCateg" name="categorie">
+          <option data-th-each="categorie : ${categories}" data-th-text="${categorie.noCategorie} +' : ' +  ${categorie.libelle}" data-th-value="${categorie.noCategorie}">
         </select>
       </div>
     </div>

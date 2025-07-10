@@ -3,6 +3,7 @@ package fr.eni.projetspring.dal;
 import fr.eni.projetspring.bo.Categorie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -22,10 +23,6 @@ public class CategorieDAOImpl implements CategorieDAO{
 
     private final String READ_ALL = "SELECT NO_CATEGORIE, LIBELLE FROM CATEGORIES";
 
-    private final String UPDATE = "";
-
-    private final String DELETE = "";
-
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -34,7 +31,7 @@ public class CategorieDAOImpl implements CategorieDAO{
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("Libelle", categorie.getLibelle());
+        parameterSource.addValue("libelle", categorie.getLibelle());
 
         jdbcTemplate.update(INSERT, parameterSource, keyHolder);
 
@@ -63,10 +60,4 @@ public class CategorieDAOImpl implements CategorieDAO{
     public List<Categorie> readAllCategorie() {
         return jdbcTemplate.query(READ_ALL, new BeanPropertyRowMapper<>(Categorie.class));
     }
-
-    @Override
-    public void updateCategorie(Categorie categorie) {}
-
-    @Override
-    public void deleteCategorie(int noCategorie) {}
 }

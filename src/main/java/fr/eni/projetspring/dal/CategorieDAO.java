@@ -15,7 +15,4 @@ public interface CategorieDAO {
 
     List<Categorie> readAllCategorie();
 
-    void updateCategorie(Categorie categorie);
-
-    void deleteCategorie(int noCategorie);
 }

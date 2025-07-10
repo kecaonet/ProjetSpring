@@ -2,6 +2,7 @@ package fr.eni.projetspring.ihm;
 
 import fr.eni.projetspring.bll.UtilisateurService;
 import fr.eni.projetspring.bo.ArticleVendu;
+import fr.eni.projetspring.bo.Categorie;
 import fr.eni.projetspring.bo.Utilisateur;
 import fr.eni.projetspring.dal.ArticleVenduDAOImpl;
 import fr.eni.projetspring.dal.CategorieDAO;
@@ -113,5 +114,17 @@ public class UtilisateurController {
         System.out.println("erreur updateProfil");
         return "modif_vente";
     };
-
+    @PostMapping("/supprimer_vente")
+    public String supprimerVente(@RequestParam(value = "idParam") int noArticle) {
+            utilisateurService.supprimerVente(noArticle);
+            //return "redirect:/liste";
+            System.out.println("test Controller Post Supp OK");
+            return "redirect:/liste";
+        }
+        @PostMapping("/ajoutCategorie")
+    public String modifCategorie(@ModelAttribute("categorie") Categorie categorie, Model model) {
+        categorie.setLibelle(categorie.getLibelle());
+        utilisateurService.ajouterCategorie(categorie);
+        return "redirect:/liste";
+    }
 }

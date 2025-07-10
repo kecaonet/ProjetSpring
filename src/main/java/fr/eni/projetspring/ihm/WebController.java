@@ -52,6 +52,8 @@ public class WebController {
     public String index(Model model) {
 
         List<ArticleVendu> listeArticles = articleVenduDAO.readAllArticleVendu();
+        List<Categorie> CategListe = categorieDAO.readAllCategorie();
+        model.addAttribute("categories", CategListe);
         model.addAttribute("Encheres", listeArticles);
         System.out.println(listeArticles.toString());
 

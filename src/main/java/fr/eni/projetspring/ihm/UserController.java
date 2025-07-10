@@ -1,7 +1,9 @@
 package fr.eni.projetspring.ihm;
 
 import fr.eni.projetspring.bll.UtilisateurService;
+import fr.eni.projetspring.bo.Categorie;
 import fr.eni.projetspring.bo.Utilisateur;
+import fr.eni.projetspring.dal.CategorieDAO;
 import fr.eni.projetspring.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.swing.*;
 import java.security.Principal;
 import java.util.List;
 
@@ -21,6 +24,8 @@ public class UserController {
 
     @Autowired
     private UtilisateurService utilisateurService;
+    @Autowired
+    CategorieDAO categorieDAO;
 
     @GetMapping("/updateProfil")
     public String modifProfil(@RequestParam(name = "idParam") String pseudo, Model model) {
@@ -33,6 +38,8 @@ public class UserController {
     public String admin(Model model) {
         List<Utilisateur> utilisateurList = utilisateurService.consulterUtilisateurs();
         model.addAttribute("utilisateurs", utilisateurList);
+        List<Categorie> CategListe = categorieDAO.readAllCategorie();
+        model.addAttribute("categories", CategListe);
         return "/view_admin";
     }
 

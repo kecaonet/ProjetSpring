@@ -1,8 +1,10 @@
 package fr.eni.projetspring.bll;
 
 import fr.eni.projetspring.bo.ArticleVendu;
+import fr.eni.projetspring.bo.Categorie;
 import fr.eni.projetspring.bo.Utilisateur;
 import fr.eni.projetspring.dal.ArticleVenduDAO;
+import fr.eni.projetspring.dal.CategorieDAO;
 import fr.eni.projetspring.dal.UtilisateurDAO;
 import fr.eni.projetspring.exceptions.BusinessCode;
 import fr.eni.projetspring.exceptions.BusinessException;
@@ -19,12 +21,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     private final UtilisateurDAO utilisateurDAO;
     private final ArticleVenduDAO articleVenduDAO;
+    private final CategorieDAO categorieDAO;
 
     private PasswordEncoder passwordEncoder =  new BCryptPasswordEncoder(12);
 
-    public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO, ArticleVenduDAO articleVenduDAO) {
+    public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO, ArticleVenduDAO articleVenduDAO, CategorieDAO categorieDAO) {
         this.utilisateurDAO = utilisateurDAO;
         this.articleVenduDAO = articleVenduDAO;
+        this.categorieDAO = categorieDAO;
     }
 
     /**
@@ -164,6 +168,18 @@ public class UtilisateurServiceImpl implements UtilisateurService {
                 throw be;
             }
     }
+    @Override
+    public void supprimerVente(int id) {
+        BusinessException be = new BusinessException();
+        try {
+            articleVenduDAO.deleteArticleVendu(id);
+            System.out.println("test suppression Article Vendu");
+        } catch (DataAccessException e) { //Exception de la couche DAL
+            //Rollback auto
+            be.add(BusinessCode.BLL_VENTE_UPDATE_ERREUR + " " + e.getMessage());
+            throw be;
+        }
+    }
 
 // --------------------------- Début Validations User ---------------------------
 
@@ -216,5 +232,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
 // --------------------------- Fin Validations User ---------------------------
+
+    public void ajouterCategorie(Categorie categorie) {
+        categorieDAO.createCategorie(categorie);
+    }
 
 }

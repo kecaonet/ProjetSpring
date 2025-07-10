@@ -4,6 +4,21 @@
 <main>
     <link rel="stylesheet" href="/css/liste.css">
     <section>
+        <h3>Ajout Catégorie</h3>
+        <div style="display: flex; flex-direction: row; margin-bottom: 15px;">
+
+            <select name="categorie">
+                <option name="categorie" data-th-each="categorie : ${categories}" data-th-text="${categorie.libelle}" data-th-value="${categorie.noCategorie}"></option>
+            </select>
+        <form style="margin-left: 10px" data-th-action="@{/ajoutCategorie}" method="post">
+            <input type="text" name="libelle">
+            <button>Ajout d'une catégorie</button>
+        </form>
+        </div>
+
+    </section>
+
+    <section>
         <h1 class="titreForm">Liste des utilisateurs</h1>
     </section>
     <span class="fenetreAdmin">
