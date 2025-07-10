@@ -4,13 +4,12 @@
 <main>
     <link rel="stylesheet" href="/css/liste.css">
     <section>
-        <h1>Liste des utilisateurs à refroidir</h1>
+        <h1 id="titreForm">Liste des utilisateurs</h1>
     </section>
-    <div>
-        <label>Utilisateurs :</label>
-    </div>
-    <div class="Enchere" th:each="utilisateur : ${utilisateurs}" >
-        <div id="idDivNom" class="NomArticle" th:text="'Pseudo : ' + ${utilisateur.getPseudo()}"></div>
+    <section class="userViewAdmin" th:each="utilisateur : ${utilisateurs}" >
+        <fieldset>
+        <h2 th:text="${utilisateur.getPseudo()}"></h2>
+            <div  class="listeObjets">
         <div th:text="'Nom : ' + ${utilisateur.getNom()}"></div>
         <div th:text="'Prénom : ' + ${utilisateur.getPrenom()}"></div>
         <div th:text="'Email : ' + ${utilisateur.getEmail()}"></div>
@@ -20,7 +19,9 @@
         <div th:text="'Ville : ' +${utilisateur.getVille()}"></div>
         <div th:text="'Crédit : ' +${utilisateur.getCredit()}"></div>
         <a th:href="@{/profil(idParam=${utilisateur.getPseudo()})}">Profil utilisateur</a>
-    </div>
+            </div>
+        </fieldset>
+    </section>
     <script type="text/javascript" src="/js/liste.js"></script>
 </main>
 </html>

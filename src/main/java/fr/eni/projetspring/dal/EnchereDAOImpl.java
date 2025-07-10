@@ -69,11 +69,14 @@ public class EnchereDAOImpl implements EnchereDAO {
         jdbcTemplate.update(UPDATEVENTE, parameterSource2);
         System.out.println("Set enchère");
         System.out.println(enchere);
-
-        System.out.println(utilisateurService.consulterUtilisateur(enchere.getUtilisateur()));
-        utilisateurService.consulterUtilisateur(enchere.getUtilisateur()).setEnchereList(enchere);
-        articleVenduDAO.read(enchere.getArticleVendu()).setEnchereList(enchere);
-        System.out.println(utilisateurService.consulterUtilisateur(enchere.getUtilisateur()).getEnchereList());
+        Enchere enchere2 = new Enchere(enchere.getDateEnchere(), enchere.getMontantEnchere(), enchere.getUtilisateur(),  enchere.getArticleVendu());
+//        System.out.println(utilisateurService.consulterUtilisateur(enchere.getUtilisateur()));
+//        utilisateurService.consulterUtilisateur(enchere.getUtilisateur()).setEnchereList(enchere);
+        System.out.println(enchere.getArticleVendu());
+        System.out.println(articleVenduDAO.read(enchere.getArticleVendu()));
+        articleVenduDAO.read(enchere.getArticleVendu()).setEnchereList(enchere2);
+        System.out.println(articleVenduDAO.read(enchere.getArticleVendu()));
+        //System.out.println(utilisateurService.consulterUtilisateur(enchere.getUtilisateur()).getEnchereList());
         System.out.println(articleVenduDAO.read(enchere.getArticleVendu()).getEnchereList());
         if(keyHolder != null && keyHolder.getKey() != null) {
             enchere.setNoEnchere(keyHolder.getKey().intValue());

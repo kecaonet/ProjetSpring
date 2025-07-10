@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <title data-th-text="${title}"></title>
     <link rel="stylesheet" href="/css/general.css">
-    <link rel="stylesheet" href="/css/general.css">
-    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/login.css">
     <!-- Permettre d’ajouter ou non des ressources CSS -->
     <th:block data-th-replace="${ressourcesSupp} ?: ~{}"></th:block>
 </head>
@@ -15,7 +14,7 @@
         <div class="logos">
             <div class="logoEni">
             <a href="/liste"><img alt="logo ENI"
-                                         src="/images/LogoEni.jpg"></a>
+                                         src="/images/LogoEni.png"></a>
             </div>
             <div class="langue">
                 <a href="/?language=fr"><img alt="Français"
@@ -28,7 +27,7 @@
         <nav class="liensNav">
             <ul class="liensList">
                 <li>
-                    <a href="/liste">Liste</a>
+                    <a href="/liste">Accueil</a>
                 </li>
                 <li data-th-if="${!#authorization.expression('isAuthenticated')}">
                     <a href="/login">S'inscrire - Se connecter</a>
@@ -45,6 +44,9 @@
                 <li data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}" >
                     <a data-th-href="@{/admin}">Admin</a>
                 </li>
+                <li>
+                    <button onclick="history.back();">Retour</button>
+                </li>
             </ul>
         </nav>
     </div>
@@ -52,7 +54,7 @@
 <h2 data-th-text="${title}"></h2>
 <main data-th-replace="${content}"></main>
 <footer>
-    <p>&copy; ENI Corporation</p>
+    <p class="footerStyle">&copy; Le Bon Bide Corporation</p>
 </footer>
 </body>
 </html>
