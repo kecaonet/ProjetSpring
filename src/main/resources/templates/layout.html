@@ -17,10 +17,12 @@
                                       src="/images/LogoEni.png"></a>
             </div>
         </div>
-        <div data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}">
-            <h2>
+        <div class="adminHeader" data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <img class="logoAdmin" src="/images/LogoAdmin.jpg" alt="logo admin">
+            <h2 id="titreAdmin">
                 Mode Admin
             </h2>
+            <img class="logoAdmin" src="/images/LogoAdmin.jpg" alt="logo admin">
         </div>
         <nav class="liensNav">
             <ul class="liensList">

@@ -84,3 +84,19 @@ footer .langue{
 .footerStyle{
     text-align: center;
 }
+
+#titreAdmin{
+    color: #b9000f;
+}
+
+.logoAdmin{
+    height: 40px;
+    width: 40px;
+}
+
+.adminHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em; /* espace entre les éléments */
+}
