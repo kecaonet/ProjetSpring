@@ -16,7 +16,9 @@
     <a data-th-href="@{/profil(idParam=${ArticleVente.utilisateur.pseudo})}" data-th-text="${ArticleVente.utilisateur.pseudo}"></a>
     <form data-th-action="@{/nouvelle_enchere}" method="post"
           data-th-object="${Enchere}">
+        <!--
         <div data-th-text="${ArticleVente.utilisateur.getNoUtilisateur()}"></div>
+        -->
         <li data-th-if="${#authentication.name != ArticleVente.utilisateur.pseudo }">
             <input type="text" name="articleVendu" style="display:none" data-th-value="${ArticleVente.noArticle}">
             <input type="number" name="montantEnchere">
@@ -25,7 +27,7 @@
     </form>
 
     <ul>
-        <li data-th-if="${#authentication.name == ArticleVente.utilisateur.pseudo and ArticleVente.dateDebutEncheres >= date}">
+        <li data-th-if="${#authentication.name == ArticleVente.utilisateur.pseudo and ArticleVente.dateDebutEncheres > date}">
             <a data-th-href="@{/modif_vente(idParam=${ArticleVente.noArticle})}">Modifier la vente</a>
         </li>
     </ul>

@@ -89,7 +89,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
                         + "PRIX_INITIAL = :prixInitial, "
                         + "PRIX_VENTE = :prixVente, "
                         + "DATE_DEBUT_ENCHERES = :dateDebutEncheres, "
-                        + "DATE_FIN_ENCHERES = :dateFinEncheres, ";
+                        + "DATE_FIN_ENCHERES = :dateFinEncheres ";
 
                 UPDATE_ARTICLE += " WHERE NO_ARTICLE = :noArticle";
 
@@ -99,26 +99,11 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
             namedParameters.addValue("description", articleVendu.getDescription());
             namedParameters.addValue("prixInitial", articleVendu.getPrixInitial());
             namedParameters.addValue("prixVente", articleVendu.getPrixVente());
-            namedParameters.addValue("dateDebutencheres", articleVendu.getDateDebutEncheres());
-            namedParameters.addValue("dateFinencheres", articleVendu.getDateFinEncheres());
-            namedParameters.addValue("dateDebutencheres", articleVendu.getDateDebutEncheres());
+            namedParameters.addValue("dateDebutEncheres", articleVendu.getDateDebutEncheres());
+            namedParameters.addValue("dateFinEncheres", articleVendu.getDateFinEncheres());
 
             jdbcTemplate.update(UPDATE_ARTICLE, namedParameters);
 
-            String UPDATE_RETRAIT = "UPDATE RETRAITS SET ";
-            UPDATE_RETRAIT += "RUE = :rue, "
-                    + "CODE_POSTAL = :codePostal, "
-                    + "VILLE = :ville, ";
-
-
-            UPDATE_RETRAIT += " WHERE NO_ARTICLE = :noArticle";
-
-            namedParameters.addValue("noArticle", articleVendu.getNoArticle());
-            namedParameters.addValue("rue", articleVendu.getLieuRetrait().getRue());
-            namedParameters.addValue("description", articleVendu.getLieuRetrait().getCodePostal());
-            namedParameters.addValue("prixInitial", articleVendu.getLieuRetrait().getVille());
-
-            jdbcTemplate.update(UPDATE_RETRAIT, namedParameters);
             }
 
 
@@ -135,6 +120,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO{
     class ArticleVenduRowMapper implements RowMapper<ArticleVendu> {
         @Override
         public ArticleVendu mapRow(ResultSet rs, int rowNum) throws SQLException {
+
             ArticleVendu a = new ArticleVendu();
             a.setNoArticle(rs.getInt("no_article"));
             a.setNomArticle(rs.getString("nom_article"));

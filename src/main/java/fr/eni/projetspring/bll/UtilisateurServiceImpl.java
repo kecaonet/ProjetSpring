@@ -10,7 +10,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -154,14 +153,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     // ======================================= Modifs Ventes  =======================================
 
     @Override
-    @Transactional
     public void modifVente(ArticleVendu articleVendu) {
         BusinessException be = new BusinessException();
             try {
                 articleVenduDAO.updateArticleVendu(articleVendu);
+                System.out.println("test modif Article Vendu: " + articleVendu);
             } catch (DataAccessException e) { //Exception de la couche DAL
                 //Rollback auto
-                be.add(BusinessCode.BLL_UTILISATEUR_UPDATE_ERREUR + " " + e.getMessage());
+                be.add(BusinessCode.BLL_VENTE_UPDATE_ERREUR + " " + e.getMessage());
                 throw be;
             }
     }

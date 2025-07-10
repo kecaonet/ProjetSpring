@@ -2,7 +2,6 @@ package fr.eni.projetspring.ihm;
 
 import fr.eni.projetspring.bll.UtilisateurService;
 import fr.eni.projetspring.bo.ArticleVendu;
-import fr.eni.projetspring.bo.Retrait;
 import fr.eni.projetspring.bo.Utilisateur;
 import fr.eni.projetspring.dal.ArticleVenduDAOImpl;
 import fr.eni.projetspring.dal.CategorieDAO;
@@ -15,7 +14,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.time.LocalDate;
 
 
 @Controller
@@ -77,26 +75,33 @@ public class UtilisateurController {
 
     @GetMapping("/modif_vente")
     public String modifVente(@RequestParam(name = "idParam") int noArticle, Model model, Principal principal) {
+        System.out.println("test controller Get modif vente");
 
         //Categorie categorie = categorieDAO.readCategorie(articleVendu.getNocategorie());
-        Utilisateur utilisateurEnSession = utilisateurService.charger(principal.getName());
+        //Utilisateur utilisateurEnSession = utilisateurService.charger(principal.getName());
         ArticleVendu articleVendu = articleVenduDAOImpl.read(noArticle);
         model.addAttribute("articleVendu", articleVendu);
-        model.addAttribute("utilisateur", utilisateurEnSession);
-        model.addAttribute("dateJour", LocalDate.now());
+        //model.addAttribute("utilisateur", utilisateurEnSession);
+        //model.addAttribute("dateJour", LocalDate.now());
         //model.addAttribute("categorie", categorie);
         return "modif_vente";
     }
 
     @PostMapping("/modif_vente")
-    public String uploadVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu, @ModelAttribute("retrait") Retrait retrait,
-                              BindingResult result) {
+    public String uploadVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
+                              BindingResult result, Principal principal) {
+        Utilisateur utilisateur = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
 
+        articleVendu.setUtilisateur(utilisateur);
+        System.out.println(articleVendu);
+        System.out.println(result.getAllErrors());
+        System.out.println(articleVendu.getNoArticle());
         if (!result.hasErrors()) {
             try {
                 utilisateurService.modifVente(articleVendu);
                 //return "redirect:/liste";
-                return "redirect:/details";
+                System.out.println("test Controller Post modifVente OK");
+                return "redirect:/liste";
             } catch (BusinessException e) {
                 System.err.println(e.getClefsExternalisations());
                 e.getClefsExternalisations().forEach( key -> {
