@@ -1,5 +1,6 @@
 package fr.eni.projetspring.bll;
 
+import fr.eni.projetspring.bo.ArticleVendu;
 import fr.eni.projetspring.bo.Utilisateur;
 
 import java.util.List;
@@ -29,5 +30,7 @@ public interface UtilisateurService{
     List<Utilisateur> consulterUtilisateurs();
 
     Utilisateur consulterCredits(Utilisateur utilisateur);
+
+    void modifVente(ArticleVendu articleVendu);
 
 }

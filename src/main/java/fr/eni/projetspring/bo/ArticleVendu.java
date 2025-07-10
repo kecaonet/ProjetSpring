@@ -241,7 +241,14 @@ public class ArticleVendu implements Serializable {
     }
 
     public void setEnchereList(Enchere enchere) {
-        enchereList.add(enchere);
+        System.out.println(enchereList.size());
+        System.out.println(enchere);
+        System.out.println(enchereList);
+
+        this.enchereList.add(enchereList.size(),enchere);
+        System.out.println(this.enchereList);
+        System.out.println(enchereList);
+
     }
     public void setDateDebutEncheresSpe(Date date) {
         Date dateDeb = date;

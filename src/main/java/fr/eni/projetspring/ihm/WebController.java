@@ -7,14 +7,17 @@ import fr.eni.projetspring.bo.Enchere;
 import fr.eni.projetspring.bo.Utilisateur;
 import fr.eni.projetspring.dal.*;
 import fr.eni.projetspring.exceptions.BusinessException;
-import fr.eni.projetspring.ihm.converter.CategorieConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.WebListenerRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
@@ -93,6 +96,7 @@ public class WebController {
         Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
         articleVendu.setCategorie(categorie);
         articleVendu.setUtilisateur(utilisateurEnSession);
+        articleVendu.setLieuRetrait(articleVendu.getLieuRetrait());
         System.out.println(bindingResult.hasErrors());
         System.out.println(bindingResult.getAllErrors());
         System.out.println(bindingResult.getTarget());
