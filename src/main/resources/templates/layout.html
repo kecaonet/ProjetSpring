@@ -13,17 +13,15 @@
     <div class="entete">
         <div class="logos">
             <div class="logoEni">
-            <a href="/liste"><img alt="logo ENI"
-                                         src="/images/LogoEni.png"></a>
-            </div>
-            <div class="langue">
-                <a href="/?language=fr"><img alt="Français"
-                                             src="/images/French.webp"></a>
-                <a href="/?language=en"><img
-                    alt="English" src="/images/English.webp"></a>
+                <a href="/liste"><img alt="logo ENI"
+                                      src="/images/LogoEni.png"></a>
             </div>
         </div>
-
+        <div data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <h2>
+                Mode Admin
+            </h2>
+        </div>
         <nav class="liensNav">
             <ul class="liensList">
                 <li>
@@ -33,15 +31,15 @@
                     <a href="/login">S'inscrire - Se connecter</a>
                 </li>
                 <li data-th-if="${#authorization.expression('isAuthenticated')}">
-                    <a href="/logout">Log out</a>
+                    <a href="/logout">Déconnexion</a>
                 </li>
                 <li data-th-if="${#authorization.expression('isAuthenticated')}">
                     <a data-th-href="@{/nouvelle_vente(idParam=${#authentication.name})}">Nouvelle vente</a>
                 </li>
-                <li data-th-if="${#authorization.expression('isAuthenticated')}" >
+                <li data-th-if="${#authorization.expression('isAuthenticated')}">
                     <a data-th-href="@{/profil(idParam=${#authentication.name})}">Profil</a>
                 </li>
-                <li data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}" >
+                <li data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}">
                     <a data-th-href="@{/admin}">Admin</a>
                 </li>
                 <li>
@@ -51,9 +49,15 @@
         </nav>
     </div>
 </header>
-<h2 data-th-text="${title}"></h2>
+<!--<h2 data-th-text="${title}"></h2>-->
 <main data-th-replace="${content}"></main>
 <footer>
+    <div class="langue">
+        <a href="/?language=fr"><img alt="Français"
+                                     src="/images/French.webp"></a>
+        <a href="/?language=en"><img
+                alt="English" src="/images/English.webp"></a>
+    </div>
     <p class="footerStyle">&copy; Le Bon Bide Corporation</p>
 </footer>
 </body>

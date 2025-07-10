@@ -4,24 +4,25 @@
 <main>
     <link rel="stylesheet" href="/css/liste.css">
     <section>
-        <h1 id="titreForm">Liste des utilisateurs</h1>
+        <h1 class="titreForm">Liste des utilisateurs</h1>
     </section>
-    <section class="userViewAdmin" th:each="utilisateur : ${utilisateurs}" >
-        <fieldset>
-        <h2 th:text="${utilisateur.getPseudo()}"></h2>
-            <div  class="listeObjets">
-        <div th:text="'Nom : ' + ${utilisateur.getNom()}"></div>
-        <div th:text="'Prénom : ' + ${utilisateur.getPrenom()}"></div>
-        <div th:text="'Email : ' + ${utilisateur.getEmail()}"></div>
-        <div th:text="'Téléphone : '+${utilisateur.getTelephone()}"></div>
-        <div th:text="'Rue : ' +${utilisateur.getRue()}"></div>
-        <div th:text="'Code Postal : ' +${utilisateur.getCodePostal()}"></div>
-        <div th:text="'Ville : ' +${utilisateur.getVille()}"></div>
-        <div th:text="'Crédit : ' +${utilisateur.getCredit()}"></div>
-        <a th:href="@{/profil(idParam=${utilisateur.getPseudo()})}">Profil utilisateur</a>
-            </div>
-        </fieldset>
+    <span class="fenetreAdmin">
+    <section class="userViewAdmin" th:each="utilisateur : ${utilisateurs}"
+             th:classappend="${utilisateur.isDesactive()} ? 'desactive' : 'actif'">
+<!--        <fieldset class="listeObjets">-->
+            <h2 th:text="${utilisateur.getPseudo()}"></h2>
+                <div th:text="'Nom : ' + ${utilisateur.getNom()}"></div>
+                <div th:text="'Prénom : ' + ${utilisateur.getPrenom()}"></div>
+                <div th:text="'Email : ' + ${utilisateur.getEmail()}"></div>
+                <div th:text="'Téléphone : '+${utilisateur.getTelephone()}"></div>
+                <div th:text="'Rue : ' +${utilisateur.getRue()}"></div>
+                <div th:text="'Code Postal : ' +${utilisateur.getCodePostal()}"></div>
+                <div th:text="'Ville : ' +${utilisateur.getVille()}"></div>
+                <div th:text="'Crédit : ' +${utilisateur.getCredit()}"></div>
+                <a th:href="@{/profil(idParam=${utilisateur.getPseudo()})}">Profil utilisateur</a>
+<!--        </fieldset>-->
     </section>
+    </span>
     <script type="text/javascript" src="/js/liste.js"></script>
 </main>
 </html>

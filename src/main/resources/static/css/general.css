@@ -29,13 +29,20 @@ ul{
 
 .entete {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-between;
 }
 
 .logos {
     display: flex;
     flex-direction: column;
+    align-content: center;
+}
+
+.logoEni img {
+    height: 150px;
+    width: 150px;
 }
 
 .liensList {
@@ -49,18 +56,23 @@ ul{
     display: flex;
     justify-content: space-evenly;
     width: 500px;
+    flex-direction: row;
 
 }
 
-.logoEni img {
-    height: 60px;
-    width: 60px;
+footer .langue{
+    display: flex;
+    justify-content: center;
+}
+
+.langue a{
+    margin: 2px;
 }
 
 .langue{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    /*justify-content: space-around;*/
 }
 
 .langue img{
