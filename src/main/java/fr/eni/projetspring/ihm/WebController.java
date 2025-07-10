@@ -93,6 +93,7 @@ public class WebController {
         Utilisateur utilisateurEnSession = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
         articleVendu.setCategorie(categorie);
         articleVendu.setUtilisateur(utilisateurEnSession);
+        articleVendu.setLieuRetrait(articleVendu.getLieuRetrait());
         System.out.println(bindingResult.hasErrors());
         System.out.println(bindingResult.getAllErrors());
         System.out.println(bindingResult.getTarget());
