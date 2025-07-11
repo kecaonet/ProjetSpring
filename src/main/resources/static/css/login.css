@@ -66,7 +66,7 @@ section fieldset {
     justify-content: space-evenly;
 }
 
-.btnStyle button, .btnStyle a {
+.btnStyle button, .btnStyle a, .btnCategories {
     background: #f8f9fa;
     color: #222;
     border: none;
@@ -82,7 +82,7 @@ section fieldset {
     display: inline-block;
 }
 
-.btnStyle button:hover, .btnStyle a:hover {
+.btnStyle button:hover, .btnStyle a:hover ,.btnCategories:hover {
     background: #0077b6;
     color: #fff;
     box-shadow: 0 4px 16px rgba(0,0,0,0.12);

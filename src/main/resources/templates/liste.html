@@ -8,11 +8,8 @@
         <h1 data-th-text="#{index.h1}"></h1>
     </section>
     <div class="categories">
+        <h4>Options de recherche</h4>
         <div class="blocCategories">
-            <div class="filtres">
-                <label>Filtres :</label>
-                <input type="text" id="idInputFiltre">
-            </div>
             <div class="listCategories">
                 <label>Catégorie :</label>
                 <select id="idCateg" name="categorie">
@@ -21,17 +18,22 @@
                             data-th-value="${categorie.noCategorie}">
                 </select>
             </div>
+            <div class="filtres">
+                <label>Mots-Clés :</label>
+                <input type="text" id="idInputFiltre">
+            </div>
+            <label>Filtres de vente:</label>
             <select id="idSelectFiltres" data-th-if="${#authorization.expression('isAuthenticated')}">
-            <option value="Defaut">Choisir une option</option>
-            <option value="EnCours">Ventes en cours</option>
-            <option value="Participees">Ventes Participées</option>
-            <option value="Remportees">Ventes Remportées</option>
-            <option value="VentesPerso">Ventes Personnelles</option>
-            <option value="VentesPasDebut">Ventes non commencées</option>
-            <option value="VentesPersoEnCours">Ventes Personnelles en cours</option>
-            <option value="VentesPersoTerminées">Ventes Terminées</option>
+                <option value="Defaut">Choisir une option</option>
+                <option value="EnCours">Ventes en cours</option>
+                <option value="Participees">Ventes Participées</option>
+                <option value="Remportees">Ventes Remportées</option>
+                <option value="VentesPerso">Ventes Personnelles</option>
+                <option value="VentesPasDebut">Ventes non commencées</option>
+                <option value="VentesPersoEnCours">Ventes Personnelles en cours</option>
+                <option value="VentesPersoTerminées">Ventes Terminées</option>
             </select>
-            <div>
+            <div class="btnCategoriesSuper">
             <input class="btnCategories" id="idBtnCategorie" type="button" value="Rechercher">
             </div>
         </div>

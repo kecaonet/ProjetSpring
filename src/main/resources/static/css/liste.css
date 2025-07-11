@@ -4,18 +4,6 @@
     width: 27vw;
 }
 
-/*.listeObjets{*/
-/*    border-radius: 7px;*/
-/*    border: 1px dotted antiquewhite;*/
-/*    background-color: white;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    flex-wrap: wrap;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    margin-bottom: 5px;*/
-/*}*/
-
 .userViewAdmin, .Enchere {
     display: flex;
     flex-direction: column;
@@ -56,9 +44,6 @@
     justify-self: center;
 }
 
-.listeObjets{
-}
-
 .blocCategories {
     display: flex;
     flex-direction: column;
@@ -71,20 +56,33 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+    padding-bottom: 0.5em;
+}
+
+.listCategories {
+    padding-bottom: 0.5em;
+}
+
+#idSelectFiltres {
+    margin-bottom: 0.5em;
 }
 
 .categories {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100vw;
     margin-bottom: 50px;
     margin-top: 100px;
+    align-items: center;
+}
+
+.btnCategoriesSuper {
+    display: flex;
     justify-content: center;
 }
 
 .btnCategories{
     display: flex;
-   margin-left: 50px;
     height: 50px;
 }
 
