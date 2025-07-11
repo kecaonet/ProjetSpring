@@ -2,7 +2,6 @@ package fr.eni.projetspring.ihm;
 
 import fr.eni.projetspring.bll.UtilisateurService;
 import fr.eni.projetspring.bo.Utilisateur;
-import fr.eni.projetspring.dal.UtilisateurDAO;
 import fr.eni.projetspring.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,5 +45,4 @@ public class CreateProfilController {
         }
         return "create_profil";
     }
-
 }

@@ -1,15 +1,11 @@
 package fr.eni.projetspring.ihm;
 
 import fr.eni.projetspring.bll.UtilisateurService;
+import fr.eni.projetspring.bll.VenteService;
 import fr.eni.projetspring.bo.ArticleVendu;
 import fr.eni.projetspring.bo.Categorie;
 import fr.eni.projetspring.bo.Utilisateur;
-import fr.eni.projetspring.dal.ArticleVenduDAOImpl;
-import fr.eni.projetspring.dal.CategorieDAO;
-import fr.eni.projetspring.dal.CategorieDAOImpl;
 import fr.eni.projetspring.exceptions.BusinessException;
-import fr.eni.projetspring.ihm.converter.CategorieConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,17 +19,12 @@ import java.util.List;
 @Controller
 @SessionAttributes("utilisateurEnSession")
 public class UtilisateurController {
-    private final ArticleVenduDAOImpl articleVenduDAOImpl;
-    private final CategorieConverter categorieConverter;
-    private UtilisateurService utilisateurService;
-    @Autowired
-    private CategorieDAO categorieDAO;
+    private final UtilisateurService utilisateurService;
+    private final VenteService venteService;
 
-    public UtilisateurController(UtilisateurService utilisateurService, ArticleVenduDAOImpl articleVenduDAOImpl, CategorieConverter categorieConverter) {
+    public UtilisateurController(UtilisateurService utilisateurService, VenteService venteService) {
         this.utilisateurService = utilisateurService;
-        this.articleVenduDAOImpl = articleVenduDAOImpl;
-        this.categorieConverter = categorieConverter;
-
+        this.venteService = venteService;
     }
 
     @GetMapping("/login")
@@ -83,15 +74,10 @@ public class UtilisateurController {
     }
 
     @GetMapping("/modif_vente")
-    public String modifVente(@RequestParam(name = "idParam") int noArticle, Model model, Principal principal) {
-        System.out.println("test controller Get modif vente");
-
-        List<Categorie> categList = categorieDAO.readAllCategorie();
-        //Utilisateur utilisateurEnSession = utilisateurService.charger(principal.getName());
-        ArticleVendu articleVendu = articleVenduDAOImpl.read(noArticle);
+    public String modifVente(@RequestParam(name = "idParam") int noArticle, Model model) {
+        List<Categorie> categList = venteService.listerCategorie();
+        ArticleVendu articleVendu = venteService.lireArticleVendu(noArticle);
         model.addAttribute("articleVendu", articleVendu);
-        //model.addAttribute("utilisateur", utilisateurEnSession);
-        //model.addAttribute("dateJour", LocalDate.now());
         model.addAttribute("categories", categList);
         return "modif_vente";
     }
@@ -100,16 +86,10 @@ public class UtilisateurController {
     public String uploadVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
                               BindingResult result, Principal principal) {
         Utilisateur utilisateur = utilisateurService.consulterUtilisateurParPseudo(principal.getName());
-
         articleVendu.setUtilisateur(utilisateur);
-        System.out.println(articleVendu);
-        System.out.println(result.getAllErrors());
-        System.out.println(articleVendu.getNoArticle());
         if (!result.hasErrors()) {
             try {
-                utilisateurService.modifVente(articleVendu);
-                //return "redirect:/liste";
-                System.out.println("test Controller Post modifVente OK");
+                venteService.modifVente(articleVendu);
                 return "redirect:/liste";
             } catch (BusinessException e) {
                 System.err.println(e.getClefsExternalisations());
@@ -119,24 +99,19 @@ public class UtilisateurController {
                 });
             }
         }
-        System.out.println("erreur updateProfil");
         return "modif_vente";
-    }
-
-    ;
+    };
 
     @PostMapping("/supprimer_vente")
     public String supprimerVente(@RequestParam(value = "idParam") int noArticle) {
-        utilisateurService.supprimerVente(noArticle);
-        //return "redirect:/liste";
-        System.out.println("test Controller Post Supp OK");
+        venteService.supprimerVente(noArticle);
         return "redirect:/liste";
     }
 
     @PostMapping("/ajoutCategorie")
-    public String modifCategorie(@ModelAttribute("categorie") Categorie categorie, Model model) {
+    public String modifCategorie(@ModelAttribute("categorie") Categorie categorie) {
         categorie.setLibelle(categorie.getLibelle());
-        utilisateurService.ajouterCategorie(categorie);
+        venteService.ajouterCategorie(categorie);
         return "redirect:/liste";
     }
 }

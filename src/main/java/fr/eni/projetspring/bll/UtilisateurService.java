@@ -32,10 +32,4 @@ public interface UtilisateurService {
     List<Utilisateur> consulterUtilisateurs();
 
     Utilisateur consulterCredits(Utilisateur utilisateur);
-
-    void modifVente(ArticleVendu articleVendu);
-
-    void supprimerVente(int id);
-
-    void ajouterCategorie(Categorie categorie);
 }

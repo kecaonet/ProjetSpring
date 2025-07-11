@@ -20,15 +20,11 @@ import java.util.List;
 public class UtilisateurServiceImpl implements UtilisateurService {
 
     private final UtilisateurDAO utilisateurDAO;
-    private final ArticleVenduDAO articleVenduDAO;
-    private final CategorieDAO categorieDAO;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
-    public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO, ArticleVenduDAO articleVenduDAO, CategorieDAO categorieDAO) {
+    public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO) {
         this.utilisateurDAO = utilisateurDAO;
-        this.articleVenduDAO = articleVenduDAO;
-        this.categorieDAO = categorieDAO;
     }
 
     /**
@@ -154,33 +150,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return null;
     }
 
-    // ======================================= Modifs Ventes  =======================================
-
-    @Override
-    public void modifVente(ArticleVendu articleVendu) {
-        BusinessException be = new BusinessException();
-        try {
-            articleVenduDAO.updateArticleVendu(articleVendu);
-            System.out.println("test modif Article Vendu: " + articleVendu);
-        } catch (DataAccessException e) { //Exception de la couche DAL
-            //Rollback auto
-            be.add(BusinessCode.BLL_VENTE_UPDATE_ERREUR + " " + e.getMessage());
-            throw be;
-        }
-    }
-
-    @Override
-    public void supprimerVente(int id) {
-        BusinessException be = new BusinessException();
-        try {
-            articleVenduDAO.deleteArticleVendu(id);
-            System.out.println("test suppression Article Vendu");
-        } catch (DataAccessException e) { //Exception de la couche DAL
-            //Rollback auto
-            be.add(BusinessCode.BLL_VENTE_UPDATE_ERREUR + " " + e.getMessage());
-            throw be;
-        }
-    }
 
 // --------------------------- Début Validations User ---------------------------
 
@@ -190,9 +159,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             return false;
         }
         return true;
-    }
-
-    ;
+    };
 
     private boolean validerPseudoUnique(String pseudo, BusinessException be) {
         //Valider que le pseudo est unique
@@ -233,11 +200,5 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
         return true;
     }
-
 // --------------------------- Fin Validations User ---------------------------
-
-    public void ajouterCategorie(Categorie categorie) {
-        categorieDAO.createCategorie(categorie);
-    }
-
 }
