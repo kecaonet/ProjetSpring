@@ -1,0 +1,121 @@
+.Enchere, .userViewAdmin {
+    border: black solid 1px;
+    border-radius: 5px;
+    width: 27vw;
+}
+
+.userViewAdmin, .Enchere {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin: 5px;
+    padding-bottom: 1em;
+    background-color: white;
+}
+
+
+
+.userViewAdmin.desactive, .Enchere.desactive {
+    background-color: #b6fcb6; /* vert pâle */
+}
+
+.userViewAdmin.actif, .Enchere.actif {
+    background-color: #fcb6b6; /* rouge pâle */
+}
+
+.Enchere.Fini {
+    display: none;
+}
+
+@media screen and (min-width: 851px) {
+.fenetreAdmin, .fenetreEnchere  {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    font-family: "Yu Gothic UI Semibold";
+
+
+.fenetreEnchereSuper{
+    width: 100vw;
+    display: flex;
+    justify-self: center;
+}
+    .Enchere {
+        align-items: flex-start;
+        padding: 1em;
+    }
+}
+}
+
+.blocCategories {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin-bottom: 20px;
+
+}
+
+.filtres {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    padding-bottom: 0.5em;
+}
+
+.listCategories {
+    padding-bottom: 0.5em;
+}
+
+#idSelectFiltres {
+    margin-bottom: 0.5em;
+}
+
+.categories {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    margin-bottom: 50px;
+    margin-top: 100px;
+    align-items: center;
+}
+
+.btnCategoriesSuper {
+    display: flex;
+    justify-content: center;
+}
+
+.btnCategories{
+    display: flex;
+    height: 50px;
+}
+
+.btnCategories input {
+    width: 150px;
+}
+@media only screen and (max-width: 850px) {
+    .fenetreAdmin, .fenetreEnchere {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 90vw;
+        margin-right: 5vw;
+        margin-left: 5vw;
+        font-family: "Yu Gothic UI Semibold";
+    }
+
+    .fenetreEnchereSuper{
+        width: 100vw;
+        display: flex;
+        justify-self: center;
+    }
+    .Enchere {
+        align-items: flex-start;
+        width: 100vw;
+        padding: 1em;
+    }
+}

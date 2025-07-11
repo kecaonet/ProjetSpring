@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr" data-th-fragment="frag_layout(title, content)">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="${title}"></title>
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <!-- Permettre d’ajouter ou non des ressources CSS -->
+    <th:block data-th-replace="${ressourcesSupp} ?: ~{}"></th:block>
+</head>
+<body>
+<header>
+    <div class="entete">
+        <div class="logos">
+            <div class="logoEni">
+                <a href="/liste"><img alt="logo ENI"
+                                      src="/images/LogoEni.png"></a>
+            </div>
+        </div>
+        <div class="adminHeader" data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <img class="logoAdmin" src="/images/LogoAdmin.jpg" alt="logo admin">
+            <h2 id="titreAdmin">
+                Mode Admin
+            </h2>
+            <img class="logoAdmin" src="/images/LogoAdmin.jpg" alt="logo admin">
+        </div>
+        <nav class="liensNav">
+            <ul class="liensList">
+                <li>
+                    <a href="/liste">Accueil</a>
+                </li>
+                <li data-th-if="${!#authorization.expression('isAuthenticated')}">
+                    <a href="/login">S'inscrire - Se connecter</a>
+                </li>
+                <li data-th-if="${#authorization.expression('isAuthenticated')}">
+                    <a data-th-href="@{/nouvelle_vente(idParam=${#authentication.name})}">Nouvelle vente</a>
+                </li>
+                <li data-th-if="${#authorization.expression('isAuthenticated')}">
+                    <a data-th-href="@{/profil(idParam=${#authentication.name})}">Profil</a>
+                </li>
+                <li data-th-if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                    <a data-th-href="@{/admin}">Admin</a>
+                </li>
+                <li data-th-if="${#authorization.expression('isAuthenticated')}">
+                    <a href="/logout">Déconnexion</a>
+                </li>
+                <li>
+                    <button onclick="history.back();">Retour</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<!--<h2 data-th-text="${title}"></h2>-->
+<main data-th-replace="${content}"></main>
+<footer>
+    <div class="langue">
+        <a href="/?language=fr"><img alt="Français"
+                                     src="/images/French.webp"></a>
+        <a href="/?language=en"><img
+                alt="English" src="/images/English.webp"></a>
+    </div>
+    <p class="footerStyle">&copy; Le Bon Bide Corporation</p>
+</footer>
+</body>
+</html>

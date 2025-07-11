@@ -1,0 +1,64 @@
+<!doctype html>
+<html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.accueil},
+                                                content= ~{::main})} ">
+<main>
+    <link rel="stylesheet" href="/css/liste.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <section>
+        <h1 data-th-text="#{index.h1}"></h1>
+    </section>
+    <div class="categories">
+        <h4>Options de recherche</h4>
+        <div class="blocCategories">
+            <div class="listCategories">
+                <label>Catégorie :</label>
+                <select id="idCateg" name="categorie">
+                    <option data-th-each="categorie : ${categories}"
+                            data-th-text="${categorie.noCategorie} +' : ' +  ${categorie.libelle}"
+                            data-th-value="${categorie.noCategorie}">
+                </select>
+            </div>
+            <div class="filtres">
+                <label>Mots-Clés :</label>
+                <input type="text" id="idInputFiltre">
+            </div>
+            <label>Filtres de vente:</label>
+            <select id="idSelectFiltres" data-th-if="${#authorization.expression('isAuthenticated')}">
+                <option value="Defaut">Choisir une option</option>
+                <option value="EnCours">Ventes en cours</option>
+                <option value="Participees">Ventes Participées</option>
+                <option value="Remportees">Ventes Remportées</option>
+                <option value="VentesPerso">Ventes Personnelles</option>
+                <option value="VentesPasDebut">Ventes non commencées</option>
+                <option value="VentesPersoEnCours">Ventes Personnelles en cours</option>
+                <option value="VentesPersoTerminées">Ventes Terminées</option>
+            </select>
+            <div class="btnCategoriesSuper">
+            <input class="btnCategories" id="idBtnCategorie" type="button" value="Rechercher">
+            </div>
+        </div>
+    </div>
+    <div class="fenetreEnchereSuper">
+    <section class="fenetreEnchere">
+    <div class="Enchere" th:each="enchere : ${Encheres}"
+         th:classappend="${enchere.dateDebutEncheres <= date and enchere.dateFinEncheres >= date } ? 'desactive' : 'actif'">
+        <aside data-th-text="${enchere.dateDebutEncheres <= date and enchere.dateFinEncheres >= date } ? 'Vente en cours' : 'Vente non commencée'">
+        </aside>
+        <h2 id="idDivNom" class="NomArticle" th:text="${enchere.nomArticle}"></h2>
+        <div th:text="'Description : ' + ${enchere.description}"></div>
+        <div th:text="'Début enchère : ' + ${enchere.dateDebutEncheres}"></div>
+        <div th:text="'Fin enchère : ' + ${enchere.dateFinEncheres}"></div>
+        <div th:text="'Prix initial : '+${enchere.prixInitial}"></div>
+        <div th:text="'Meilleure offre : ' +${enchere.prixVente}"></div>
+        <div class="Categorie" th:text="'Catégorie : ' + ${enchere.categorie.libelle  }"></div>
+        <div th:text="'Vendeur :  '+ ${enchere.utilisateur.pseudo}"></div>
+        <br>
+        <span class="btnStyle">
+        <a th:href="@{/details(idParam=${enchere.noArticle})}">détails</a>
+        </span>
+    </div>
+    </section>
+    </div>
+    <script type="text/javascript" src="/js/liste.js"></script>
+</main>
+</html>

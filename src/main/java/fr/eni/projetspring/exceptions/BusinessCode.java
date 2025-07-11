@@ -1,0 +1,13 @@
+package fr.eni.projetspring.exceptions;
+
+public class BusinessCode {
+        // Clefs de validation des BO
+        public static final String VALIDATION_UTILISATEUR_NULL = "validation.utilisateur.null";
+        public static final String VALIDATION_UTILISATEUR_UNIQUE = "validation.utilisateur.unique";
+        public static final String VALIDATION_PSEUDO_INVALIDE = "validation.pseudo.invalide";
+        public static final String BLL_UTILISATEUR_CREER_ERREUR="bll.utilisateur.creer.erreur";
+        public static final String BLL_UTILISATEUR_UPDATE_ERREUR="bll.utilisateur.update.erreur";
+        public static final String VALIDATION_PSEUDO_UNIQUE = "validation.pseudo.unique";
+        public static final String VALIDATION_EMAIL_UNIQUE = "validation.email.unique";
+        public static final String BLL_VENTE_UPDATE_ERREUR="bll.vente.update.erreur";
+}

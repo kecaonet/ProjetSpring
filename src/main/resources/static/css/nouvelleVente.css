@@ -1,0 +1,39 @@
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90vw;
+    height: 70vh;
+    align-content:center;
+    justify-content: center;
+
+
+}
+input {
+    height: 20px;
+    width: 45vw;
+}
+#idPhoto {
+    height: 26px;
+}
+
+select {
+    height: 26px;
+    width: 45vw;
+}
+fieldset {
+    width: 50vw;
+    justify-self: center;
+}
+.DivLab {
+    display: flex;
+    justify-content: space-between;
+}
+#idBtnAcc {
+    width: 20vw;
+    color: green;
+}
+#idBtnRes {
+    width: 20vw;
+    color: red;
+}

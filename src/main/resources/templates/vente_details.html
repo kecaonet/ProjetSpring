@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.login},
+                                                content= ~{::main})} ">
+
+<main>
+    <div>
+        <h4>DETAILS VENTE</h4>
+        <div th:text="${ArticleVente.nomArticle}"></div>
+        <div th:text="'Description : ' +${ArticleVente.description}"></div>
+        <div th:text="'Catégorie : ' + ${ArticleVente.categorie.getLibelle}"></div>
+        <div th:text="'Meilleure offre : '+${ArticleVente.prixVente}"></div>
+        <div th:text="'Mise à prix : ' +${ArticleVente.prixInitial}"></div>
+        <div th:text="'Début de lenchère : ' +${ArticleVente.dateDebutEncheres}"></div>
+        <div th:text="'Fin de lenchère : '+${ArticleVente.dateFinEncheres}"></div>
+        <a data-th-href="@{/profil(idParam=${ArticleVente.utilisateur.pseudo})}"
+           data-th-text="${ArticleVente.utilisateur.pseudo}"></a>
+        <form data-th-action="@{/nouvelle_enchere}" method="post"
+              data-th-object="${Enchere}">
+            <li data-th-if="${#authentication.name != ArticleVente.utilisateur.pseudo }">
+                <input type="text" name="articleVendu" style="display:none" data-th-value="${ArticleVente.noArticle}">
+                <input type="number" name="montantEnchere">
+                <input type="submit">
+            </li>
+        </form>
+        <ul>
+            <li data-th-if="${#authentication.name == ArticleVente.utilisateur.pseudo and ArticleVente.dateDebutEncheres > date}">
+                <a data-th-href="@{/modif_vente(idParam=${ArticleVente.noArticle})}">Modifier la vente</a>
+                <form data-th-action="@{/supprimer_vente(idParam=${ArticleVente.noArticle})}" method="post">
+                    <input type="submit" value="Supprimer la vente">
+                </form>
+            </li>
+        </ul>
+
+    </div>
+</main>
+</html>

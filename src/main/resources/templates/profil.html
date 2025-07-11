@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html data-th-replace="~{layout :: frag_layout(title=#{frag-entete.a.login},
+                                                content= ~{::main})} ">
+
+<main>
+    <h1 class="titreForm" data-th-if="${Utilisateur.pseudo==#authentication.name}">Mon Profil</h1>
+    <h1 class="titreForm" data-th-if="${Utilisateur.pseudo!=#authentication.name}"
+        data-th-text="'Profil de ' + ${Utilisateur.pseudo}"></h1>
+    <section class="sectionDetails">
+        <fieldset>
+            <ul>
+                <li>
+                    <div data-th-text="'Pseudo : ' + ${Utilisateur.pseudo}"></div>
+                </li>
+                <li>
+                    <div data-th-text="'Nom : ' + ${Utilisateur.nom}"></div>
+                </li>
+                <li>
+                    <div data-th-text="'Prénom : ' + ${Utilisateur.prenom}"></div>
+                </li>
+                <li>
+                    <div data-th-text="'email : ' + ${Utilisateur.email}"></div>
+                </li>
+                <li>
+                    <div data-th-text="'Téléphone : ' + ${Utilisateur.telephone}"></div>
+                </li>
+                <li>
+                    <div data-th-text="'Rue : ' + ${Utilisateur.rue}"></div>
+                </li>
+                <li>
+                    <div data-th-text="'Code Postal : ' + ${Utilisateur.codePostal}"></div>
+                </li>
+                <li>
+                    <div data-th-text="'Ville : ' + ${Utilisateur.ville}"></div>
+                </li>
+
+            </ul>
+
+            <li data-th-if="${Utilisateur.pseudo==#authentication.name}" class="btnStyle">
+                <a data-th-href="@{/updateProfil(idParam=${#authentication.name})}">Modifier le profil</a>
+            </li>
+            <li data-th-if="${#authorization.expression('hasRole(''ADMIN'')')} and ${Utilisateur.pseudo!=#authentication.name}"
+                class="btnStyle">
+                <!--        <button data-th-if="${Utilisateur.isDesactive()==true}">-->
+                <a data-th-if="${Utilisateur.isDesactive()==true}"
+                   data-th-href="@{/desactivateProfil(idParam=${Utilisateur.noUtilisateur})}">Désactiver ce compte</a>
+                <!--        </button>-->
+                <!--        <button data-th-if="${Utilisateur.isDesactive()==false}">-->
+                <a data-th-if="${Utilisateur.isDesactive()==false}"
+                   data-th-href="@{/desactivateProfil(idParam=${Utilisateur.noUtilisateur})}">Activer ce compte</a>
+                <!--        </button>-->
+                <!--        <button>-->
+                <a data-th-href="@{/killProfil(idParam=${Utilisateur.noUtilisateur})}">ERADIQUER CE COMPTE</a>
+                <!--        </button>-->
+            </li>
+        </fieldset>
+    </section>
+</main>
+</html>
