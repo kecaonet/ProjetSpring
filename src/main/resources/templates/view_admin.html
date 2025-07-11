@@ -23,6 +23,8 @@
     <span class="fenetreAdmin">
     <section class="userViewAdmin" th:each="utilisateur : ${utilisateurs}"
              th:classappend="${utilisateur.isDesactive()} ? 'desactive' : 'actif'">
+        <aside data-th-text="${utilisateur.isDesactive()} ? 'Utilisateur activé' : 'Utilisateur désactivé'">
+        </aside>
 <!--        <fieldset class="listeObjets">-->
             <h2 th:text="${utilisateur.getPseudo()}"></h2>
                 <div th:text="'Nom : ' + ${utilisateur.getNom()}"></div>

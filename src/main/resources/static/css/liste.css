@@ -16,10 +16,7 @@
     background-color: white;
 }
 
-.Enchere {
-    align-items: flex-start;
-    padding: 1em;
-}
+
 
 .userViewAdmin.desactive, .Enchere.desactive {
     background-color: #b6fcb6; /* vert pâle */
@@ -29,19 +26,29 @@
     background-color: #fcb6b6; /* rouge pâle */
 }
 
-.fenetreAdmin, .fenetreEnchere {
+.Enchere.Fini {
+    display: none;
+}
+
+@media screen and (min-width: 851px) {
+.fenetreAdmin, .fenetreEnchere  {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin-right: 20vw;
-    margin-left: 20vw;
-}
+    justify-content: space-around;
+    font-family: "Yu Gothic UI Semibold";
+
 
 .fenetreEnchereSuper{
     width: 100vw;
     display: flex;
     justify-self: center;
+}
+    .Enchere {
+        align-items: flex-start;
+        padding: 1em;
+    }
+}
 }
 
 .blocCategories {
@@ -88,4 +95,27 @@
 
 .btnCategories input {
     width: 150px;
+}
+@media only screen and (max-width: 850px) {
+    .fenetreAdmin, .fenetreEnchere {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 90vw;
+        margin-right: 5vw;
+        margin-left: 5vw;
+        font-family: "Yu Gothic UI Semibold";
+    }
+
+    .fenetreEnchereSuper{
+        width: 100vw;
+        display: flex;
+        justify-self: center;
+    }
+    .Enchere {
+        align-items: flex-start;
+        width: 100vw;
+        padding: 1em;
+    }
 }

@@ -1,0 +1,17 @@
+form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    font-family: "Yu Gothic UI Semibold";
+    border-radius: 5px;
+    width: 24vw;
+    margin-top: 5vh;
+    color: white;
+    border: 1px dotted antiquewhite;
+    background-color: rgb(32, 32, 32);
+}
+main {
+    display: flex;
+    justify-content: center;
+}

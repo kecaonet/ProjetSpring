@@ -42,6 +42,8 @@
     <section class="fenetreEnchere">
     <div class="Enchere" th:each="enchere : ${Encheres}"
          th:classappend="${enchere.dateDebutEncheres <= date and enchere.dateFinEncheres >= date } ? 'desactive' : 'actif'">
+        <aside data-th-text="${enchere.dateDebutEncheres <= date and enchere.dateFinEncheres >= date } ? 'Vente en cours' : 'Vente non commencée'">
+        </aside>
         <h2 id="idDivNom" class="NomArticle" th:text="${enchere.nomArticle}"></h2>
         <div th:text="'Description : ' + ${enchere.description}"></div>
         <div th:text="'Début enchère : ' + ${enchere.dateDebutEncheres}"></div>
